@@ -20,7 +20,7 @@ type PurchaseOrder struct {
 	// Member	Member	`gorm:"references:ID"`
 
 	// PromotionID	*uint
-	// Promotion	Promotion	`gorm:"references:ID"`
+	// Promotion	ManagePromotion	`gorm:"references:ID"`
 
 	PaymentMethodID *uint
 	PaymentMethod   PaymentMethod `gorm:"references:ID"`
@@ -29,4 +29,19 @@ type PurchaseOrder struct {
 	OrderTime       time.Time
 	OrderDiscount   float64
 	OrderTotalPrice float64
+
+	OrderItems []PurchaseOrderItem `gorm:"foreignKey:OrderID; constraint:OnDelete:CASCADE"`
+}
+
+type PurchaseOrderItem struct {
+	gorm.Model
+
+	OrderID *uint
+	Order   PurchaseOrder `gorm:"references:ID"`
+
+	// ProductStockID	*uint
+	// ProductStock		ProductStock
+
+	OrderAmount uint
+	ItemPrice   float64
 }
