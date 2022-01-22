@@ -18,7 +18,24 @@ func SetupDatabase() {
 	}
 
 	// Migrate the schema
-	database.AutoMigrate()
+	database.AutoMigrate(
+		// User (optional)
+
+		// ManageSalary
+
+		// ManageWorkSchedule
+
+		// ProductStock
+
+		// ManagePromotion
+
+		// PremiumMember
+
+		// PurchaseOrder
+		PaymentMethod{},
+		PurchaseOrder{},
+		PurchaseOrderItem{},
+	)
 
 	db = database
 }
