@@ -22,6 +22,12 @@ func SetupDatabase() {
 		// User
 		&UserRole{},
 		&UserLogin{},
+		&Gender{},
+		&UserPrefix{},
+		&UserDetail{},
+		&Member{},
+		&Employee{},
+		&EmployeePosition{},
 
 		// ManageSalary
 
