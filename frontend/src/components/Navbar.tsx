@@ -53,7 +53,6 @@ export default function NavBar() {
   const openMenu = Boolean(anchorEl);
 
   const [user, setUser] = useState<UsersInterface>();
-  const [name, setName] = useState("");
   const [role, setRole] = useState("");
 
   const toggleDrawer = (state: boolean) => (event: any) => {
@@ -110,10 +109,10 @@ export default function NavBar() {
   }
 
   const getRole = () => {
-    if (role == "Member")
+    if (role === "Member")
       return "สมาชิก";
-    else if (role == "Employee") 
-      return user?.Position.PositionName == "Employee" ? "พนักงาน" : "ผู้จัดการ";
+    else if (role === "Employee") 
+      return user?.Position.PositionName === "Employee" ? "พนักงาน" : (user?.Position.PositionName === "Manager" ? "ผู้จัดการ" : "");
     else  
       return "";
   }
@@ -133,7 +132,7 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ backgroundColor: "#00996c" }}>
+      <AppBar position="static">
         <Toolbar>
           <IconButton 
             onClick={toggleDrawer(true)} 
