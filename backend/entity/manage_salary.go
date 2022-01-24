@@ -11,3 +11,8 @@ type Assessment struct {
 	Level uint
 	Name  string
 }
+
+type BonusStatus struct {
+	gorm.Model
+	Name string
+}
