@@ -47,3 +47,39 @@ type UserDetail struct {
 	GenderID *uint
 	Gender   Gender `gorm:"references:ID"`
 }
+
+type Member struct {
+	gorm.Model
+
+	UserLoginID *uint     `gorm:"uniqueIndex"`
+	UserLogin   UserLogin `gorm:"references:ID; constraint:OnDelete:CASCADE"`
+
+	UserDetailID *uint
+	UserDetail   UserDetail `gorm:"references:ID"`
+
+	Orders []PurchaseOrder `gorm:"foreignKey:MemberID"`
+}
+
+type Employee struct {
+	gorm.Model
+
+	UserLoginID *uint     `gorm:"uniqueIndex"`
+	UserLogin   UserLogin `gorm:"references:ID; constraint:OnDelete:CASCADE"`
+
+	UserDetailID *uint
+	UserDetail   UserDetail `gorm:"references:ID"`
+
+	PositionID *uint
+	Position   EmployeePosition `gorm:"references:ID"`
+
+	SuperiorID *uint
+	Superior   *Employee `gorm:"references:ID"`
+}
+
+type EmployeePosition struct {
+	gorm.Model
+	PositionName string
+	Salary       float64
+
+	Employees []Employee `gorm:"foreignKey:PositionID"`
+}
