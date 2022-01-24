@@ -21,6 +21,12 @@ type MemberResponse struct {
 	Token    string        `json:"token"`
 }
 
+type EmployeeResponse struct {
+	Employee entity.Employee `json:"user"`
+	RoleName string          `json:"role"`
+	Token    string          `json:"token"`
+}
+
 // POST /login
 func Login(c *gin.Context) {
 	var payload LoginPayload
@@ -56,9 +62,9 @@ func Login(c *gin.Context) {
 	}
 
 	var memberRole entity.UserRole
-	//var employeeRole entity.UserRole
+	var employeeRole entity.UserRole
 	entity.DB().Raw("SELECT * FROM user_roles WHERE role_name = ?", "Member").First(&memberRole)
-	//entity.DB().Raw("SELECT * FROM user_roles WHERE role_name = ?", "Employee").First(&employeeRole)
+	entity.DB().Raw("SELECT * FROM user_roles WHERE role_name = ?", "Employee").First(&employeeRole)
 
 	if user.UserRole.RoleName == memberRole.RoleName {
 		// Member
@@ -71,6 +77,22 @@ func Login(c *gin.Context) {
 
 		tokenResponse := MemberResponse{
 			Member:   member,
+			RoleName: memberRole.RoleName,
+			Token:    signedToken,
+		}
+
+		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
+	} else if user.UserRole.RoleName == employeeRole.RoleName {
+		// Member
+		var employee entity.Employee
+		if tx := entity.DB().Preload("UserDetail").Preload("UserDetail.Prefix").Preload("UserDetail.Gender").Preload("EmployeePosition").
+			Raw("SELECT * FROM employees WHERE user_login_id = ?", user.ID).Find(&employee); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
+			return
+		}
+
+		tokenResponse := EmployeeResponse{
+			Employee: employee,
 			RoleName: memberRole.RoleName,
 			Token:    signedToken,
 		}
