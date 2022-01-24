@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/sut64/team06/backend/controller"
 	"github.com/sut64/team06/backend/entity"
 )
 
@@ -27,17 +28,29 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
-	// ManageWorkSchedule Routes
+	/*
+		api := r.Group("")
+		{
+			protected := api.Use(middlewares.Authorizes())
+			{
+				// User Routes ** optional
 
-	// ManageSalary Routes
+				// ManageSalary Routes
 
-	// ProductStock Routes
+				// ManageWorkSchedule Routes
 
-	// ManagePromotion Routes
+				// ProductStock Routes
 
-	// PremiumMember Routes
+				// ManagePromotion Routes
 
-	// PurchaseOrder Routes
+				// PremiumMember Routes
+
+				// PurchaseOrder Routes
+			}
+		}
+	*/
+
+	r.POST("/login", controller.Login)
 
 	// Run the server
 	r.Run()
