@@ -21,6 +21,13 @@ type Productstock struct {
 	Employee   Employee
 }
 
+type Shelfstore struct {
+	gorm.Model
+	Zone string
+
+	Productstock []Productstock
+}
+
 type Product struct {
 	gorm.Model
 	Name  string
