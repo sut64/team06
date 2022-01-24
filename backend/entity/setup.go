@@ -34,7 +34,8 @@ func SetupDatabase() {
 		// ManageWorkSchedule
 
 		// ProductStock
-
+		&Typeproduct{},
+		
 		// ManagePromotion
 		&Employee{},
 		&NamePromotion{},
