@@ -30,14 +30,15 @@ func SetupDatabase() {
 		&EmployeePosition{},
 
 		// ManageSalary
+		&Assessment{},
 
 		// ManageWorkSchedule
 
 		// ProductStock
 		&Productstock{},
 		&Typeproduct{},
-		&Product{}, 
-		&Shelfstore{}, 
+		&Product{},
+		&Shelfstore{},
 		// ManagePromotion
 		&Employee{},
 		&NamePromotion{},
