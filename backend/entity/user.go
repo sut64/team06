@@ -6,7 +6,7 @@ type UserRole struct {
 	gorm.Model
 	RoleName string
 
-	// UserLogins []UserLogin `gorm:"foreignKey:UserRoleID"`
+	UserLogins []UserLogin `gorm:"foreignKey:UserRoleID"`
 }
 
 type UserLogin struct {
