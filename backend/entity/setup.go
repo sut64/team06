@@ -37,7 +37,7 @@ func SetupDatabase() {
 		&Productstock{},
 		&Typeproduct{},
 		&Product{}, 
-		
+		&Shelfstore{}, 
 		// ManagePromotion
 		&Employee{},
 		&NamePromotion{},
