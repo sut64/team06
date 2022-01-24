@@ -16,8 +16,8 @@ type PaymentMethod struct {
 type PurchaseOrder struct {
 	gorm.Model
 
-	// MemberID	*uint
-	// Member	Member	`gorm:"references:ID"`
+	MemberID *uint
+	Member   Member `gorm:"references:ID"`
 
 	// PromotionID	*uint
 	// Promotion	ManagePromotion	`gorm:"references:ID"`
