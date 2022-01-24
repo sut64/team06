@@ -54,5 +54,6 @@ export interface EmployeesInterface {
 export interface EmployeePositionsInterface {
     ID: number;
     PositionName: string;
+    PositionNameTH: string;
     Salary: number;
 }

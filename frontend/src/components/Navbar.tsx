@@ -111,9 +111,9 @@ export default function NavBar() {
 
   const getRole = () => {
     if (role == "Member")
-      return "Member";
+      return "สมาชิก";
     else if (role == "Employee") 
-      return user?.Position.PositionName == "Employee" ? "Employee" : "Manager";
+      return user?.Position.PositionName == "Employee" ? "พนักงาน" : "ผู้จัดการ";
     else  
       return "";
   }
