@@ -17,3 +17,33 @@ type UserLogin struct {
 	UserRoleID *uint    `gorm:"NOT NULL"`
 	UserRole   UserRole `gorm:"references:ID; NOT NULL"`
 }
+
+type Gender struct {
+	gorm.Model
+	GenderName string
+
+	UserDetails []UserDetail `gorm:"foreignKey:GenderID"`
+}
+
+type UserPrefix struct {
+	gorm.Model
+	PrefixName string
+
+	UserDetails []UserDetail `gorm:"foreignKey:PrefixID"`
+}
+
+type UserDetail struct {
+	gorm.Model
+
+	PrefixID *uint
+	Prefix   UserPrefix `gorm:"references:ID"`
+
+	FirstName   string
+	LastName    string
+	PersonalID  string `gorm:"uniqueIndex"`
+	PhoneNumber string
+	Address     string
+
+	GenderID *uint
+	Gender   Gender `gorm:"references:ID"`
+}
