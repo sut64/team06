@@ -57,4 +57,6 @@ func SetupDatabase() {
 	)
 
 	db = database
+
+	SetupIntoDatabase(db)
 }

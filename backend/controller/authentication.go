@@ -16,15 +16,17 @@ type LoginPayload struct {
 }
 
 type MemberResponse struct {
-	Member   entity.Member `json:"user"`
-	RoleName string        `json:"role"`
-	Token    string        `json:"token"`
+	Member     entity.Member `json:"user"`
+	RoleName   string        `json:"role"`
+	RoleNameTH string        `json:"role_th"`
+	Token      string        `json:"token"`
 }
 
 type EmployeeResponse struct {
-	Employee entity.Employee `json:"user"`
-	RoleName string          `json:"role"`
-	Token    string          `json:"token"`
+	Employee   entity.Employee `json:"user"`
+	RoleName   string          `json:"role"`
+	RoleNameTH string          `json:"role_th"`
+	Token      string          `json:"token"`
 }
 
 // POST /login
@@ -76,9 +78,10 @@ func Login(c *gin.Context) {
 		}
 
 		tokenResponse := MemberResponse{
-			Member:   member,
-			RoleName: memberRole.RoleName,
-			Token:    signedToken,
+			Member:     member,
+			RoleName:   memberRole.RoleName,
+			RoleNameTH: memberRole.RoleNameTH,
+			Token:      signedToken,
 		}
 
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
@@ -92,9 +95,10 @@ func Login(c *gin.Context) {
 		}
 
 		tokenResponse := EmployeeResponse{
-			Employee: employee,
-			RoleName: employeeRole.RoleName,
-			Token:    signedToken,
+			Employee:   employee,
+			RoleName:   employeeRole.RoleName,
+			RoleNameTH: employeeRole.RoleNameTH,
+			Token:      signedToken,
 		}
 
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})

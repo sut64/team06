@@ -4,7 +4,8 @@ import "gorm.io/gorm"
 
 type UserRole struct {
 	gorm.Model
-	RoleName string
+	RoleName   string
+	RoleNameTH string
 
 	UserLogins []UserLogin `gorm:"foreignKey:UserRoleID"`
 }
@@ -78,8 +79,9 @@ type Employee struct {
 
 type EmployeePosition struct {
 	gorm.Model
-	PositionName string
-	Salary       float64
+	PositionName   string
+	PositionNameTH string
+	Salary         float64
 
 	Employees []Employee `gorm:"foreignKey:PositionID"`
 }
