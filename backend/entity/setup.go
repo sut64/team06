@@ -36,6 +36,11 @@ func SetupDatabase() {
 		// ProductStock
 
 		// ManagePromotion
+		&Employee{},
+		&NamePromotion{},
+		&PromotionPeriod{},
+		&PromotionType{},
+		&ManagePromotion{},
 
 		// PremiumMember
 
