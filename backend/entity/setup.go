@@ -40,9 +40,9 @@ func SetupDatabase() {
 		// PremiumMember
 
 		// PurchaseOrder
-		PaymentMethod{},
-		PurchaseOrder{},
-		PurchaseOrderItem{},
+		&PaymentMethod{},
+		&PurchaseOrder{},
+		&PurchaseOrderItem{},
 	)
 
 	db = database
