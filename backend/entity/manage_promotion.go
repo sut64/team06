@@ -11,3 +11,11 @@ type PromotionType struct {
 
 	//ManagePromotions []ManagePromotion `gorm:"foreignKey:PromotionTypeID"`
 }
+type NamePromotion struct {
+	gorm.Model
+
+	Name   string
+	Detail string
+
+	//ManagePromotions []ManagePromotion `gorm:"foreignKey:NamePromotionID"`
+}
