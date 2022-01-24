@@ -8,3 +8,12 @@ type UserRole struct {
 
 	// UserLogins []UserLogin `gorm:"foreignKey:UserRoleID"`
 }
+
+type UserLogin struct {
+	gorm.Model
+	Username string `gorm:"uniqueIndex"`
+	Password string
+
+	UserRoleID *uint    `gorm:"NOT NULL"`
+	UserRole   UserRole `gorm:"references:ID; NOT NULL"`
+}
