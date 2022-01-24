@@ -21,6 +21,17 @@ type Productstock struct {
 	Employee   Employee
 }
 
+type Product struct {
+	gorm.Model
+	Name  string
+	Price float32
+
+	Productstock []Productstock
+
+	TypeproductID *uint
+	Typeproduct   Typeproduct
+}
+
 
 type Typeproduct struct {
 	gorm.Model
