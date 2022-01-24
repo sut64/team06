@@ -19,7 +19,9 @@ func SetupDatabase() {
 
 	// Migrate the schema
 	database.AutoMigrate(
-		// User (optional)
+		// User
+		&UserRole{},
+		&UserLogin{},
 
 		// ManageSalary
 
