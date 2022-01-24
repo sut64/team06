@@ -1,26 +1,75 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+import NavBar from "./components/Navbar";
+
+// import PurchaseOrder from "./components/PurchaseOrder/PurchaseOrder";
+// import OrderHistory from "./components/PurchaseOrder/OrderHistory";
+import Home from "./components/Home";
+import SignIn from "./components/SignIn";
+
+import { UsersInterface } from "./models/ISignIn";
+
+export default function App() {
+  const [token, setToken] = useState<string>("");
+  const [user, setUser] = useState<UsersInterface>();
+  const [role, setRole] = useState<string>("");
+
+  useEffect(() => {
+    const getToken = localStorage.getItem("token");
+    if (getToken) {
+      setUser(JSON.parse(localStorage.getItem("user") || ""));
+      setToken(getToken);
+      setRole(localStorage.getItem("role") || "");
+    } 
+  }, []);
+
+  if (!token) {
+    return <SignIn />
+  }
+
+  // console.log("app user ", user);
+  // const user: UsersInterface = JSON.parse(localStorage.getItem("user") || "");
+  // const role = localStorage.getItem("role");
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {
+        token && (
+          <Fragment>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              {
+                role === "Member" && (
+                  <>
+                    {/* <Route path="/member/order" element={<PurchaseOrder />} />
+                    <Route path="/member/order-history" element={<OrderHistory />} />
+                    <Route path="/member/membership" element={<Test />} /> */}
+                  </>
+                )
+              }
+              {
+                (role === "Employee" && user?.Position.PositionName === "Employee") && (
+                  <>
+                    {/* <Route path="/employee/product-stock" element={<Test />} />
+                    <Route path="/employee/manage-promotion" element={<Test />} /> */}
+                  </>
+                )
+              }
+              {
+                (role === "Employee" && user?.Position.PositionName === "Manager") && (
+                  <>
+                    {/* <Route path="/manager/manage-salary" element={<Test />} />
+                    <Route path="/manager/manage-schedule" element={<Test />} /> */}
+                  </>
+                )
+              }
+            </Routes>
+          </Fragment>
+        )
+      }
+      
+    </Router>
   );
 }
-
-export default App;
