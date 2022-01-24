@@ -85,7 +85,7 @@ func Login(c *gin.Context) {
 	} else if user.UserRole.RoleName == employeeRole.RoleName {
 		// Member
 		var employee entity.Employee
-		if tx := entity.DB().Preload("UserDetail").Preload("UserDetail.Prefix").Preload("UserDetail.Gender").Preload("EmployeePosition").
+		if tx := entity.DB().Preload("UserDetail").Preload("UserDetail.Prefix").Preload("UserDetail.Gender").Preload("Position").
 			Raw("SELECT * FROM employees WHERE user_login_id = ?", user.ID).Find(&employee); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 			return
@@ -93,7 +93,7 @@ func Login(c *gin.Context) {
 
 		tokenResponse := EmployeeResponse{
 			Employee: employee,
-			RoleName: memberRole.RoleName,
+			RoleName: employeeRole.RoleName,
 			Token:    signedToken,
 		}
 
