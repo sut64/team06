@@ -49,6 +49,9 @@ func SetupDatabase() {
 		&ManagePromotion{},
 
 		// PremiumMember
+		&PremiumMember{},
+		&PremiumMemberPeriod{},
+		&MemberClass{},
 
 		// PurchaseOrder
 		&PaymentMethod{},
