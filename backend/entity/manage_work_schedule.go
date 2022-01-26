@@ -24,3 +24,10 @@ type Weekly struct {
 
 	// ManageWorkTime []ManageWorkTime `gorm:"foreignKey:WeeklyID"`
 }
+
+type WorkingTime struct {
+	gorm.Model
+	TimeToTime string
+
+	// ManageWorkTime []ManageWorkTime `gorm:"foreignKey:WorkingTimeID"`
+}
