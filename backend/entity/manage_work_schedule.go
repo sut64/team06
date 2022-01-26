@@ -10,3 +10,10 @@ type Day struct {
 
 	// ManageWorkTime []ManageWorkTime `gorm:"foreignKey:DayID"`
 }
+
+type Month struct {
+	gorm.Model
+	MonthOfYear string
+
+	// ManageWorkTime []ManageWorkTime `gorm:"foreignKey:MonthID"`
+}
