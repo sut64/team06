@@ -17,3 +17,10 @@ type Month struct {
 
 	// ManageWorkTime []ManageWorkTime `gorm:"foreignKey:MonthID"`
 }
+
+type Weekly struct {
+	gorm.Model
+	WeekAt uint
+
+	// ManageWorkTime []ManageWorkTime `gorm:"foreignKey:WeeklyID"`
+}
