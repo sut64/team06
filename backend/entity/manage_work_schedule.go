@@ -63,8 +63,8 @@ type WorkingTime struct {
 
 type Manager struct {
 	gorm.Model
-	Name     string
-	Code     string
-	Password string
-	Employee []Employee `gorm:"foreignKey:ManagerID"`
+	Name           string
+	Code           string
+	Password       string
+	ManageWorkTime []ManageWorkTime `gorm:"foreignKey:ManagerID"`
 }
