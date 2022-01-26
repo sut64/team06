@@ -8,9 +8,9 @@ import (
 
 type PremiumMember struct {
 	gorm.Model
-	PremiumMemberID string    `valid:"matches(^[P]\\d{7}$)"`
-	CreateAt        time.Time `valid:"past~CreateAt must be in the past"`
-	Point           string    `valid:"int~Point must be Number"`
+	PremiumMemberID string    
+	CreateAt        time.Time 
+	Point           int    
 
 	MemberID *uint
 	Member   Member `gorm:"references:ID"`
