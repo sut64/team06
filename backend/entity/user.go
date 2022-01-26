@@ -58,7 +58,8 @@ type Member struct {
 	UserDetailID *uint
 	UserDetail   UserDetail `gorm:"references:ID"`
 
-	Orders []PurchaseOrder `gorm:"foreignKey:MemberID"`
+	Orders        []PurchaseOrder `gorm:"foreignKey:MemberID"`
+	PremiumMember []PremiumMember `gorm:"foreignKey:MemberID"`
 }
 
 type Employee struct {
