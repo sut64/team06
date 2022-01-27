@@ -5,6 +5,9 @@ import NavBar from "./components/Navbar";
 
 // import PurchaseOrder from "./components/PurchaseOrder/PurchaseOrder";
 // import OrderHistory from "./components/PurchaseOrder/OrderHistory";
+import ManagePromotion from "./components/ManagePromotion/ManagePromotion";
+import Historypromotion from "./components/ManagePromotion/ShowPromotion";
+
 import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 
@@ -52,8 +55,9 @@ export default function App() {
               {
                 (role === "Employee" && user?.Position.PositionName === "Employee") && (
                   <>
-                    {/* <Route path="/employee/product-stock" element={<Test />} />
-                    <Route path="/employee/manage-promotion" element={<Test />} /> */}
+                    {/* <Route path="/employee/product-stock" element={<Test />} /> */}
+                    <Route path ="/employee/manage-promotion" element={<ManagePromotion />} />
+                    <Route path ="/employee/history-promotion" element={<Historypromotion />} />
                   </>
                 )
               }

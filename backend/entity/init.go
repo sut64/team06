@@ -1,9 +1,10 @@
 package entity
 
 import (
-	"gorm.io/gorm"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 func SetupPasswordHash(pwd string) string {
@@ -155,4 +156,71 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Superior:   &managerCue,
 	}
 	db.Model(&Employee{}).Create(&employeeSakeet)
+
+	//////////////////////////////////////
+	//		 MANAGEPROMOTION		   //
+	/////////////////////////////////////
+
+	var PromotionPeriod1 = PromotionPeriod{
+		StartDate: time.Date(2022, 1, 1, 0, 0, 0, 0, time.Local),
+		EndDate:   time.Date(2022, 2, 1, 0, 0, 0, 0, time.Local),
+	}
+	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod1)
+	var PromotionPeriod2 = PromotionPeriod{
+		StartDate: time.Date(2022, 4, 10, 0, 0, 0, 0, time.Local),
+		EndDate:   time.Date(2022, 4, 20, 0, 0, 0, 0, time.Local),
+	}
+	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod2)
+
+	var PromotionPeriod3 = PromotionPeriod{
+		StartDate: time.Date(2022, 10, 25, 0, 0, 0, 0, time.Local),
+		EndDate:   time.Date(2022, 11, 5, 0, 0, 0, 0, time.Local),
+	}
+	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod3)
+
+	var PromotionPeriod4 = PromotionPeriod{
+		StartDate: time.Date(2022, 5, 1, 0, 0, 0, 0, time.Local),
+		EndDate:   time.Date(2022, 8, 1, 0, 0, 0, 0, time.Local),
+	}
+	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod4)
+
+	var NamePromotion1 = NamePromotion{
+		Name:   "FLASH DEAL",
+		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
+	}
+	db.Model(&NamePromotion{}).Create(&NamePromotion1)
+	var NamePromotion2 = NamePromotion{
+		Name:   "BLACK FRIDAY",
+		Detail: "ลดจัดหนัก สินค้าใน Farm mart ลดโหดรอบเดียวจบ! ",
+	}
+	db.Model(&NamePromotion{}).Create(&NamePromotion2)
+
+	var NamePromotion3 = NamePromotion{
+		Name:   "BUY MORE SAVE MORE",
+		Detail: "ลดเห็นๆ ยิ่งซื้อมาก ยิ่งลดมาก เมื่อซื้อสินค้าใน Farm mart  ",
+	}
+	db.Model(&NamePromotion{}).Create(&NamePromotion3)
+
+	var PromotionType1 = PromotionType{
+		Type: "ช่วงเทศกาล",
+	}
+	db.Model(&PromotionType{}).Create(&PromotionType1)
+
+	var PromotionType2 = PromotionType{
+		Type: "ตามราคาขั้นต่ำในบิล",
+	}
+	db.Model(&PromotionType{}).Create(&PromotionType2)
+
+	ManagePromotion1 := ManagePromotion{
+		Employee:        employeeSakeet,
+		PromotionCode:   "A1500",
+		NamePromotion:   NamePromotion1,
+		PromotionPeriod: PromotionPeriod1,
+		PromotionType:   PromotionType1,
+		MinPrice:        100,
+		Discount:        10,
+		Createdatetime:  time.Now(),
+	}
+	db.Model(&ManagePromotion{}).Create(&ManagePromotion1)
+
 }

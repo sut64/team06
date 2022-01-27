@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team06/backend/controller"
 	"github.com/sut64/team06/backend/entity"
+	"github.com/sut64/team06/backend/middlewares"
 )
 
 func CORSMiddleware() gin.HandlerFunc {
@@ -28,27 +29,30 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
-	/*
-		api := r.Group("")
+	api := r.Group("")
+	{
+		protected := api.Use(middlewares.Authorizes())
 		{
-			protected := api.Use(middlewares.Authorizes())
-			{
-				// User Routes ** optional
+			// User Routes ** optional
 
-				// ManageSalary Routes
+			// ManageSalary Routes
 
-				// ManageWorkSchedule Routes
+			// ManageWorkSchedule Routes
 
-				// ProductStock Routes
+			// ProductStock Routes
 
-				// ManagePromotion Routes
+			// ManagePromotion Routes
+			protected.GET("/listpromotion", controller.ListPromotion)
+			protected.GET("/getnamepromotion", controller.GetNamePromotion)
+			protected.GET("/getpromotionperiod", controller.GetPromotionperiod)
+			protected.GET("/getpromotiontype", controller.GetPromotionType)
+			protected.POST("/createpromotion", controller.CreateManagePromotion)
 
-				// PremiumMember Routes
+			// PremiumMember Routes
 
-				// PurchaseOrder Routes
-			}
+			// PurchaseOrder Routes
 		}
-	*/
+	}
 
 	r.POST("/login", controller.Login)
 

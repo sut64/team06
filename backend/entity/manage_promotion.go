@@ -11,7 +11,7 @@ type PromotionType struct {
 
 	Type string
 
-	WManagePromotions []ManagePromotion `gorm:"foreignKey:PromotionTypeID"`
+	ManagePromotions []ManagePromotion `gorm:"foreignKey:PromotionTypeID"`
 }
 type NamePromotion struct {
 	gorm.Model
@@ -32,6 +32,9 @@ type PromotionPeriod struct {
 type ManagePromotion struct {
 	gorm.Model
 
+	EmployeeID *uint
+	Employee   Employee `gorm:"references:ID"`
+
 	PromotionPeriodID *uint
 	PromotionPeriod   PromotionPeriod `gorm:"references:ID"`
 
@@ -41,9 +44,9 @@ type ManagePromotion struct {
 	PromotionTypeID *uint
 	PromotionType   PromotionType `gorm:"references:ID"`
 
-	PromotionCode  string
-	MinPrice       float64
-	Quantity       uint
+	PromotionCode string `gorm:"uniqueIndex"`
+	MinPrice      float64
+
 	Discount       float64
 	Createdatetime time.Time
 }
