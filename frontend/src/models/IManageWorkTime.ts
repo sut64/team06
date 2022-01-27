@@ -25,14 +25,22 @@ export interface ManageWorkTimeInterface {
     NameSchedule: string,
     WorkingDate: string,
     TimeTotal: number,
+
+    ManagerID: number,
+    Manager: EmployeesInterface,
+
     EmployeeID: number,
     Employee: EmployeesInterface,
+
     DayID: number,
     Day: DayInterface,
+
     WeeklyID: number,
     Weekly: WeeklyInterface,
+
     MonthID: number,
     Month: MonthInterface,
+    
     WorkingTimeID: number,
     WorkingTime: WorkingTimeInterface
 }
