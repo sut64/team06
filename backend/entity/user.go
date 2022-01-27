@@ -79,6 +79,11 @@ type Employee struct {
 
 	ManagePromotions []ManagePromotion `gorm:"foreignKey:EmployeeID"`
 	Productstocks    []Productstock    `gorm:"foreignKey:EmployeeID"`
+
+	ManageSalarys []*ManageSalary `gorm:"foreignkey:ManagerID"`
+
+	EmployeeManageWorkTime []*ManageWorkTime `gorm:"foreignkey:EmployeeID"`
+	ManagerManageWorkTime  []ManageWorkTime  `gorm:"foreignkey:ManagerID"`
 }
 
 type EmployeePosition struct {

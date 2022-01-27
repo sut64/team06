@@ -404,4 +404,108 @@ func SetupIntoDatabase(db *gorm.DB) {
 		db.Model(&WorkingTime{}).Create(&tWork)
 	}
 
+	/////////////////////////////////////
+	//		    ManageSalary		   //
+	/////////////////////////////////////
+	// Assessment data
+	Assessment_1 := Assessment{
+		Level: 1,
+		Name:  "แย่",
+	}
+	Assessment_2 := Assessment{
+		Level: 2,
+		Name:  "ปรับปรุง",
+	}
+	Assessment_3 := Assessment{
+		Level: 3,
+		Name:  "พอใช้",
+	}
+	Assessment_4 := Assessment{
+		Level: 4,
+		Name:  "ดี",
+	}
+	Assessment_5 := Assessment{
+		Level: 5,
+		Name:  "ดีเยี่ยม",
+	}
+
+	// BonusStatus data
+	BonusStatus_wait := BonusStatus{
+		Name: "รออนุมัติ",
+	}
+	BonusStatus_approve := BonusStatus{
+		Name: "อนุมัติ",
+	}
+	BonusStatus_disapproved := BonusStatus{
+		Name: "ไม่อนุมัติ",
+	}
+
+	// ManageWorkTime data
+	var Day_Fr Day
+	db.Model(&Day{}).Find(&Day_Fr, db.Where("id = ?", 6))
+
+	var Week_01 Weekly
+	db.Model(&Weekly{}).Find(&Week_01, db.Where("id = ?", 1))
+
+	var Month_1Jan Month
+	db.Model(&Month{}).Find(&Month_1Jan, db.Where("id = ?", 1))
+
+	var wt_8t17 WorkingTime
+	db.Model(&WorkingTime{}).Find(&wt_8t17, db.Where("id = ?", 1))
+
+	ManageWT_M01 := ManageWorkTime{
+		NameSchedule:  "ผู้จัดการ",
+		WorkingDate:   time.Date(2021, 1, 1, 9, 0, 0, 0, time.UTC),
+		TimeTotal:     9,
+		Manager:       managerMai,
+		Employee:      managerMai,
+		DayID:         &Day_Fr.ID,
+		WeeklyID:      &Week_01.ID,
+		MonthID:       &Month_1Jan.ID,
+		WorkingTimeID: &wt_8t17.ID,
+	}
+	ManageWT_E01 := ManageWorkTime{
+		NameSchedule:  "พนักงาน",
+		WorkingDate:   time.Date(2021, 1, 1, 8, 0, 0, 0, time.UTC),
+		TimeTotal:     8,
+		Manager:       managerMai,
+		Employee:      employeeSakeet,
+		DayID:         &Day_Fr.ID,
+		WeeklyID:      &Week_01.ID,
+		MonthID:       &Month_1Jan.ID,
+		WorkingTimeID: &wt_8t17.ID,
+	}
+
+	// ManageSalary data
+	MS_01 := ManageSalary{
+		Manager:        managerMai,
+		ManageWorkTime: ManageWT_M01,
+		AssessmentID:   &Assessment_5.ID,
+		BonusAmount:    2000.00,
+		BonusDetail:    "ทำงานรวดเร็ว",
+		BonusStatusID:  &BonusStatus_approve.ID,
+		CreateAt:       time.Date(2021, 1, 28, 10, 0, 0, 0, time.UTC),
+	}
+	MS_02 := ManageSalary{
+		Manager:        managerMai,
+		ManageWorkTime: ManageWT_E01,
+		AssessmentID:   &Assessment_5.ID,
+		BonusAmount:    1500.00,
+		BonusDetail:    "ทำงานดี",
+		BonusStatusID:  &BonusStatus_approve.ID,
+		CreateAt:       time.Date(2021, 1, 28, 10, 0, 0, 0, time.UTC),
+	}
+
+	// add data
+	db.Model(&Assessment{}).Create(&Assessment_1)
+	db.Model(&Assessment{}).Create(&Assessment_2)
+	db.Model(&Assessment{}).Create(&Assessment_3)
+	db.Model(&Assessment{}).Create(&Assessment_4)
+	db.Model(&Assessment{}).Create(&Assessment_5)
+	db.Model(&BonusStatus{}).Create(&BonusStatus_wait)
+	db.Model(&BonusStatus{}).Create(&BonusStatus_approve)
+	db.Model(&BonusStatus{}).Create(&BonusStatus_disapproved)
+	db.Model(&ManageSalary{}).Create(&MS_01)
+	db.Model(&ManageSalary{}).Create(&MS_02)
+
 }

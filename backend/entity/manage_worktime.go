@@ -30,7 +30,7 @@ type ManageWorkTime struct {
 	WorkingTimeID *uint
 	WorkingTime   WorkingTime
 
-	// ManageSalary []ManageSalary `gorm:"foreignkey:ManageWorkTimeID"`
+	ManageSalary []ManageSalary `gorm:"foreignkey:ManageWorkTimeID"`
 }
 
 type Day struct {
