@@ -365,4 +365,43 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&PaymentMethod{}).Create(&mobileMethod)
 	db.Model(&PaymentMethod{}).Create(&bankMethod)
 
+	/////////////////////////////////////
+	//		    ManageWorkTime		   //
+	/////////////////////////////////////
+	// Add day
+	allDay := []string{"วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"}
+	for _, s := range allDay {
+		tDay := Day{
+			DayOfWeek: s,
+		}
+		db.Model(&Day{}).Create(&tDay)
+	}
+
+	// Add weekly
+	allWeek := []uint{1, 2, 3, 4}
+	for _, i := range allWeek {
+		tWeek := Weekly{
+			WeekAt: i,
+		}
+		db.Model(&Weekly{}).Create(&tWeek)
+	}
+
+	// Add month
+	allWMonth := []string{"มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษถาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"}
+	for _, m := range allWMonth {
+		tMonth := Month{
+			MonthOfYear: m,
+		}
+		db.Model(&Month{}).Create(&tMonth)
+	}
+
+	// Add working time
+	allWorkingTime := []string{"08.00-17.00", "09.00-18.00", "10.00-19.00", "11.00-20.00", "12.00-21.00", "13.00-22.00", "14.00-23.00"}
+	for _, t := range allWorkingTime {
+		tWork := WorkingTime{
+			TimeToTime: t,
+		}
+		db.Model(&WorkingTime{}).Create(&tWork)
+	}
+
 }
