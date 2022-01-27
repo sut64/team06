@@ -5,6 +5,9 @@ import NavBar from "./components/Navbar";
 
 // import PurchaseOrder from "./components/PurchaseOrder/PurchaseOrder";
 // import OrderHistory from "./components/PurchaseOrder/OrderHistory";
+import CreateProductstock from "./components/ProductStock/CreateProductstock";
+import Productstock from "./components/ProductStock/ProductStock";
+import CreateProduct from "./components/ProductStock/CreateProduct";
 import ManagePromotion from "./components/ManagePromotion/ManagePromotion";
 import Historypromotion from "./components/ManagePromotion/ShowPromotion";
 
