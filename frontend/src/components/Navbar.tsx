@@ -199,7 +199,7 @@ export default function NavBar() {
           >
             <Box className={classes.menuBox}>
               <Typography variant="subtitle1" noWrap>
-                <b>{user?.UserDetail.FirstName} {user?.UserDetail.LastName}</b>
+                <b>{user?.UserDetail.Prefix.PrefixName}{user?.UserDetail.FirstName} {user?.UserDetail.LastName}</b>
               </Typography>
               <Typography variant="body2" color="inherit" noWrap>
                 {getRole()}
