@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import { EmployeesInterface } from "../../models/IUser";
-import { Shelfstoreinterface, Productinterface ,Productstockinterface ,Typeproductinterface } from "../../models/IProductstock";
+import { ShelfstoresInterface, ProductsInterface ,ProductstocksInterface ,TypeproductsInterface } from "../../models/IProductstock";
 import { format } from 'date-fns'
 
 const useStyles = makeStyles({
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
 export default function Productstock() {
   const classes = useStyles();
-  const [Productstock, setProductstock] = useState<Productstockinterface[]>([]);
+  const [Productstock, setProductstock] = useState<ProductstocksInterface[]>([]);
 
   const getProductstock = async () => {
     const apiUrl = "http://localhost:8080/productstock";
@@ -66,7 +66,7 @@ export default function Productstock() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Productstock.map((item:Productstockinterface) => (
+          {Productstock.map((item:ProductstocksInterface) => (
             <TableRow key={item.ID}>
               <TableCell component="th" scope="item">
                 {item.Product.Name}

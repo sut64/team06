@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { EmployeesInterface } from "../../models/IUser";
-import { Shelfstoreinterface, Productinterface ,Productstockinterface ,Typeproductinterface } from "../../models/IProductstock";
+import { ShelfstoresInterface, ProductsInterface ,ProductstocksInterface ,TypeproductsInterface } from "../../models/IProductstock";
 import {
   makeStyles,
   Theme,
@@ -60,7 +60,7 @@ function CreateProduct() {
     JSON.parse(localStorage.getItem("user") || "{}")
   );
   const username = user.UserDetail.FirstName + " " + user.UserDetail.LastName;
-  const [product, setProduct] = useState<Partial<Productinterface>>({});
+  const [product, setProduct] = useState<Partial<ProductsInterface>>({});
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
@@ -72,7 +72,7 @@ function CreateProduct() {
     });
   };
 
-  const [typeproduct, setTypedroduct] = useState<Typeproductinterface[]>([]);
+  const [typeproduct, setTypedroduct] = useState<TypeproductsInterface[]>([]);
   const getTypeproduct = async () => {
     const apiUrl = "http://localhost:8080/typeproduct";
     const requestOptions = {
@@ -218,7 +218,7 @@ function CreateProduct() {
                   <option aria-label="None" value="">
                     กรุณาเลือกรายการสินค้า
                   </option>
-                  {typeproduct.map((item: Typeproductinterface) => (
+                  {typeproduct.map((item: TypeproductsInterface) => (
                     <option value={item.ID} key={item.ID}>
                       {item.Name}
                     </option>

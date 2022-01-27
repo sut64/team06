@@ -1,18 +1,18 @@
-import { NamePromotionInterface } from "./INamePromotion";
-import { PromotionPeriodInterface } from "./IPromotionPeriod";
-import { PromotionTypeInterface } from "./IPromotionType";
+import { NamePromotionsInterface } from "./INamePromotion";
+import { PromotionPeriodsInterface } from "./IPromotionPeriod";
+import { PromotionTypesInterface } from "./IPromotionType";
 
-export interface ManagePromotionInterface {
+export interface ManagePromotionsInterface {
     ID: number;
 
    NamePromotionID: number;
-   NamePromotion: NamePromotionInterface;
+   NamePromotion: NamePromotionsInterface;
 
    PromotionPeriodID: number;
-   PromotionPeriod: PromotionPeriodInterface;
+   PromotionPeriod: PromotionPeriodsInterface;
 
    PromotionTypeID: number;
-   PromotionType: PromotionTypeInterface;
+   PromotionType: PromotionTypesInterface;
 
    MinPrice: number;
    Quantity: number;
