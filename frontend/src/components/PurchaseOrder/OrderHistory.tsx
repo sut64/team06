@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
@@ -14,8 +15,8 @@ import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 import { Theme, makeStyles, createStyles } from "@material-ui/core";
 
-import { PurchaseOrdersInterface } from "../../models/IPurchaseOrder";
-import { PurchaseOrderItemsInterface } from "../../models/IPurchaseOrderItem";
+import { PurchaseOrdersInterface,
+  PurchaseOrderItemsInterface,  } from "../../models/IPurchaseOrder";
 import { UsersInterface } from "../../models/ISignIn";
 
 const useStyles = makeStyles((theme: Theme) => 
@@ -50,23 +51,23 @@ function ListOrderItems(ord: OrderListProps) {
           </Typography>
         </Grid>
       </Grid>
-      <TableContainer>
+      <TableContainer component={Paper}>
         <Table>
           <TableHead className={classes.tableHead}>
             <TableRow>
-              <TableCell width="15%" align="center"><b>Name</b></TableCell>
-              <TableCell width="5%" align="center"><b>Unit Price (Baht)</b></TableCell>
-              <TableCell width="5%" align="center"><b>Quantity</b></TableCell>
-              <TableCell width="5%" align="center"><b>Total Price (Baht)</b></TableCell>
+              <TableCell width="15%" align="center"><b>ชื่อสินค้า</b></TableCell>
+              <TableCell width="5%" align="center"><b>ราคาต่อหน่วย</b></TableCell>
+              <TableCell width="5%" align="center"><b>จำนวน</b></TableCell>
+              <TableCell width="5%" align="center"><b>รวมทั้งหมด</b></TableCell>
             </TableRow>
           </TableHead>
           {ord.order.OrderItems.map((item: PurchaseOrderItemsInterface, index) => (
             <TableBody key={index}>
               <TableRow>
                 <TableCell width="15%" align="left">{item.Productstock.Product.Name}</TableCell>
-                <TableCell width="5%" align="center">{item.ItemPrice.toFixed(2)}</TableCell>
+                <TableCell width="5%" align="center">{item.ItemPrice.toLocaleString('th-TH', { style: "currency", currency: "THB" })}</TableCell>
                 <TableCell width="5%" align="center">{item.OrderAmount}</TableCell>
-                <TableCell width="5%" align="center">{(item.OrderAmount * item.ItemPrice).toFixed(2)}</TableCell>
+                <TableCell width="5%" align="center">{(item.OrderAmount * item.ItemPrice).toLocaleString('th-TH', { style: "currency", currency: "THB" })}</TableCell>
               </TableRow>
             </TableBody>
           ))}
@@ -87,7 +88,7 @@ function ListOrderDetails(ord: OrderListProps) {
       </Grid>
       <Grid item xs={6}>
         <Typography variant="subtitle2" align="right">
-          {ord.order.OrderTotalPrice.toFixed(2)} บาท
+          {ord.order.OrderTotalPrice.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
         </Typography>
       </Grid>
       <Grid item xs={6}>
@@ -97,7 +98,7 @@ function ListOrderDetails(ord: OrderListProps) {
       </Grid>
       <Grid item xs={6}>
         <Typography variant="subtitle2" align="right" style={{ color: "red"}}>
-          {ord.order.OrderDiscount.toFixed(2)} บาท
+          {ord.order.OrderDiscount.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
         </Typography>
       </Grid>
       <Grid item xs={6}>
@@ -107,7 +108,17 @@ function ListOrderDetails(ord: OrderListProps) {
       </Grid>
       <Grid item xs={6}>
         <Typography variant="subtitle2" align="right">
-          {(ord.order.OrderTotalPrice - ord.order.OrderDiscount).toFixed(2)} บาท
+          {(ord.order.OrderTotalPrice - ord.order.OrderDiscount).toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="subtitle2" style={{fontWeight: "bold"}}>
+          วิธีการชำระเงิน
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="subtitle2" align="right">
+          {ord.order.PaymentMethod.MethodName}
         </Typography>
       </Grid>
       <Grid item xs={6}>
@@ -178,12 +189,23 @@ export default function OrderHistory() {
   return (
     <div>
       <Container className={classes.container}>
-        <Paper className={classes.paper} style={{ backgroundColor: "#81c784", }}>
+        <Paper className={classes.paper}>
           <Grid container spacing={1}>
-            <Grid item xs={12}>
-              <Typography component="h4" variant="h5">
+            <Grid item xs={8} style={{ paddingBottom: "1rem" }}>
+              <Typography component="h4" variant="h5" color="primary">
                 ประวัติการชำระสินค้า
               </Typography>
+            </Grid>
+            <Grid item xs={4} style={{ paddingBottom: "1rem" }}>
+              <Button 
+                color="primary" 
+                variant="contained" 
+                style={{float: "right"}}
+                component={RouterLink}
+                to="/member/order"
+              >
+                ชำระสินค้า
+              </Button>
             </Grid>
             <Grid item xs={12}>
               {orders.length !== 0 ? (
