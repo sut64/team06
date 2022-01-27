@@ -2,10 +2,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
-  Shelfstoreinterface,
-  Productinterface,
-  Productstockinterface,
-  Typeproductinterface,
+  ShelfstoresInterface,
+  ProductsInterface,
+  ProductstocksInterface,
+  TypeproductsInterface,
 } from "../../models/IProductstock";
 import {
   makeStyles,
@@ -56,7 +56,7 @@ function CreateProductstock() {
     JSON.parse(localStorage.getItem("user") || "{}")
   );
   const [productstock, setProductstock] = useState<
-    Partial<Productstockinterface>
+    Partial<ProductstocksInterface>
   >({});
   const username = user.UserDetail.FirstName + " " + user.UserDetail.LastName;
   const ID = user.ID;
@@ -76,7 +76,7 @@ function CreateProductstock() {
     setError(false);
   };
 
-  const [product, setProduct] = useState<Productinterface[]>([]);
+  const [product, setProduct] = useState<ProductsInterface[]>([]);
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
@@ -107,7 +107,7 @@ function CreateProductstock() {
         }
       });
   };
-  const [shelfstore, setShelfstore] = useState<Shelfstoreinterface[]>([]);
+  const [shelfstore, setShelfstore] = useState<ShelfstoresInterface[]>([]);
 
   const getShelfstore = async () => {
     const apiUrl = "http://localhost:8080/shelfstore";
@@ -230,7 +230,7 @@ function CreateProductstock() {
                   <option aria-label="None" value="">
                     กรุณาเลือกรายการสินค้า
                   </option>
-                  {product.map((item: Productinterface) => (
+                  {product.map((item: ProductsInterface) => (
                     <option value={item.ID} key={item.ID}>
                       {item.Name}
                     </option>
@@ -252,7 +252,7 @@ function CreateProductstock() {
                   <option aria-label="None" value="">
                     กรุณาเลือกชั้นวางสินค้า
                   </option>
-                  {shelfstore.map((item: Shelfstoreinterface) => (
+                  {shelfstore.map((item: ShelfstoresInterface) => (
                     <option value={item.ID} key={item.ID}>
                       {item.Zone}
                     </option>

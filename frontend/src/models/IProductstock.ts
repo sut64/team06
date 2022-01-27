@@ -1,29 +1,29 @@
 import { EmployeesInterface } from "./IUser";
-export interface Productstockinterface {
+export interface ProductstocksInterface {
     ID : number,
     Amount_remain:number,
     Update_datetime : Date,
     Detail:string,
     ProductID :number,
-    Product :Productinterface,
+    Product :ProductsInterface,
     ShelfstoreID:number,
-    Shelfstore:Shelfstoreinterface,
+    Shelfstore:ShelfstoresInterface,
     EmployeeID:number,
     Employee:EmployeesInterface
 }
 
-export interface Productinterface {
+export interface ProductsInterface {
     ID : number,
     Name : string,
     Price : number,
     TypeproductID : number,
-    Typeproduct: Typeproductinterface,
+    Typeproduct: TypeproductsInterface,
 }
-export interface Typeproductinterface {
+export interface TypeproductsInterface {
     ID : number,
     Name : string,
 }
-export interface Shelfstoreinterface {
+export interface ShelfstoresInterface {
     ID: number,
     Zone:string,
 }

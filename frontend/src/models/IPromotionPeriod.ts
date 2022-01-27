@@ -1,4 +1,4 @@
-export interface PromotionPeriodInterface {
+export interface PromotionPeriodsInterface {
     ID: number;
   
     StartDate: Date | null;

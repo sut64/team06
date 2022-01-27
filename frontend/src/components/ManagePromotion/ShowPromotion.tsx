@@ -15,7 +15,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 import moment from "moment";
 
-import { ManagePromotionInterface } from "../../models/IManagePromotion";
+import { ManagePromotionsInterface } from "../../models/IManagePromotion";
 import { EmployeesInterface } from "../../models/IUser";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Historypromotion() {
   const classes = useStyles();
 
-  const [managepromotion, setmanagepromotion] = React.useState<ManagePromotionInterface[]>([]);
+  const [managepromotion, setmanagepromotion] = React.useState<ManagePromotionsInterface[]>([]);
 
   //เเก้เป็น getmanagepromotion
   //รับข้อมูลมาจาก DB
@@ -141,7 +141,7 @@ export default function Historypromotion() {
             </TableHead>
 
             <TableBody>
-              {managepromotion.map((managepromotion: ManagePromotionInterface) => (
+              {managepromotion.map((managepromotion: ManagePromotionsInterface) => (
                 <TableRow key={managepromotion.ID}>
                   <TableCell align="left">{managepromotion.PromotionCode}</TableCell>
 
