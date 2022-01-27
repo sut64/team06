@@ -71,23 +71,41 @@ func SetupIntoDatabase(db *gorm.DB) {
 	// UserLogin
 	/* **** Can edit this later **** */
 	login1 := UserLogin{
-		Username: "foei",
-		Password: SetupPasswordHash("1234"),
+		Username: "C6220709",
+		Password: SetupPasswordHash("C6220709"),
 		UserRole: customerRole,
 	}
 	login2 := UserLogin{
-		Username: "sakeet",
-		Password: SetupPasswordHash("5678"),
+		Username: "E6209568",
+		Password: SetupPasswordHash("E6209568"),
 		UserRole: employeeRole,
 	}
 	login3 := UserLogin{
-		Username: "cue",
-		Password: SetupPasswordHash("2468"),
+		Username: "E6230258",
+		Password: SetupPasswordHash("E6230258"),
+		UserRole: employeeRole,
+	}
+	login4 := UserLogin{
+		Username: "M6225605",
+		Password: SetupPasswordHash("M6225605"),
+		UserRole: employeeRole,
+	}
+	login5 := UserLogin{
+		Username: "C6111618",
+		Password: SetupPasswordHash("C6111618"),
+		UserRole: customerRole,
+	}
+	login6 := UserLogin{
+		Username: "M6026400",
+		Password: SetupPasswordHash("M6026400"),
 		UserRole: employeeRole,
 	}
 	db.Model(&UserLogin{}).Create(&login1)
 	db.Model(&UserLogin{}).Create(&login2)
 	db.Model(&UserLogin{}).Create(&login3)
+	db.Model(&UserLogin{}).Create(&login4)
+	db.Model(&UserLogin{}).Create(&login5)
+	db.Model(&UserLogin{}).Create(&login6)
 
 	// UserDetail
 	userDetail1 := UserDetail{
@@ -117,9 +135,39 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Address:     "หมู่บ้านสุรสวัสดิ์, นครราชสีมา",
 		Gender:      maleGender,
 	}
+	userDetail4 := UserDetail{
+		Prefix:      mrPrefix,
+		FirstName:   "ณัฐวัตร",
+		LastName:    "บุญโสดากร",
+		PersonalID:  "5236587453655",
+		PhoneNumber: "0615852336",
+		Address:     "หอพักสุรนิเวศ 7, มทส.",
+		Gender:      maleGender,
+	}
+	userDetail5 := UserDetail{
+		Prefix:      mrPrefix,
+		FirstName:   "เศรษกฤต",
+		LastName:    "โพธิ์แก้ว",
+		PersonalID:  "7885631455574",
+		PhoneNumber: "0842221960",
+		Address:     "กรุงเทพมหานคร",
+		Gender:      maleGender,
+	}
+	userDetail6 := UserDetail{
+		Prefix:      missPrefix,
+		FirstName:   "ชัฎฌาฎา",
+		LastName:    "เรือนทอง",
+		PersonalID:  "4110075486354",
+		PhoneNumber: "0811917200",
+		Address:     "หอพักสุรนิเวศ 15, มทส.",
+		Gender:      femaleGender,
+	}
 	db.Model(&UserDetail{}).Create(&userDetail1)
 	db.Model(&UserDetail{}).Create(&userDetail2)
 	db.Model(&UserDetail{}).Create(&userDetail3)
+	db.Model(&UserDetail{}).Create(&userDetail4)
+	db.Model(&UserDetail{}).Create(&userDetail5)
+	db.Model(&UserDetail{}).Create(&userDetail6)
 
 	// EmployeePosition
 	employeePos := EmployeePosition{
@@ -140,22 +188,40 @@ func SetupIntoDatabase(db *gorm.DB) {
 		UserLogin:  login1,
 		UserDetail: userDetail1,
 	}
+	memberKobkab := Member{
+		UserLogin:  login5,
+		UserDetail: userDetail5,
+	}
 	db.Model(&Member{}).Create(&memberFoei)
+	db.Model(&Member{}).Create(&memberKobkab)
 	// Manager
-	managerCue := Employee{
-		UserLogin:  login3,
-		UserDetail: userDetail3,
+	managerMai := Employee{
+		UserLogin:  login4,
+		UserDetail: userDetail4,
 		Position:   managerPos,
 	}
-	db.Model(&Employee{}).Create(&managerCue)
+	managerEarn := Employee{
+		UserLogin:  login6,
+		UserDetail: userDetail6,
+		Position:   managerPos,
+	}
+	db.Model(&Employee{}).Create(&managerMai)
+	db.Model(&Employee{}).Create(&managerEarn)
 	// Employee
 	employeeSakeet := Employee{
 		UserLogin:  login2,
 		UserDetail: userDetail2,
 		Position:   employeePos,
-		Superior:   &managerCue,
+		Superior:   &managerMai,
+	}
+	employeeCue := Employee{
+		UserLogin:  login3,
+		UserDetail: userDetail3,
+		Position:   employeePos,
+		Superior:   &managerEarn,
 	}
 	db.Model(&Employee{}).Create(&employeeSakeet)
+	db.Model(&Employee{}).Create(&employeeCue)
 
 	//////////////////////////////////////
 	//		 MANAGEPROMOTION		   //
