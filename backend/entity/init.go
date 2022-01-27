@@ -223,4 +223,46 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&ManagePromotion{}).Create(&ManagePromotion1)
 
+	
+	/////////////////////////////////////
+	//		    Productstock		   //
+	/////////////////////////////////////
+
+
+	typeproduct1 := Typeproduct{
+		Name: "Snack",
+	}
+	db.Model(&Typeproduct{}).Create(&typeproduct1)
+
+	typeproduct2 := Typeproduct{
+		Name: "Food",
+	}
+	db.Model(&Typeproduct{}).Create(&typeproduct2)
+
+	product1 := Product{
+		Name: "Lays",
+		Price: 20.50,
+		Typeproduct: typeproduct1,
+	}
+	db.Model(&Product{}).Create(&product1)
+
+	shelfstore1:= Shelfstore{
+		Zone: "A",
+	}
+	db.Model(&Shelfstore{}).Create(&shelfstore1)
+
+	shelfstore2:= Shelfstore{
+		Zone: "B",
+	}
+	db.Model(&Shelfstore{}).Create(&shelfstore2)
+
+	productstock1 := Productstock{
+		Amount_remain: 20,
+		Update_datetime:time.Now(),
+		Detail: "snack for kid",
+		Product: product1,
+		Employee: employeeSakeet,
+		Shelfstore: shelfstore1,
+	}
+	db.Model(&Productstock{}).Create(&productstock1)
 }
