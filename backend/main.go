@@ -57,6 +57,9 @@ func main() {
 			// PremiumMember Routes
 
 			// PurchaseOrder Routes
+			protected.GET("/payment-methods", controller.ListPaymentMethod)
+			protected.GET("/order-history/:id", controller.ListPurchaseOrder)
+			protected.POST("/purchase-order", controller.CreatePurchaseOrder)
 		}
 	}
 
