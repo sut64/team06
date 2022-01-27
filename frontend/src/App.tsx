@@ -58,6 +58,9 @@ export default function App() {
                     {/* <Route path="/employee/product-stock" element={<Test />} /> */}
                     <Route path ="/employee/manage-promotion" element={<ManagePromotion />} />
                     <Route path ="/employee/history-promotion" element={<Historypromotion />} />
+                    <Route path="/employee/Productstock" element={<Productstock />} />
+                    <Route path="/employee/CreateProductstock" element={<CreateProductstock/>} />
+                    <Route path="employee/CreateProduct" element={<CreateProduct/>} />
                   </>
                 )
               }
