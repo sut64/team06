@@ -40,7 +40,6 @@ func SetupDatabase() {
 		&Weekly{},
 		&WorkingTime{},
 		&ManageWorkTime{},
-		&Manager{},
 
 		// ProductStock
 		&Productstock{},

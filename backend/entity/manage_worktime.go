@@ -12,9 +12,6 @@ type ManageWorkTime struct {
 	WorkingDate  time.Time
 	TimeTotal    uint
 
-	ManagerID *uint
-	Manager   Manager
-
 	EmployeeID *uint
 	Employee   Employee
 
@@ -59,12 +56,4 @@ type WorkingTime struct {
 	TimeToTime string
 
 	ManageWorkTime []ManageWorkTime `gorm:"foreignKey:WorkingTimeID"`
-}
-
-type Manager struct {
-	gorm.Model
-	Name           string
-	Code           string
-	Password       string
-	ManageWorkTime []ManageWorkTime `gorm:"foreignKey:ManagerID"`
 }
