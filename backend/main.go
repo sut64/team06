@@ -12,7 +12,7 @@ func CORSMiddleware() gin.HandlerFunc {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
 
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
@@ -36,6 +36,17 @@ func main() {
 			// User Routes ** optional
 
 			// ManageSalary Routes
+			protected.GET("/managesalary/employees", controller.ListEmployeesByManageSalary)
+			protected.GET("/managesalary/manageworktime", controller.ListManageWorkTimeByManageSalary)
+			protected.GET("/managesalary/manageworktime/:id", controller.GetManageWorkTimeByManageSalary)
+			protected.GET("/managesalary/assessments", controller.ListAssessmentsByManageSalary)
+			protected.GET("/managesalary/bonusstatus", controller.ListBonusStatusByManageSalary)
+			protected.GET("/managesalaries", controller.ListManageSalaryByManageSalary)
+			protected.GET("/managesalary/:id", controller.GetManageSalaryByManageSalary)
+			protected.GET("/managesalary/employee/:id", controller.GetManageSalaryWithEmployeeIDByManageSalary)
+			protected.POST("/managesalary", controller.CreateManageSalaryByManageSalary)
+			protected.DELETE("/managesalary/:id", controller.DelManageSalaryByManageSalary)
+			protected.PATCH("/managesalary/:id", controller.UpdateManageSalaryByManageSalary)
 
 			// ManageWorkSchedule Routes
 			protected.POST("/manage/create", controller.CreateMangeWorkTime)
