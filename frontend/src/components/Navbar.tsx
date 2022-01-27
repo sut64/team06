@@ -26,6 +26,7 @@ import MoneyOffIcon from "@material-ui/icons/MoneyOff";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import HistoryIcon from "@material-ui/icons/History";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import EditIcon from "@material-ui/icons/Edit";
 import { UsersInterface } from "../models/ISignIn";
 
 const useStyles = makeStyles((theme: Theme) => (
@@ -76,7 +77,9 @@ export default function NavBar() {
     { name: "สมาชิกพรีเมียม", icon: <PersonPinIcon  />, path: "/member/membership" },
   ]
   const employeeMenu = [
-    { name: "จัดการสต็อกสินค้า", icon: <AssignmentIcon  />, path: "/employee/product-stock" },
+    { name: "จัดการสต็อกสินค้า", icon: <EditIcon />, path: "/employee/CreateProductstock" },
+    { name: "จัดการสินค้า", icon: <EditIcon />, path: "/employee/CreateProduct" },
+    { name: "ดูรายการสต็อกสินค้า", icon: <AssignmentIcon  />, path: "/employee/Productstock" },
     { name: "จัดการโปรโมชั่น", icon: <StorefrontIcon  />, path: "/employee/manage-promotion" },
     { name: "ประวัติโปรโมชั่น", icon: <HistoryIcon />, path: "/employee/history-promotion" },
 
