@@ -50,6 +50,7 @@ func CreateMangeWorkTime(c *gin.Context) {
 		WorkingDate:  manageworktimes.WorkingDate,
 		TimeTotal:    manageworktimes.TimeTotal,
 		Employee:     employees,
+		Manager:      employees,
 		Day:          days,
 		Weekly:       weeklies,
 		Month:        months,

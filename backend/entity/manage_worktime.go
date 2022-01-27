@@ -12,6 +12,9 @@ type ManageWorkTime struct {
 	WorkingDate  time.Time
 	TimeTotal    uint
 
+	MangerID *uint
+	Manager  Employee
+
 	EmployeeID *uint
 	Employee   Employee
 
