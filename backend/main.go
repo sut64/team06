@@ -44,7 +44,6 @@ func main() {
 			protected.GET("/manage/month/all", controller.GetAllMonth)
 			protected.GET("/manage/work/all", controller.GetAllWorkTime)
 			protected.GET("/manage/employee/all", controller.GetAllEmployee)
-			protected.GET("/manage/employee/:id", controller.GetFindManager)
 			protected.GET("/manage/detail/all", controller.GetAllDetail)
 			protected.GET("/manage/pos/all", controller.GetAllPosition)
 			protected.GET("/manage/all", controller.GetAllManageWorkTime)

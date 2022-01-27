@@ -63,20 +63,6 @@ func CreateMangeWorkTime(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": mw})
 }
 
-func GetFindManager(c *gin.Context) {
-	var employees []entity.Employee
-	id := c.Param("id")
-	if err := entity.DB().
-		Preload("UserDetail").
-		Preload("Position").
-		Preload("Manager").
-		Raw("SELECT * FROM employees WHERE manager_id = ?", id).Find(&employees).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": employees})
-}
 func GetAllDetail(c *gin.Context) {
 	var details []entity.UserDetail
 	if err := entity.DB().Raw("SELECT * FROM user_details").Scan(&details).Error; err != nil {
@@ -98,7 +84,7 @@ func GetAllPosition(c *gin.Context) {
 func GetAllManageWorkTime(c *gin.Context) {
 	var managework []entity.ManageWorkTime
 	if err := entity.DB().
-		Preload("Employee.Detail").
+		Preload("Employee.UserDetail").
 		Preload("Day").
 		Preload("Month").
 		Preload("Weekly").
@@ -112,7 +98,11 @@ func GetAllManageWorkTime(c *gin.Context) {
 }
 func GetAllEmployee(c *gin.Context) {
 	var employees []entity.Employee
-	if err := entity.DB().Preload("Detail").Preload("Position").Preload("Manager").Raw("SELECT * FROM employees").Find(&employees).Error; err != nil {
+	if err := entity.DB().
+		Preload("UserDetail").
+		Preload("Position").
+		Preload("UserLogin").
+		Raw("SELECT * FROM employees").Find(&employees).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
