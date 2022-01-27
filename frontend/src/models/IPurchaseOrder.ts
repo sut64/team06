@@ -1,7 +1,11 @@
 import { MembersInterface } from "./IUser";
+import { ProductstocksInterface } from "./IProductstock";
 import { ManagePromotionsInterface } from "./IManagePromotion";
-import { PaymentMethodsInterface } from "./IPaymentMethod";
-import { PurchaseOrderItemsInterface } from "./IPurchaseOrderItem";
+
+export interface PaymentMethodsInterface {
+    ID: number;
+    MethodName: string;
+}
 
 export interface PurchaseOrdersInterface {
     ID: number;
@@ -21,4 +25,18 @@ export interface PurchaseOrdersInterface {
     OrderTotalPrice: number;
 
     OrderItems: PurchaseOrderItemsInterface[];
+}
+
+export interface PurchaseOrderItemsInterface {
+    ID: number;
+
+    OrderID: number;
+    Order: PurchaseOrdersInterface;
+
+    ProductstockID: number;
+    Productstock: ProductstocksInterface;
+    OrderAmount: number;
+    ItemPrice: number;
+
+    AmountPrice: number;
 }

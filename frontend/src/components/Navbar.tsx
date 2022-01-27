@@ -22,7 +22,7 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ShoppingCartIcon from  "@material-ui/icons/ShoppingCart";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import PersonIcon from "@material-ui/icons/Person";
-import MoneyOffIcon from "@material-ui/icons/MoneyOff";
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import HistoryIcon from "@material-ui/icons/History";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -86,8 +86,10 @@ export default function NavBar() {
 
   ]
   const managerMenu = [
-    { name: "จัดการเงินเดือนพนักงาน", icon: <AssignmentIcon  />, path: "/manager/manage-salary/create" },
     { name: "จัดการตารางงานพนักงาน", icon: <AssignmentIcon  />, path: "/manager/manage-schedule/create" },
+    { name: "ข้อมูลตารางงานพนักงาน", icon: <AssignmentIcon  />, path: "/manager/manage-schedule/table" },
+    { name: "จัดการเงินเดือนพนักงาน", icon: <AttachMoneyIcon  />, path: "/manager/manage-salary/create" },
+    { name: "รายละเอียดเงินเดือนพนักงาน", icon: <AttachMoneyIcon  />, path: "/manager/manage-salary/detail" },
   ]
   
   var menu: any[];

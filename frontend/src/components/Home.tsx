@@ -10,10 +10,10 @@ import { Theme, makeStyles, createStyles } from "@material-ui/core";
 
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ShoppingCartIcon from  "@material-ui/icons/ShoppingCart";
-import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import StoreIcon from '@material-ui/icons/Store';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import { UsersInterface } from "../models/ISignIn";
 
 
@@ -302,7 +302,7 @@ export default function Home() {
                       <Grid container>
                         <Grid item xs={4} style={{ paddingRight: ".5rem"}}>
                           <Box textAlign="center" style={{ width: "100%", height: "100%" }}  >
-                            <ControlPointIcon  className={classes.subsystemIcon} />
+                            <AssignmentIcon  className={classes.subsystemIcon} />
                           </Box>
                         </Grid>
                         <Grid item xs={8}>
@@ -311,16 +311,20 @@ export default function Home() {
                             fullWidth 
                             variant="contained" 
                             className={classes.managerButton}
+                            component={RouterLink}
+                            to="/manager/manage-schedule/create"
                           >
-                            ---
+                            จัดตารางงาน
                           </Button>
                           <Button 
                             disabled={!checkRole("Manager")} 
                             fullWidth 
                             variant="contained" 
                             className={classes.managerButton}
+                            component={RouterLink}
+                            to="/manager/manage-schedule/table"
                           >
-                            ---
+                            ข้อมูลการจัดตารางงาน
                           </Button>
                         </Grid>
                       </Grid>

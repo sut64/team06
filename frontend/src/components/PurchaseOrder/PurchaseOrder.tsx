@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -22,15 +23,14 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { createStyles, Theme, makeStyles } from "@material-ui/core";
+import { createStyles, Theme, makeStyles, IconButton } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
 import { ManagePromotionsInterface } from "../../models/IManagePromotion";
 import { ProductstocksInterface } from "../../models/IProductstock";
-import { PaymentMethodsInterface } from "../../models/IPaymentMethod";
-import { PurchaseOrdersInterface } from "../../models/IPurchaseOrder";
-import { PurchaseOrderItemsInterface } from "../../models/IPurchaseOrderItem"; 
+import { PaymentMethodsInterface, 
+  PurchaseOrdersInterface, PurchaseOrderItemsInterface } from "../../models/IPurchaseOrder";
 
 import { UsersInterface } from "../../models/ISignIn";
 
@@ -279,7 +279,7 @@ export default function PurchaseOrder() {
   // PROMOTION
   const subPromotionDiscount = (PromotionID: number | undefined) => {
     if (PromotionID !== 0) {
-      return promotions.find(p => p.ID === PromotionID)?.Discount;
+      return (promotions.find(p => p.ID === PromotionID)?.Discount || 0) * -1 ;
     }
     return Number(0);
   }
@@ -309,13 +309,24 @@ export default function PurchaseOrder() {
             {errorMsg}
           </Alert>
         </Snackbar>
-        <Paper className={classes.paper} style={{ backgroundColor: "#81c784", }}>
+        <Paper className={classes.paper}>
           <Grid container spacing={1}>
             {/* Head */}
-            <Grid item xs={12}>
-              <Typography component="h4" variant="h5">
+            <Grid item xs={8} style={{ paddingBottom: "1rem" }}>
+              <Typography component="h4" variant="h5"  color="primary">
                 ชำระสินค้า
               </Typography>
+            </Grid>
+            <Grid item xs={4} style={{ paddingBottom: "1rem" }}>
+              <Button 
+                color="primary" 
+                variant="contained" 
+                style={{float: "right"}}
+                component={RouterLink}
+                to="/member/order-history"
+              >
+                ประวัติการชำระสินค้า
+              </Button>
             </Grid>
 
             {/* Left Column */}
@@ -353,26 +364,24 @@ export default function PurchaseOrder() {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <Typography className={classes.typoHeader} variant="subtitle2">ตะกร้าสินค้า</Typography>
-                    <TableContainer className={classes.tableContainer}>
+                    <TableContainer component={Paper} className={classes.tableContainer}>
                       <Table stickyHeader>
                         <TableHead className={classes.tableHead}>
                           <TableRow>
-                            <TableCell width="5%">ID</TableCell>
-                            <TableCell width="15%">Name</TableCell>
-                            <TableCell width="5%">Unit Price</TableCell>
-                            <TableCell width="5%">Remain</TableCell>
-                            <TableCell width="5%">Quantity</TableCell>
-                            <TableCell width="5%">Total Price</TableCell>
-                            <TableCell width="5%"><Button disabled></Button></TableCell>
+                            <TableCell width="15%">ชื่อสินค้า</TableCell>
+                            <TableCell width="5%">ราคาต่อหน่วย</TableCell>
+                            <TableCell width="5%">สินค้าคงเหลือ</TableCell>
+                            <TableCell width="5%">จำนวน</TableCell>
+                            <TableCell width="5%">รวมทั้งหมด</TableCell>
+                            <TableCell width="5%"><IconButton disabled></IconButton></TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {orderItem.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: Partial<PurchaseOrderItemsInterface>, index) => {
                             return (
                               <TableRow key={index}>
-                                <TableCell width="5%">{row.ProductstockID}</TableCell>
                                 <TableCell width="15%">{productStocks.find(p => p.ID === row.ProductstockID)?.Product.Name}</TableCell>
-                                <TableCell width="5%">{productStocks.find(p => p.ID === row.ProductstockID)?.Product.Price.toFixed(2)}</TableCell>
+                                <TableCell width="5%">{productStocks.find(p => p.ID === row.ProductstockID)?.Product.Price.toLocaleString("th-Th", { style: "currency", currency: "THB"})}</TableCell>
                                 <TableCell width="5%">{productStocks.find(p => p.ID === row.ProductstockID)?.Amount_remain}</TableCell>
                                 <TableCell width="5%">
                                   <ButtonGroup>
@@ -387,8 +396,8 @@ export default function PurchaseOrder() {
                                     </Button>
                                   </ButtonGroup>
                                 </TableCell>
-                                <TableCell width="5%">{row.AmountPrice?.toFixed(2)}</TableCell>
-                                <TableCell width="5%"><Button onClick={() => removeFromCart(index)}><DeleteIcon /></Button></TableCell>
+                                <TableCell width="5%">{row.AmountPrice?.toLocaleString("th-Th", { style: "currency", currency: "THB"})}</TableCell>
+                                <TableCell width="5%"><IconButton size="small" onClick={() => removeFromCart(index)}><DeleteIcon /></IconButton></TableCell>
                               </TableRow>
                             );
                           })}
@@ -429,13 +438,13 @@ export default function PurchaseOrder() {
                   </Grid>
                   <Grid item xs={12}>
                     <FormControl fullWidth size="small" variant="outlined">
-                      <Typography className={classes.typoHeader} variant="subtitle2">กรุณากรอกโปรโมชั่น (ถ้ามี)</Typography>
+                      <Typography className={classes.typoHeader} variant="subtitle2">กรุณาเลือกโปรโมชั่น (ถ้ามี)</Typography>
                       <Select
                         value={order.PromotionID}
                         inputProps={{ name: "PromotionID" }}
                         onChange={handleChange}
                       >
-                        <MenuItem value={0} key={0} disabled>Select Promotion</MenuItem>
+                        <MenuItem value={0} key={0} disabled>โปรโมชั่น</MenuItem>
                         {promotions.map((promotion: ManagePromotionsInterface) => (
                           <MenuItem value={promotion.ID} key={promotion.ID}>{promotion?.NamePromotion.Name}</MenuItem>
                         ))}
@@ -450,7 +459,7 @@ export default function PurchaseOrder() {
                         inputProps={{ name: "PaymentMethodID" }}
                         onChange={handleChange}
                       >
-                        <MenuItem value={0} key={0} disabled>Select Method</MenuItem>
+                        <MenuItem value={0} key={0} disabled>วิธีการชำระเงิน</MenuItem>
                         {paymentMethods.map((payment: PaymentMethodsInterface) => (
                           <MenuItem value={payment.ID} key={payment.ID}>{payment.MethodName}</MenuItem>
                         ))}
@@ -480,20 +489,20 @@ export default function PurchaseOrder() {
                     <Typography className={classes.typoHeader} variant="subtitle2">ราคาสินค้า</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography align="right" variant="subtitle2">{subTotalPrice(orderItem)?.toFixed(2)} บาท</Typography>
+                    <Typography align="right" variant="subtitle2">{subTotalPrice(orderItem)?.toLocaleString("th-Th", { style: "currency", currency: "THB"})}</Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography className={classes.typoHeader} variant="subtitle2">ส่วนลดจากโปรโมชั่น</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography align="right" variant="subtitle2">{subPromotionDiscount(order.PromotionID)?.toFixed(2)} บาท</Typography>
+                    <Typography align="right" variant="subtitle2">{subPromotionDiscount(order.PromotionID)?.toLocaleString("th-Th", { style: "currency", currency: "THB"})}</Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography className={classes.typoHeader} variant="subtitle2">รวมทั้งหมด</Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography align="right" variant="subtitle2">
-                      {(Number(subTotalPrice(orderItem)) - Number(subPromotionDiscount(order.PromotionID))).toFixed(2)} บาท
+                      {(Number(subTotalPrice(orderItem)) + Number(subPromotionDiscount(order.PromotionID))).toLocaleString("th-Th", { style: "currency", currency: "THB"})}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -502,6 +511,15 @@ export default function PurchaseOrder() {
 
             {/* Bottom */}
             <Grid item xs={12} style={{ marginTop: ".5rem"}}>
+              <Button 
+                color="inherit" 
+                variant="contained" 
+                style={{float: "left"}}
+                component={RouterLink}
+                to="/"
+              >
+                กลับ
+              </Button>
               <Button 
                 color="primary" 
                 variant="contained" 
