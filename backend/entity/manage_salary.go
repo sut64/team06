@@ -27,9 +27,8 @@ type ManageSalary struct {
 	ManagerID *uint
 	Manager   Employee `gorm:"references:ID"`
 
-	// TODO: migrate with entity ManageWorkTime
-	// ManageWorkTimeID *uint
-	// ManageWorkTime   ManageWorkTime `gorm:"references:ID"`
+	ManageWorkTimeID *uint
+	ManageWorkTime   ManageWorkTime `gorm:"references:ID"`
 
 	AssessmentID *uint
 	Assessment   Assessment `gorm:"references:ID"`
