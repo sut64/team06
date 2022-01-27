@@ -146,7 +146,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	userDetail5 := UserDetail{
 		Prefix:      mrPrefix,
-		FirstName:   "เศรษกฤต",
+		FirstName:   "เศรษฐกฤษ",
 		LastName:    "โพธิ์แก้ว",
 		PersonalID:  "7885631455574",
 		PhoneNumber: "0842221960",
