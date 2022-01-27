@@ -40,6 +40,12 @@ func main() {
 			// ManageWorkSchedule Routes
 
 			// ProductStock Routes
+			protected.GET("/productstock", controller.ListProductstock)
+			protected.GET("/typeproduct", controller.ListTypeproduct)
+			protected.GET("/product", controller.ListProduct)
+			protected.GET("/shelfstore", controller.ListShelfstore)
+			protected.POST("/productstock", controller.CreateProductstock)
+			protected.POST("/product", controller.CreateProduct)
 
 			// ManagePromotion Routes
 			protected.GET("/listpromotion", controller.ListPromotion)

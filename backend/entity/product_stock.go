@@ -12,20 +12,20 @@ type Productstock struct {
 	Detail          string 
 
 	ProductID *uint
-	Product   Product
+	Product   Product	`gorm:"foreignKey:ProductID"`
 
 	ShelfstoreID *uint
-	Shelfstore   Shelfstore
+	Shelfstore   Shelfstore	`gorm:"foreignKey:ShelfstoreID"`
 
 	EmployeeID *uint
-	Employee   Employee
+	Employee   Employee		`gorm:"foreignKey:EmployeeID"`
 }
 
 type Shelfstore struct {
 	gorm.Model
 	Zone string
 
-	Productstock []Productstock
+	Productstock []Productstock	`gorm:"foreignKey:ProductstockID"`
 }
 
 type Product struct {
@@ -33,10 +33,10 @@ type Product struct {
 	Name  string
 	Price float32
 
-	Productstock []Productstock
+	Productstock []Productstock	`gorm:"foreignKey:ProductstockID"`
 
 	TypeproductID *uint
-	Typeproduct   Typeproduct
+	Typeproduct   Typeproduct	`gorm:"foreignKey:TypeproductID"`
 }
 
 
@@ -44,5 +44,5 @@ type Typeproduct struct {
 	gorm.Model
 	Name string
 	
-	Product []Product
+	Product []Product	`gorm:"foreignKey:ProductID"`
 }
