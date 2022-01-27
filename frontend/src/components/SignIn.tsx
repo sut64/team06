@@ -72,7 +72,7 @@ function SignIn() {
   const [error, setError] = useState(false);
 
   const login = () => {
-    const apiUrl = "http://localhost:8080/login";
+    const apiUrl = "http://127.0.0.1:8080/login";
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
