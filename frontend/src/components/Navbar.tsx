@@ -172,9 +172,21 @@ export default function NavBar() {
               ))}
             </List>
           </Drawer>
-          <Typography variant="h6" className={classes.title}>
-            ระบบ Farm Mart
-          </Typography>
+          <Box className={classes.title}>
+            <Button
+              component={RouterLink}
+              to="/" 
+              style={{ 
+                textTransform: "none", 
+                backgroundColor: "transparent", 
+                borderRadius: 0
+              }}
+            >
+              <Typography variant="h6" style={{ color: "white" }}>
+                ระบบ Farm Mart
+              </Typography>
+            </Button>
+          </Box>
           <IconButton 
             onClick={handleMenu}
             aria-haspopup="true"
@@ -205,7 +217,6 @@ export default function NavBar() {
                 {getRole()}
               </Typography>
             </Box>
-            {/*<MenuItem onClick={handleClose}><PersonIcon style={{ marginRight: ".5rem" }}/>Account</MenuItem>*/}
             <MenuItem onClick={SignOut}><ExitToAppIcon style={{ marginRight: ".5rem" }}/>Log out</MenuItem>
           </Menu>
         </Toolbar>
