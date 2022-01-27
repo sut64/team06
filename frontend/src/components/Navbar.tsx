@@ -78,6 +78,8 @@ export default function NavBar() {
   const employeeMenu = [
     { name: "จัดการสต็อกสินค้า", icon: <AssignmentIcon  />, path: "/employee/product-stock" },
     { name: "จัดการโปรโมชั่น", icon: <StorefrontIcon  />, path: "/employee/manage-promotion" },
+    { name: "ประวัติโปรโมชั่น", icon: <HistoryIcon />, path: "/employee/history-promotion" },
+
 
   ]
   const managerMenu = [
