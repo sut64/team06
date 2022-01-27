@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import NavBar from "./components/Navbar";
 
-// import PurchaseOrder from "./components/PurchaseOrder/PurchaseOrder";
-// import OrderHistory from "./components/PurchaseOrder/OrderHistory";
 import CreateProductstock from "./components/ProductStock/CreateProductstock";
 import Productstock from "./components/ProductStock/ProductStock";
 import CreateProduct from "./components/ProductStock/CreateProduct";
 import ManagePromotion from "./components/ManagePromotion/ManagePromotion";
 import Historypromotion from "./components/ManagePromotion/ShowPromotion";
+import PurchaseOrder from "./components/PurchaseOrder/PurchaseOrder";
+import OrderHistory from "./components/PurchaseOrder/OrderHistory";
 
 import Home from "./components/Home";
 import SignIn from "./components/SignIn";
@@ -33,10 +33,6 @@ export default function App() {
   if (!token) {
     return <SignIn />
   }
-
-  // console.log("app user ", user);
-  // const user: UsersInterface = JSON.parse(localStorage.getItem("user") || "");
-  // const role = localStorage.getItem("role");
  
   return (
     <Router>
@@ -49,21 +45,20 @@ export default function App() {
               {
                 role === "Member" && (
                   <>
-                    {/* <Route path="/member/order" element={<PurchaseOrder />} />
+                    {/* <Route path="/member/membership" element={<Test />} /> */}
+                    <Route path="/member/order" element={<PurchaseOrder />} />
                     <Route path="/member/order-history" element={<OrderHistory />} />
-                    <Route path="/member/membership" element={<Test />} /> */}
                   </>
                 )
               }
               {
                 (role === "Employee" && user?.Position.PositionName === "Employee") && (
                   <>
-                    {/* <Route path="/employee/product-stock" element={<Test />} /> */}
                     <Route path ="/employee/manage-promotion" element={<ManagePromotion />} />
                     <Route path ="/employee/history-promotion" element={<Historypromotion />} />
                     <Route path="/employee/Productstock" element={<Productstock />} />
                     <Route path="/employee/CreateProductstock" element={<CreateProductstock/>} />
-                    <Route path="employee/CreateProduct" element={<CreateProduct/>} />
+                    <Route path="/employee/CreateProduct" element={<CreateProduct/>} />
                   </>
                 )
               }

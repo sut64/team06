@@ -72,9 +72,9 @@ export default function NavBar() {
   }
 
   const customerMenu = [
+    { name: "สมาชิกพรีเมียม", icon: <PersonPinIcon  />, path: "/member/membership" },
     { name: "ชำระสินค้า", icon: <ShoppingCartIcon  />, path: "/member/order" },
     { name: "ประวัติการชำระสินค้า", icon: <HistoryIcon  />, path: "/member/order-history" },
-    { name: "สมาชิกพรีเมียม", icon: <PersonPinIcon  />, path: "/member/membership" },
   ]
   const employeeMenu = [
     { name: "จัดการสต็อกสินค้า", icon: <EditIcon />, path: "/employee/CreateProductstock" },
