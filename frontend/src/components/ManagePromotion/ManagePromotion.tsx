@@ -413,7 +413,7 @@ export default function ManagePromotion() {
           </Grid>
 
           <Grid item xs={6}>
-            <p>วันที่เเละเวลา</p>
+            <p>วันที่เเละเวลาที่บันทึกโปรโมชั่น</p>
 
             <form className={classes.container} noValidate>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>

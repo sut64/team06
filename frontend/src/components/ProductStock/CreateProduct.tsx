@@ -230,7 +230,7 @@ function CreateProduct() {
             <Grid item xs={12}>
               <Button
                 component={RouterLink}
-                to="/watch_videos"
+                to="/"
                 variant="contained"
               >
                 กลับ
