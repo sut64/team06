@@ -1,4 +1,4 @@
-export interface NamePromotionInterface{
+export interface NamePromotionsInterface{
     ID: number;
     Name: string;
     Detail: string;

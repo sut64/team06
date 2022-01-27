@@ -49,4 +49,6 @@ type ManagePromotion struct {
 
 	Discount       float64
 	Createdatetime time.Time
+
+	Orders []PurchaseOrder `gorm:"foreignKey:PromotionID"`
 }

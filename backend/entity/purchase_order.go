@@ -19,8 +19,8 @@ type PurchaseOrder struct {
 	MemberID *uint
 	Member   Member `gorm:"references:ID"`
 
-	// PromotionID	*uint
-	// Promotion	ManagePromotion	`gorm:"references:ID"`
+	PromotionID *uint
+	Promotion   ManagePromotion `gorm:"references:ID"`
 
 	PaymentMethodID *uint
 	PaymentMethod   PaymentMethod `gorm:"references:ID"`
@@ -39,8 +39,8 @@ type PurchaseOrderItem struct {
 	OrderID *uint
 	Order   PurchaseOrder `gorm:"references:ID"`
 
-	// ProductStockID	*uint
-	// ProductStock		ProductStock
+	ProductstockID *uint
+	Productstock   Productstock
 
 	OrderAmount uint
 	ItemPrice   float64

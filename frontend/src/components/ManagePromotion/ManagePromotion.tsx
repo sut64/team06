@@ -18,10 +18,10 @@ import { MenuItem } from "@material-ui/core";
 
 
 import { EmployeesInterface } from "../../models/IUser";
-import { ManagePromotionInterface } from "../../models/IManagePromotion";
-import { NamePromotionInterface } from "../../models/INamePromotion";
-import { PromotionPeriodInterface } from "../../models/IPromotionPeriod";
-import { PromotionTypeInterface } from "../../models/IPromotionType";
+import { ManagePromotionsInterface } from "../../models/IManagePromotion";
+import { NamePromotionsInterface } from "../../models/INamePromotion";
+import { PromotionPeriodsInterface } from "../../models/IPromotionPeriod";
+import { PromotionTypesInterface } from "../../models/IPromotionType";
 
 
 import { Details } from "@material-ui/icons";
@@ -56,11 +56,11 @@ export default function ManagePromotion() {
   const [user, setUser] = React.useState<Partial<EmployeesInterface>>({});
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [Promotion, setPromotion] = React.useState<Partial<ManagePromotionInterface>>({});
-  const [NamePromotion, setNamePromotion] = React.useState<NamePromotionInterface[]>([]);
-  const [PromotionPeriod, setPromotionPeriod] = React.useState<PromotionPeriodInterface[]>([]);
-  const [PromotionType, setPromotionType] = React.useState<PromotionTypeInterface[]>([]);
-  const [detail,setdetail] = React.useState<NamePromotionInterface>()
+  const [Promotion, setPromotion] = React.useState<Partial<ManagePromotionsInterface>>({});
+  const [NamePromotion, setNamePromotion] = React.useState<NamePromotionsInterface[]>([]);
+  const [PromotionPeriod, setPromotionPeriod] = React.useState<PromotionPeriodsInterface[]>([]);
+  const [PromotionType, setPromotionType] = React.useState<PromotionTypesInterface[]>([]);
+  const [detail,setdetail] = React.useState<NamePromotionsInterface>()
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
@@ -310,7 +310,7 @@ export default function ManagePromotion() {
                 <MenuItem value="" key={0}>
                   เลือกชื่อโปรโมชั่น
                 </MenuItem>
-                {NamePromotion.map((item: NamePromotionInterface) => (
+                {NamePromotion.map((item: NamePromotionsInterface) => (
                   <MenuItem value={item.ID} key={item.ID}>
                     {item.Name}
                   </MenuItem>
@@ -348,7 +348,7 @@ export default function ManagePromotion() {
                 <MenuItem value="" key={0}>
                   เลือกชนิดโปรโมชั่น
                 </MenuItem>
-                {PromotionType.map((item: PromotionTypeInterface) => (
+                {PromotionType.map((item: PromotionTypesInterface) => (
                   <MenuItem value={item.ID} key={item.Type}>
                     {item.Type}
                   </MenuItem>
@@ -402,7 +402,7 @@ export default function ManagePromotion() {
                 <MenuItem value="" key={0}>
                   เลือกช่วงเวลาโปรโมชั่น
                 </MenuItem>
-                {PromotionPeriod.map((item: PromotionPeriodInterface) => (
+                {PromotionPeriod.map((item: PromotionPeriodsInterface) => (
                   
                   <MenuItem value={item.ID} >
                      เวลา {moment(item.StartDate).format("DD/MM/YYYY hh:mm A")} ถึง {moment(item.EndDate).format("DD/MM/YYYY hh:mm A")}

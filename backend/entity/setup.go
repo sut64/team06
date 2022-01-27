@@ -34,7 +34,13 @@ func SetupDatabase() {
 		&BonusStatus{},
 		&ManageSalary{},
 
-		// ManageWorkSchedule
+		// ManageWorkTime
+		&Day{},
+		&Month{},
+		&Weekly{},
+		&WorkingTime{},
+		&ManageWorkTime{},
+		&Manager{},
 
 		// ProductStock
 		&Productstock{},

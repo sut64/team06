@@ -26,10 +26,19 @@ function ForDevLoginShow() {
         {open ? (<div>[ hide ]</div>) : (<div>[ show ]</div>)}
       </Button>
       {open && (
-        <div style={{textAlign: "center"}}>
-          *customer_code:foei, password:1234*
-          *employee_code:sakeet, password:5678*
-          *manager_code:cue, password:2468*
+        <div style={{textAlign: "left"}}>
+          <p>
+          <b>Manager</b><br/>
+          code: M6026400, password: M6026400<br/>
+          code: M6225605, password: M6225605<br/>
+          <b>Employee</b> <br/>
+          code: E6209568, password: E6209568<br/>
+          code: E6230258, password: E6230258<br/>
+          <b>Customer</b><br/>
+          code: C6220709, password: C6220709<br/>
+          code: C6111618, password: C6111618<br/>
+          </p>
+          
         </div>
       )}
     </>

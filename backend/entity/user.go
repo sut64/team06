@@ -58,8 +58,8 @@ type Member struct {
 	UserDetailID *uint
 	UserDetail   UserDetail `gorm:"references:ID"`
 
-	Orders        []PurchaseOrder `gorm:"foreignKey:MemberID"`
-	PremiumMember []PremiumMember `gorm:"foreignKey:MemberID"`
+	Orders         []PurchaseOrder `gorm:"foreignKey:MemberID"`
+	PremiumMembers []PremiumMember `gorm:"foreignKey:MemberID"`
 }
 
 type Employee struct {
@@ -76,6 +76,9 @@ type Employee struct {
 
 	SuperiorID *uint
 	Superior   *Employee `gorm:"references:ID"`
+
+	ManagePromotions []ManagePromotion `gorm:"foreignKey:EmployeeID"`
+	Productstocks    []Productstock    `gorm:"foreignKey:EmployeeID"`
 }
 
 type EmployeePosition struct {

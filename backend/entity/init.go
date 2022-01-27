@@ -71,23 +71,41 @@ func SetupIntoDatabase(db *gorm.DB) {
 	// UserLogin
 	/* **** Can edit this later **** */
 	login1 := UserLogin{
-		Username: "foei",
-		Password: SetupPasswordHash("1234"),
+		Username: "C6220709",
+		Password: SetupPasswordHash("C6220709"),
 		UserRole: customerRole,
 	}
 	login2 := UserLogin{
-		Username: "sakeet",
-		Password: SetupPasswordHash("5678"),
+		Username: "E6209568",
+		Password: SetupPasswordHash("E6209568"),
 		UserRole: employeeRole,
 	}
 	login3 := UserLogin{
-		Username: "cue",
-		Password: SetupPasswordHash("2468"),
+		Username: "E6230258",
+		Password: SetupPasswordHash("E6230258"),
+		UserRole: employeeRole,
+	}
+	login4 := UserLogin{
+		Username: "M6225605",
+		Password: SetupPasswordHash("M6225605"),
+		UserRole: employeeRole,
+	}
+	login5 := UserLogin{
+		Username: "C6111618",
+		Password: SetupPasswordHash("C6111618"),
+		UserRole: customerRole,
+	}
+	login6 := UserLogin{
+		Username: "M6026400",
+		Password: SetupPasswordHash("M6026400"),
 		UserRole: employeeRole,
 	}
 	db.Model(&UserLogin{}).Create(&login1)
 	db.Model(&UserLogin{}).Create(&login2)
 	db.Model(&UserLogin{}).Create(&login3)
+	db.Model(&UserLogin{}).Create(&login4)
+	db.Model(&UserLogin{}).Create(&login5)
+	db.Model(&UserLogin{}).Create(&login6)
 
 	// UserDetail
 	userDetail1 := UserDetail{
@@ -117,9 +135,39 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Address:     "หมู่บ้านสุรสวัสดิ์, นครราชสีมา",
 		Gender:      maleGender,
 	}
+	userDetail4 := UserDetail{
+		Prefix:      mrPrefix,
+		FirstName:   "ณัฐวัตร",
+		LastName:    "บุญโสดากร",
+		PersonalID:  "5236587453655",
+		PhoneNumber: "0615852336",
+		Address:     "หอพักสุรนิเวศ 7, มทส.",
+		Gender:      maleGender,
+	}
+	userDetail5 := UserDetail{
+		Prefix:      mrPrefix,
+		FirstName:   "เศรษฐกฤษ",
+		LastName:    "โพธิ์แก้ว",
+		PersonalID:  "7885631455574",
+		PhoneNumber: "0842221960",
+		Address:     "กรุงเทพมหานคร",
+		Gender:      maleGender,
+	}
+	userDetail6 := UserDetail{
+		Prefix:      missPrefix,
+		FirstName:   "ชัฎฌาฎา",
+		LastName:    "เรือนทอง",
+		PersonalID:  "4110075486354",
+		PhoneNumber: "0811917200",
+		Address:     "หอพักสุรนิเวศ 15, มทส.",
+		Gender:      femaleGender,
+	}
 	db.Model(&UserDetail{}).Create(&userDetail1)
 	db.Model(&UserDetail{}).Create(&userDetail2)
 	db.Model(&UserDetail{}).Create(&userDetail3)
+	db.Model(&UserDetail{}).Create(&userDetail4)
+	db.Model(&UserDetail{}).Create(&userDetail5)
+	db.Model(&UserDetail{}).Create(&userDetail6)
 
 	// EmployeePosition
 	employeePos := EmployeePosition{
@@ -140,27 +188,50 @@ func SetupIntoDatabase(db *gorm.DB) {
 		UserLogin:  login1,
 		UserDetail: userDetail1,
 	}
+	memberKobkab := Member{
+		UserLogin:  login5,
+		UserDetail: userDetail5,
+	}
 	db.Model(&Member{}).Create(&memberFoei)
+	db.Model(&Member{}).Create(&memberKobkab)
 	// Manager
-	managerCue := Employee{
-		UserLogin:  login3,
-		UserDetail: userDetail3,
+	managerMai := Employee{
+		UserLogin:  login4,
+		UserDetail: userDetail4,
 		Position:   managerPos,
 	}
-	db.Model(&Employee{}).Create(&managerCue)
+	managerEarn := Employee{
+		UserLogin:  login6,
+		UserDetail: userDetail6,
+		Position:   managerPos,
+	}
+	db.Model(&Employee{}).Create(&managerMai)
+	db.Model(&Employee{}).Create(&managerEarn)
 	// Employee
 	employeeSakeet := Employee{
 		UserLogin:  login2,
 		UserDetail: userDetail2,
 		Position:   employeePos,
-		Superior:   &managerCue,
+		Superior:   &managerMai,
+	}
+	employeeCue := Employee{
+		UserLogin:  login3,
+		UserDetail: userDetail3,
+		Position:   employeePos,
+		Superior:   &managerEarn,
 	}
 	db.Model(&Employee{}).Create(&employeeSakeet)
+	db.Model(&Employee{}).Create(&employeeCue)
 
 	//////////////////////////////////////
 	//		 MANAGEPROMOTION		   //
 	/////////////////////////////////////
 
+	var PromotionPeriod0 = PromotionPeriod{
+		StartDate: time.Now(),
+		EndDate:   time.Now(),
+	}
+	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod0)
 	var PromotionPeriod1 = PromotionPeriod{
 		StartDate: time.Date(2022, 1, 1, 0, 0, 0, 0, time.Local),
 		EndDate:   time.Date(2022, 2, 1, 0, 0, 0, 0, time.Local),
@@ -184,6 +255,11 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod4)
 
+	var NamePromotion0 = NamePromotion{
+		Name:   "ไม่ใช้โปรโมชั่น",
+		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
+	}
+	db.Model(&NamePromotion{}).Create(&NamePromotion0)
 	var NamePromotion1 = NamePromotion{
 		Name:   "FLASH DEAL",
 		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
@@ -211,6 +287,15 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&PromotionType{}).Create(&PromotionType2)
 
+	ManagePromotion0 := ManagePromotion{
+		PromotionCode:  "A0000",
+		Employee:       employeeSakeet,
+		NamePromotion:  NamePromotion0,
+		MinPrice:       0,
+		Discount:       0,
+		Createdatetime: time.Now(),
+	}
+	db.Model(&ManagePromotion{}).Create(&ManagePromotion0)
 	ManagePromotion1 := ManagePromotion{
 		Employee:        employeeSakeet,
 		PromotionCode:   "A1500",
@@ -223,11 +308,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&ManagePromotion{}).Create(&ManagePromotion1)
 
-	
 	/////////////////////////////////////
 	//		    Productstock		   //
 	/////////////////////////////////////
-
 
 	typeproduct1 := Typeproduct{
 		Name: "Snack",
@@ -240,29 +323,46 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&Typeproduct{}).Create(&typeproduct2)
 
 	product1 := Product{
-		Name: "Lays",
-		Price: 20.50,
+		Name:        "Lays",
+		Price:       20.50,
 		Typeproduct: typeproduct1,
 	}
 	db.Model(&Product{}).Create(&product1)
 
-	shelfstore1:= Shelfstore{
+	shelfstore1 := Shelfstore{
 		Zone: "A",
 	}
 	db.Model(&Shelfstore{}).Create(&shelfstore1)
 
-	shelfstore2:= Shelfstore{
+	shelfstore2 := Shelfstore{
 		Zone: "B",
 	}
 	db.Model(&Shelfstore{}).Create(&shelfstore2)
 
 	productstock1 := Productstock{
-		Amount_remain: 20,
-		Update_datetime:time.Now(),
-		Detail: "snack for kid",
-		Product: product1,
-		Employee: employeeSakeet,
-		Shelfstore: shelfstore1,
+		Amount_remain:   20,
+		Update_datetime: time.Now(),
+		Detail:          "snack for kid",
+		Product:         product1,
+		Employee:        employeeSakeet,
+		Shelfstore:      shelfstore1,
 	}
 	db.Model(&Productstock{}).Create(&productstock1)
+
+	/////////////////////////////////////
+	//		    PurchaseOrder		   //
+	/////////////////////////////////////
+	cashMethod := PaymentMethod{
+		MethodName: "เงินสด",
+	}
+	mobileMethod := PaymentMethod{
+		MethodName: "Mobile banking",
+	}
+	bankMethod := PaymentMethod{
+		MethodName: "หักผ่านบัญชี",
+	}
+	db.Model(&PaymentMethod{}).Create(&cashMethod)
+	db.Model(&PaymentMethod{}).Create(&mobileMethod)
+	db.Model(&PaymentMethod{}).Create(&bankMethod)
+
 }

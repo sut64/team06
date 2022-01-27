@@ -72,9 +72,9 @@ export default function NavBar() {
   }
 
   const customerMenu = [
+    { name: "สมาชิกพรีเมียม", icon: <PersonPinIcon  />, path: "/member/membership" },
     { name: "ชำระสินค้า", icon: <ShoppingCartIcon  />, path: "/member/order" },
     { name: "ประวัติการชำระสินค้า", icon: <HistoryIcon  />, path: "/member/order-history" },
-    { name: "สมาชิกพรีเมียม", icon: <PersonPinIcon  />, path: "/member/membership" },
   ]
   const employeeMenu = [
     { name: "จัดการสต็อกสินค้า", icon: <EditIcon />, path: "/employee/CreateProductstock" },
@@ -199,7 +199,7 @@ export default function NavBar() {
           >
             <Box className={classes.menuBox}>
               <Typography variant="subtitle1" noWrap>
-                <b>{user?.UserDetail.FirstName} {user?.UserDetail.LastName}</b>
+                <b>{user?.UserDetail.Prefix.PrefixName}{user?.UserDetail.FirstName} {user?.UserDetail.LastName}</b>
               </Typography>
               <Typography variant="body2" color="inherit" noWrap>
                 {getRole()}
