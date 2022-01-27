@@ -15,6 +15,10 @@ import OrderHistory from "./components/PurchaseOrder/OrderHistory";
 import ScheduleCreate from "./components/ManageWorktime/ScheduleCreate";
 import ScheduleTable from "./components/ManageWorktime/ScheduleTable";
 
+// Manage Salary
+import SalaryCreate from "./components/ManageSalary/ManageSalary";
+import SalaryDetail from "./components/ManageSalary/ManageSalaryDetail";
+
 import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 
@@ -69,7 +73,8 @@ export default function App() {
               {
                 (role === "Employee" && user?.Position.PositionName === "Manager") && (
                   <>
-                    {/* <Route path="/manager/manage-salary" element={<Test />} /> */}
+                    <Route path="/manager/manage-salary/create" element={<SalaryCreate />} />
+                    <Route path="/manager/manage-salary/detail" element={<SalaryDetail />} />
                     <Route path="/manager/manage-schedule/create" element={<ScheduleCreate />} />
                     <Route path="/manager/manage-schedule/table" element={<ScheduleTable />} />
                   </>

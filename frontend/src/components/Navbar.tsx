@@ -86,7 +86,7 @@ export default function NavBar() {
 
   ]
   const managerMenu = [
-    { name: "จัดการเงินเดือนพนักงาน", icon: <AssignmentIcon  />, path: "/manager/manage-salary" },
+    { name: "จัดการเงินเดือนพนักงาน", icon: <AssignmentIcon  />, path: "/manager/manage-salary/create" },
     { name: "จัดการตารางงานพนักงาน", icon: <AssignmentIcon  />, path: "/manager/manage-schedule/create" },
   ]
   

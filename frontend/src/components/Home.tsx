@@ -13,6 +13,7 @@ import ShoppingCartIcon from  "@material-ui/icons/ShoppingCart";
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import StoreIcon from '@material-ui/icons/Store';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { UsersInterface } from "../models/ISignIn";
 
 
@@ -334,7 +335,7 @@ export default function Home() {
                       <Grid container>
                         <Grid item xs={4} style={{ paddingRight: ".5rem"}}>
                           <Box textAlign="center" style={{ width: "100%", height: "100%" }}  >
-                            <ControlPointIcon  className={classes.subsystemIcon} />
+                            <AttachMoneyIcon  className={classes.subsystemIcon} />
                           </Box>
                         </Grid>
                         <Grid item xs={8}>
@@ -343,16 +344,20 @@ export default function Home() {
                             fullWidth 
                             variant="contained" 
                             className={classes.managerButton}
+                            component={RouterLink}
+                            to="/manager/manage-salary/create"
                           >
-                            ---
+                            จัดการเงินเดือนพนักงาน
                           </Button>
                           <Button 
                             disabled={!checkRole("Manager")} 
                             fullWidth 
                             variant="contained" 
                             className={classes.managerButton}
+                            component={RouterLink}
+                            to="/manager/manage-salary/detail"
                           >
-                            ---
+                            รายละเอียดเงินเดือนพนักงาน
                           </Button>
                         </Grid>
                       </Grid>
