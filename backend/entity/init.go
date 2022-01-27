@@ -161,6 +161,11 @@ func SetupIntoDatabase(db *gorm.DB) {
 	//		 MANAGEPROMOTION		   //
 	/////////////////////////////////////
 
+	var PromotionPeriod0 = PromotionPeriod{
+		StartDate: time.Now(),
+		EndDate:   time.Now(),
+	}
+	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod0)
 	var PromotionPeriod1 = PromotionPeriod{
 		StartDate: time.Date(2022, 1, 1, 0, 0, 0, 0, time.Local),
 		EndDate:   time.Date(2022, 2, 1, 0, 0, 0, 0, time.Local),
@@ -184,6 +189,11 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod4)
 
+	var NamePromotion0 = NamePromotion{
+		Name:   "ไม่ใช้โปรโมชั่น",
+		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
+	}
+	db.Model(&NamePromotion{}).Create(&NamePromotion0)
 	var NamePromotion1 = NamePromotion{
 		Name:   "FLASH DEAL",
 		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
@@ -211,6 +221,15 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&PromotionType{}).Create(&PromotionType2)
 
+	ManagePromotion0 := ManagePromotion{
+		PromotionCode:  "A0000",
+		Employee:       employeeSakeet,
+		NamePromotion:  NamePromotion0,
+		MinPrice:       0,
+		Discount:       0,
+		Createdatetime: time.Now(),
+	}
+	db.Model(&ManagePromotion{}).Create(&ManagePromotion0)
 	ManagePromotion1 := ManagePromotion{
 		Employee:        employeeSakeet,
 		PromotionCode:   "A1500",

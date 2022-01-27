@@ -168,7 +168,7 @@ export default function PurchaseOrder() {
     let data = {
       MemberID: user?.ID,
       PaymentMethodID: order.PaymentMethodID,
-      PromotionID: order.PromotionID,
+      PromotionID: order.PromotionID === 0 ? 1 : order.PromotionID,
       OrderTime: orderTime,
       DeliveryAddress: order.DeliveryAddress,
       OrderDiscount: subPromotionDiscount(order.PromotionID),
@@ -294,7 +294,7 @@ export default function PurchaseOrder() {
   // DEBUG CONSOLE MONITOR
   // console.log("user: ", user);
   // console.log("orderItem: ", orderItem);
-  // console.log("order: ", order);
+  console.log("order: ", order);
 
   return (
     <div>
@@ -435,7 +435,7 @@ export default function PurchaseOrder() {
                         inputProps={{ name: "PromotionID" }}
                         onChange={handleChange}
                       >
-                        <MenuItem value={0} key={0}>Select Promotion</MenuItem>
+                        <MenuItem value={0} key={0} disabled>Select Promotion</MenuItem>
                         {promotions.map((promotion: ManagePromotionsInterface) => (
                           <MenuItem value={promotion.ID} key={promotion.ID}>{promotion?.NamePromotion.Name}</MenuItem>
                         ))}
@@ -450,7 +450,7 @@ export default function PurchaseOrder() {
                         inputProps={{ name: "PaymentMethodID" }}
                         onChange={handleChange}
                       >
-                        <MenuItem value={0} key={0}>Select Method</MenuItem>
+                        <MenuItem value={0} key={0} disabled>Select Method</MenuItem>
                         {paymentMethods.map((payment: PaymentMethodsInterface) => (
                           <MenuItem value={payment.ID} key={payment.ID}>{payment.MethodName}</MenuItem>
                         ))}
