@@ -8,9 +8,6 @@ import (
 
 type PremiumMember struct {
 	gorm.Model
-	PremiumMemberID string    
-	CreateAt        time.Time 
-	Point           int    
 
 	MemberID *uint
 	Member   Member `gorm:"references:ID"`
@@ -20,10 +17,15 @@ type PremiumMember struct {
 
 	PremiumMemberPeriodID *uint
 	PremiumMemberPeriod   PremiumMemberPeriod `gorm:"references:ID"`
+
+	PremiumMemberID string    
+	CreateAt        time.Time 
+	Point           int 
 }
 
 type MemberClass struct {
 	gorm.Model
+	
 	Name   string
 	Detail string
 
@@ -32,7 +34,7 @@ type MemberClass struct {
 
 type PremiumMemberPeriod struct {
 	gorm.Model
-	Period string
-
+	Period   string
+	
 	PremiumMember []PremiumMember `gorm:"foreignKey:PremiumMemberPeriodID"`
 }

@@ -522,4 +522,38 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&ManageSalary{}).Create(&MS_01)
 	db.Model(&ManageSalary{}).Create(&MS_02)
 
+		/////////////////////////////////////
+	//		    PremiumMember		   //
+	/////////////////////////////////////
+	period1 := PremiumMemberPeriod{
+		Period: "one month",
+	}
+	period2 := PremiumMemberPeriod{
+		Period: "two month",
+	}
+	period3 := PremiumMemberPeriod{
+		Period: "tre month",
+	}
+	class1 := MemberClass{
+		Name: "Bronz",
+	}
+	class2 := MemberClass{
+		Name: "Silver",
+	}
+	class3 := MemberClass{
+		Name: "Gold",
+	}
+	db.Model(&PremiumMemberPeriod{}).Create(&period1) 
+	db.Model(&PremiumMemberPeriod{}).Create(&period2)
+	db.Model(&PremiumMemberPeriod{}).Create(&period3)
+	db.Model(&MemberClass{}).Create(&class1)
+	db.Model(&MemberClass{}).Create(&class2)
+	db.Model(&MemberClass{}).Create(&class3)
+	db.Model(&PremiumMember{}).Create(&PremiumMember{
+		PremiumMemberID:  "P1234567",
+		CreateAt: time.Now(),
+		Point: 100,
+		MemberClass: class1 ,
+		PremiumMemberPeriod: period1,
+	})
 }
