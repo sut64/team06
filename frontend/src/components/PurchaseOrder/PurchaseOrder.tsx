@@ -279,7 +279,7 @@ export default function PurchaseOrder() {
   // PROMOTION
   const subPromotionDiscount = (PromotionID: number | undefined) => {
     if (PromotionID !== 0) {
-      return (promotions.find(p => p.ID === PromotionID)?.Discount || 0) * -1 ;
+      return promotions.find(p => p.ID === PromotionID)?.Discount;
     }
     return Number(0);
   }
@@ -495,14 +495,14 @@ export default function PurchaseOrder() {
                     <Typography className={classes.typoHeader} variant="subtitle2">ส่วนลดจากโปรโมชั่น</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography align="right" variant="subtitle2">{subPromotionDiscount(order.PromotionID)?.toLocaleString("th-Th", { style: "currency", currency: "THB"})}</Typography>
+                    <Typography align="right" variant="subtitle2">{subPromotionDiscount(order.PromotionID) === 0 ? "" : "-"}{subPromotionDiscount(order.PromotionID)?.toLocaleString("th-Th", { style: "currency", currency: "THB"})}</Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography className={classes.typoHeader} variant="subtitle2">รวมทั้งหมด</Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography align="right" variant="subtitle2">
-                      {(Number(subTotalPrice(orderItem)) + Number(subPromotionDiscount(order.PromotionID))).toLocaleString("th-Th", { style: "currency", currency: "THB"})}
+                      {(Number(subTotalPrice(orderItem)) - Number(subPromotionDiscount(order.PromotionID))).toLocaleString("th-Th", { style: "currency", currency: "THB"})}
                     </Typography>
                   </Grid>
                 </Grid>

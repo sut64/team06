@@ -98,7 +98,7 @@ function ListOrderDetails(ord: OrderListProps) {
       </Grid>
       <Grid item xs={6}>
         <Typography variant="subtitle2" align="right" style={{ color: "red"}}>
-          {ord.order.OrderDiscount.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
+          {ord.order.OrderDiscount === 0 ? "" : "-"}{ord.order.OrderDiscount.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
         </Typography>
       </Grid>
       <Grid item xs={6}>
