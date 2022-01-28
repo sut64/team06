@@ -73,7 +73,7 @@ func Login(c *gin.Context) {
 	if user.UserRole.RoleName == memberRole.RoleName {
 		// Member
 		var member entity.Member
-		if tx := entity.DB().Preload("UserDetail").Preload("UserDetail.Prefix").Preload("UserDetail.Gender").Preload("PremiumMembers").
+		if tx := entity.DB().Preload("UserDetail").Preload("UserDetail.Prefix").Preload("UserDetail.Gender").Preload("PremiumMember").
 			Raw("SELECT * FROM members WHERE user_login_id = ?", user.ID).Find(&member); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "member not found"})
 			return

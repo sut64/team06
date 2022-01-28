@@ -132,19 +132,9 @@ export default function Home() {
                             variant="contained" 
                             className={classes.memberButton}
                             component={RouterLink}
-                            to=""
+                            to="/member/membership"
                           >
-                            ----
-                          </Button>
-                          <Button 
-                            disabled={!checkRole("Member")} 
-                            fullWidth 
-                            variant="contained" 
-                            className={classes.memberButton}
-                            component={RouterLink}
-                            to=""
-                          >
-                            ----
+                            สมัครสมาชิกพรีเมียม
                           </Button>
                         </Grid>
                       </Grid>
@@ -255,9 +245,9 @@ export default function Home() {
                             variant="contained" 
                             className={classes.employeeButton}
                             component={RouterLink}
-                            to="/employee/CreateProductstock"
+                            to="/employee/CreateProduct"
                           >
-                            จัดการสต็อกสินค้า
+                            จัดการสินค้า
                           </Button>
                           <Button 
                             disabled={!checkRole("Employee")} 
@@ -265,9 +255,9 @@ export default function Home() {
                             variant="contained" 
                             className={classes.employeeButton}
                             component={RouterLink}
-                            to="/employee/CreateProduct"
+                            to="/employee/CreateProductstock"
                           >
-                            จัดการสินค้า
+                            จัดการสต็อกสินค้า
                           </Button>
                           <Button 
                             disabled={!checkRole("Employee")} 

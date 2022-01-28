@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -17,7 +17,7 @@ import { Snackbar } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 
 
-import { EmployeesInterface } from "../../models/IUser";
+// import { EmployeesInterface } from "../../models/IUser";
 import { ManagePromotionsInterface } from "../../models/IManagePromotion";
 import { NamePromotionsInterface } from "../../models/INamePromotion";
 import { PromotionPeriodsInterface } from "../../models/IPromotionPeriod";
@@ -53,10 +53,16 @@ export default function ManagePromotion() {
     new Date()
   );
 
-  const [user, setUser] = React.useState<Partial<EmployeesInterface>>({});
+  // const [user, setUser] = React.useState<Partial<EmployeesInterface>>({});
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [Promotion, setPromotion] = React.useState<Partial<ManagePromotionsInterface>>({});
+  const [Promotion, setPromotion] = React.useState<Partial<ManagePromotionsInterface>>({
+    NamePromotionID: 0,
+    PromotionPeriodID: 0,
+    PromotionTypeID: 0,
+    MinPrice: 0,
+    Discount: 0,
+  });
   const [NamePromotion, setNamePromotion] = React.useState<NamePromotionsInterface[]>([]);
   const [PromotionPeriod, setPromotionPeriod] = React.useState<PromotionPeriodsInterface[]>([]);
   const [PromotionType, setPromotionType] = React.useState<PromotionTypesInterface[]>([]);
@@ -78,7 +84,7 @@ export default function ManagePromotion() {
   ) => {
     const id = event.target.id as keyof typeof Promotion;
     const { value } = event.target;
-    setPromotion({ ...Promotion, [id]: Number(value) });
+    setPromotion({ ...Promotion, [id]: value === "" ? "" : Number(value) });
   };
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
@@ -93,8 +99,8 @@ export default function ManagePromotion() {
       setdetail(NamePromotion.find((r) => r.ID === event.target.value));
     }
   };
-  const [isItemEmpty, setIsItemEmpty] = useState<boolean>(false);
-  const [msg, setMsg] = useState<string>("");
+  // const [isItemEmpty, setIsItemEmpty] = useState<boolean>(false);
+  // const [msg, setMsg] = useState<string>("");
 
 
   function submit() {
@@ -116,13 +122,12 @@ export default function ManagePromotion() {
       PromotionPeriodID: Promotion?.PromotionPeriodID,
       NamePromotionID: Promotion?.NamePromotionID,
       PromotionTypeID: Promotion?.PromotionTypeID,
-      MinPrice: Promotion?.MinPrice,
-      Quantity: Promotion?.Quantity,
-      Discount: Promotion?.Discount,
+      MinPrice: typeof Promotion?.MinPrice === "string" ? (Promotion?.MinPrice === "" ? 0 : Promotion?.MinPrice) : Promotion?.MinPrice,
+      Discount: typeof Promotion?.Discount === "string" ? (Promotion?.Discount === "" ? 0 : Promotion?.Discount) : Promotion?.Discount,
       PromotionCode: Promotion?.PromotionCode,
       Createdatetime: selectedDate,
     }; 
-
+    console.log(data);
     const apiUrl = "http://localhost:8080/createpromotion";
     const requestOptions = {
       method: "POST",
@@ -219,7 +224,7 @@ export default function ManagePromotion() {
       });
   };
 
-  console.log(PromotionPeriod);
+  console.log(Promotion);
 
   useEffect(() => {
     getNamePromotion();
@@ -305,9 +310,9 @@ export default function ManagePromotion() {
                 inputProps={{
                   name: "NamePromotionID",
                 }}
-                defaultValue={""}
+                defaultValue={0}
               >
-                <MenuItem value="" key={0}>
+                <MenuItem value={0} key={0}>
                   เลือกชื่อโปรโมชั่น
                 </MenuItem>
                 {NamePromotion.map((item: NamePromotionsInterface) => (
@@ -343,9 +348,9 @@ export default function ManagePromotion() {
                 inputProps={{
                   name: "PromotionTypeID",
                 }}
-                defaultValue={""}
+                defaultValue={0}
               >
-                <MenuItem value="" key={0}>
+                <MenuItem value={0} key={0}>
                   เลือกชนิดโปรโมชั่น
                 </MenuItem>
                 {PromotionType.map((item: PromotionTypesInterface) => (
@@ -363,10 +368,11 @@ export default function ManagePromotion() {
               fullWidth
               id="MinPrice"
               type="number"
-              inputProps={{ name: "MinPrice" }}
-              value={Promotion.MinPrice || NaN}
+              inputProps={{ name: "MinPrice", min: 0 }}
+              value={Promotion.MinPrice}
               onChange={handleInputChange}
               label=""
+              defaultValue={0}
               variant="outlined"
               //className ={classes.fullbox}
             />
@@ -379,10 +385,11 @@ export default function ManagePromotion() {
               fullWidth
               id="Discount"
               type="number"
-              inputProps={{ name: "Discount" }}
-              value={Promotion.Discount || NaN}
+              inputProps={{ name: "Discount", min: 0 }}
+              value={Promotion.Discount}
               onChange={handleInputChange}
               label=""
+              defaultValue={0}
               variant="outlined"
               //className ={classes.fullbox}
             />
@@ -397,14 +404,14 @@ export default function ManagePromotion() {
                 inputProps={{
                   name: "PromotionPeriodID",
                 }}
-                defaultValue={""}
+                defaultValue={0}
               >
-                <MenuItem value="" key={0}>
+                <MenuItem value={0} key={0}>
                   เลือกช่วงเวลาโปรโมชั่น
                 </MenuItem>
                 {PromotionPeriod.map((item: PromotionPeriodsInterface) => (
                   
-                  <MenuItem value={item.ID} >
+                  <MenuItem value={item.ID}  key={item.ID}>
                      เวลา {moment(item.StartDate).format("DD/MM/YYYY hh:mm A")} ถึง {moment(item.EndDate).format("DD/MM/YYYY hh:mm A")}
                   </MenuItem> 
                 ))}
