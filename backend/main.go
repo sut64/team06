@@ -75,6 +75,13 @@ func main() {
 			protected.POST("/createpromotion", controller.CreateManagePromotion)
 
 			// PremiumMember Routes
+			protected.GET("/premium_member_period", controller.ListPremiumMemberPeriod)
+			protected.GET("/member_class", controller.ListMemberClass)
+			protected.GET("/premium_members",controller.ListPremiumMember)
+			protected.GET("/premium_member/:id", controller.GetPremiumMember)
+			protected.POST("/premium_members", controller.CreatePremiumMember)
+			protected.PATCH("/premium_member", controller.UpdatePremiumMember)
+			//protected.DELETE("/premium_member/:id", controller.DeletePremiummember)
 
 			// PurchaseOrder Routes
 			protected.GET("/payment-methods", controller.ListPaymentMethod)

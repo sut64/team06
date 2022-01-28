@@ -19,6 +19,9 @@ import ScheduleTable from "./components/ManageWorktime/ScheduleTable";
 import SalaryCreate from "./components/ManageSalary/ManageSalary";
 import SalaryDetail from "./components/ManageSalary/ManageSalaryDetail";
 
+//PremiumMember
+import PremiumMember from "./components/PremiumMember/PremiumMember"
+
 import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 
@@ -53,7 +56,7 @@ export default function App() {
               {
                 role === "Member" && (
                   <>
-                    {/* <Route path="/member/membership" element={<Test />} /> */}
+                    <Route path="/member/membership" element={<PremiumMember />} /> 
                     <Route path="/member/order" element={<PurchaseOrder />} />
                     <Route path="/member/order-history" element={<OrderHistory />} />
                   </>

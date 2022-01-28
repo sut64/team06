@@ -59,7 +59,7 @@ type Member struct {
 	UserDetail   UserDetail `gorm:"references:ID"`
 
 	Orders         []PurchaseOrder `gorm:"foreignKey:MemberID"`
-	PremiumMembers []PremiumMember `gorm:"foreignKey:MemberID"`
+	PremiumMember  []PremiumMember `gorm:"foreignKey:MemberID"`
 }
 
 type Employee struct {
