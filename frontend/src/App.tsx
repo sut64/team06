@@ -3,11 +3,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import NavBar from "./components/Navbar";
 
+// Product stock
 import CreateProductstock from "./components/ProductStock/CreateProductstock";
 import Productstock from "./components/ProductStock/ProductStock";
 import CreateProduct from "./components/ProductStock/CreateProduct";
+
+// Manage promotion
 import ManagePromotion from "./components/ManagePromotion/ManagePromotion";
 import Historypromotion from "./components/ManagePromotion/ShowPromotion";
+
+// Purchase order
 import PurchaseOrder from "./components/PurchaseOrder/PurchaseOrder";
 import OrderHistory from "./components/PurchaseOrder/OrderHistory";
 
@@ -19,7 +24,7 @@ import ScheduleTable from "./components/ManageWorktime/ScheduleTable";
 import SalaryCreate from "./components/ManageSalary/ManageSalary";
 import SalaryDetail from "./components/ManageSalary/ManageSalaryDetail";
 
-//PremiumMember
+// Premium member
 import PremiumMember from "./components/PremiumMember/PremiumMember"
 
 import Home from "./components/Home";
