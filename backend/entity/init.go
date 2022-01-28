@@ -323,11 +323,25 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&Typeproduct{}).Create(&typeproduct2)
 
 	product1 := Product{
-		Name:        "Lays",
-		Price:       20.50,
+		Name:        "Testo 50g",
+		Price:       20,
 		Typeproduct: typeproduct1,
 	}
 	db.Model(&Product{}).Create(&product1)
+
+	product2 := Product{
+		Name:        "Coconut 1pc",
+		Price:       29,
+		Typeproduct: typeproduct2,
+	}
+	db.Model(&Product{}).Create(&product2)
+
+	product3 := Product{
+		Name:        "Fresh Medium No. 3-4 Fresh Egg 30pcs",
+		Price:       110,
+		Typeproduct: typeproduct2,
+	}
+	db.Model(&Product{}).Create(&product3)
 
 	shelfstore1 := Shelfstore{
 		Zone: "A",
