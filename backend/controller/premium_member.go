@@ -44,7 +44,6 @@ func CreatePremiumMember(c *gin.Context) {
 		return
 	}
 
-	
 	// find memberClass
 	if tx := entity.DB().Where("id = ?", premiumMember.MemberClassID).First(&memberClass); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Member class not found"})
@@ -59,12 +58,12 @@ func CreatePremiumMember(c *gin.Context) {
 
 	// create premiumMember
 	pm := entity.PremiumMember{
-		Member:  member,             // reference with Entity Member
-		MemberClass:       memberClass,                  // reference with Entity MemberClass
-		PremiumMemberPeriod:    premiumMemberPeriod,               // reference with Entity PremiumMemberID
-		PremiumMemberID: premiumMember.PremiumMemberID,	// set field PremiumMemberID
-		CreateAt: premiumMember.CreateAt, // set field CreateAt
-		Point: premiumMember.Point,		// set fiel Point
+		Member:              member,                        // reference with Entity Member
+		MemberClass:         memberClass,                   // reference with Entity MemberClass
+		PremiumMemberPeriod: premiumMemberPeriod,           // reference with Entity PremiumMemberPeriod
+		PremiumMemberID:     premiumMember.PremiumMemberID, // set field PremiumMemberID
+		CreateAt:            premiumMember.CreateAt,        // set field CreateAt
+		Point:               premiumMember.Point,           // set field Point
 	}
 
 	// save
@@ -72,7 +71,7 @@ func CreatePremiumMember(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": pm})	
+	c.JSON(http.StatusOK, gin.H{"data": pm})
 }
 
 // GET /premiumMember/:id

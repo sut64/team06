@@ -23,19 +23,19 @@ func CreateManagePromotion(c *gin.Context) {
 
 	// 9: ค้นหา namePromotion ด้วย id
 	if tx := entity.DB().Where("id = ?", managepromotion.NamePromotionID).First(&namepromotion); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Namepromotion not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "name promotion not found"})
 		return
 	}
 
 	// 10: ค้นหา promotionperiod ด้วย id
 	if tx := entity.DB().Where("id = ?", managepromotion.PromotionPeriodID).First(&promotionperiod); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Promotionperiod not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "promotion period not found"})
 		return
 	}
 
 	// 11: ค้นหา promotiontype ด้วย id
 	if tx := entity.DB().Where("id = ?", managepromotion.PromotionTypeID).First(&promotiontype); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Promotiontype not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "promotion type not found"})
 		return
 	}
 
@@ -68,6 +68,7 @@ func ListPromotion(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": managepromotion})
 }
 
+// GET /getnamepromotion
 func GetNamePromotion(c *gin.Context) {
 	var name []entity.NamePromotion
 	if err := entity.DB().Raw("SELECT * FROM name_promotions").Scan(&name).Error; err != nil {
@@ -78,6 +79,7 @@ func GetNamePromotion(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": name})
 }
 
+// GET /getpromotionperiod
 func GetPromotionperiod(c *gin.Context) {
 	var promotionperiod []entity.PromotionPeriod
 	if err := entity.DB().Raw("SELECT * FROM promotion_periods").Scan(&promotionperiod).Error; err != nil {
@@ -88,6 +90,7 @@ func GetPromotionperiod(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": promotionperiod})
 }
 
+// GET /getpromotiontype
 func GetPromotionType(c *gin.Context) {
 	var promotiontype []entity.PromotionType
 	if err := entity.DB().Raw("SELECT * FROM promotion_types").Scan(&promotiontype).Error; err != nil {

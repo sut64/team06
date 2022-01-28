@@ -13,9 +13,9 @@ func SetupPasswordHash(pwd string) string {
 }
 
 func SetupIntoDatabase(db *gorm.DB) {
-	/////////////////////////////////////
-	//				USER			   //
-	/////////////////////////////////////
+	// +------------------------------+
+	// |            USER              |
+	// +------------------------------+
 	// UserRole
 	customerRole := UserRole{
 		RoleName:   "Member",
@@ -69,7 +69,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&UserPrefix{}).Create(&missPrefix)
 
 	// UserLogin
-	/* **** Can edit this later **** */
 	login1 := UserLogin{
 		Username: "C6220709",
 		Password: SetupPasswordHash("C6220709"),
@@ -194,6 +193,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&Member{}).Create(&memberFoei)
 	db.Model(&Member{}).Create(&memberKobkab)
+
 	// Manager
 	managerMai := Employee{
 		UserLogin:  login4,
@@ -207,6 +207,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&Employee{}).Create(&managerMai)
 	db.Model(&Employee{}).Create(&managerEarn)
+
 	// Employee
 	employeeSakeet := Employee{
 		UserLogin:  login2,
@@ -223,10 +224,11 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&Employee{}).Create(&employeeSakeet)
 	db.Model(&Employee{}).Create(&employeeCue)
 
-	//////////////////////////////////////
-	//		 MANAGEPROMOTION		   //
-	/////////////////////////////////////
+	// +------------------------------+
+	// |       MANAGE PROMOTION       |
+	// +------------------------------+
 
+	// PromotionPeriod
 	var PromotionPeriod0 = PromotionPeriod{
 		StartDate: time.Now(),
 		EndDate:   time.Now(),
@@ -242,24 +244,23 @@ func SetupIntoDatabase(db *gorm.DB) {
 		EndDate:   time.Date(2022, 4, 20, 0, 0, 0, 0, time.Local),
 	}
 	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod2)
-
 	var PromotionPeriod3 = PromotionPeriod{
 		StartDate: time.Date(2022, 10, 25, 0, 0, 0, 0, time.Local),
 		EndDate:   time.Date(2022, 11, 5, 0, 0, 0, 0, time.Local),
 	}
 	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod3)
-
 	var PromotionPeriod4 = PromotionPeriod{
 		StartDate: time.Date(2022, 5, 1, 0, 0, 0, 0, time.Local),
 		EndDate:   time.Date(2022, 8, 1, 0, 0, 0, 0, time.Local),
 	}
 	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod4)
-
 	var NamePromotion0 = NamePromotion{
 		Name:   "ไม่ใช้โปรโมชั่น",
-		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
+		Detail: "",
 	}
 	db.Model(&NamePromotion{}).Create(&NamePromotion0)
+
+	// NamePromotion
 	var NamePromotion1 = NamePromotion{
 		Name:   "FLASH DEAL",
 		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
@@ -277,6 +278,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&NamePromotion{}).Create(&NamePromotion3)
 
+	// PromotionType
 	var PromotionType1 = PromotionType{
 		Type: "ช่วงเทศกาล",
 	}
@@ -287,6 +289,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&PromotionType{}).Create(&PromotionType2)
 
+	// ManagePromotion
 	ManagePromotion0 := ManagePromotion{
 		PromotionCode:  "A0000",
 		Employee:       employeeSakeet,
@@ -308,34 +311,33 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&ManagePromotion{}).Create(&ManagePromotion1)
 
-	/////////////////////////////////////
-	//		    Productstock		   //
-	/////////////////////////////////////
+	// +------------------------------+
+	// |         PRODUCT STOCK        |
+	// +------------------------------+
 
+	// Typeproduct
 	typeproduct1 := Typeproduct{
 		Name: "Snack",
 	}
 	db.Model(&Typeproduct{}).Create(&typeproduct1)
-
 	typeproduct2 := Typeproduct{
 		Name: "Food",
 	}
 	db.Model(&Typeproduct{}).Create(&typeproduct2)
 
+	// Product
 	product1 := Product{
 		Name:        "Testo 50g",
 		Price:       20,
 		Typeproduct: typeproduct1,
 	}
 	db.Model(&Product{}).Create(&product1)
-
 	product2 := Product{
 		Name:        "Coconut 1pc",
 		Price:       29,
 		Typeproduct: typeproduct2,
 	}
 	db.Model(&Product{}).Create(&product2)
-
 	product3 := Product{
 		Name:        "Fresh Medium No. 3-4 Fresh Egg 30pcs",
 		Price:       110,
@@ -343,16 +345,17 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&Product{}).Create(&product3)
 
+	// Shelfstore
 	shelfstore1 := Shelfstore{
 		Zone: "A",
 	}
 	db.Model(&Shelfstore{}).Create(&shelfstore1)
-
 	shelfstore2 := Shelfstore{
 		Zone: "B",
 	}
 	db.Model(&Shelfstore{}).Create(&shelfstore2)
 
+	// Productstock
 	productstock1 := Productstock{
 		Amount_remain:   20,
 		Update_datetime: time.Now(),
@@ -363,9 +366,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&Productstock{}).Create(&productstock1)
 
-	/////////////////////////////////////
-	//		    PurchaseOrder		   //
-	/////////////////////////////////////
+	// +------------------------------+
+	// |        PURCHASE ORDER        |
+	// +------------------------------+
 	cashMethod := PaymentMethod{
 		MethodName: "เงินสด",
 	}
@@ -379,9 +382,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&PaymentMethod{}).Create(&mobileMethod)
 	db.Model(&PaymentMethod{}).Create(&bankMethod)
 
-	/////////////////////////////////////
-	//		    ManageWorkTime		   //
-	/////////////////////////////////////
+	// +------------------------------+
+	// |       MANAGE WORK TIME       |
+	// +------------------------------+
 	// Add day
 	allDay := []string{"วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"}
 	for _, s := range allDay {
@@ -418,9 +421,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 		db.Model(&WorkingTime{}).Create(&tWork)
 	}
 
-	/////////////////////////////////////
-	//		    ManageSalary		   //
-	/////////////////////////////////////
+	//* +------------------------------+
+	//* |         MANAGE SALARY        |
+	//* +------------------------------+
 	// Assessment data
 	Assessment_1 := Assessment{
 		Level: 1,
@@ -522,9 +525,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&ManageSalary{}).Create(&MS_01)
 	db.Model(&ManageSalary{}).Create(&MS_02)
 
-		/////////////////////////////////////
-	//		    PremiumMember		   //
-	/////////////////////////////////////
+	//* +------------------------------+
+	//* |         PREMIUM MEMBER       |
+	//* +------------------------------+
 	period1 := PremiumMemberPeriod{
 		Period: "one month",
 	}
@@ -543,17 +546,17 @@ func SetupIntoDatabase(db *gorm.DB) {
 	class3 := MemberClass{
 		Name: "Gold",
 	}
-	db.Model(&PremiumMemberPeriod{}).Create(&period1) 
+	db.Model(&PremiumMemberPeriod{}).Create(&period1)
 	db.Model(&PremiumMemberPeriod{}).Create(&period2)
 	db.Model(&PremiumMemberPeriod{}).Create(&period3)
 	db.Model(&MemberClass{}).Create(&class1)
 	db.Model(&MemberClass{}).Create(&class2)
 	db.Model(&MemberClass{}).Create(&class3)
 	db.Model(&PremiumMember{}).Create(&PremiumMember{
-		PremiumMemberID:  "P1234567",
-		CreateAt: time.Now(),
-		Point: 100,
-		MemberClass: class1 ,
+		PremiumMemberID:     "P1234567",
+		CreateAt:            time.Now(),
+		Point:               100,
+		MemberClass:         class1,
 		PremiumMemberPeriod: period1,
 	})
 }

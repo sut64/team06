@@ -5,11 +5,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
 import IconButton  from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Menu from "@material-ui/core/Menu";
@@ -21,7 +19,6 @@ import Typography from "@material-ui/core/Typography";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ShoppingCartIcon from  "@material-ui/icons/ShoppingCart";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import PersonIcon from "@material-ui/icons/Person";
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import HistoryIcon from "@material-ui/icons/History";
@@ -72,7 +69,7 @@ export default function NavBar() {
   }
 
   const customerMenu = [
-    { name: "สมาชิกพรีเมียม", icon: <PersonPinIcon  />, path: "/member/membership" },
+    { name: "สมัครสมาชิกพรีเมียม", icon: <PersonPinIcon  />, path: "/member/membership" },
     { name: "ชำระสินค้า", icon: <ShoppingCartIcon  />, path: "/member/order" },
     { name: "ประวัติการชำระสินค้า", icon: <HistoryIcon  />, path: "/member/order-history" },
   ]
@@ -82,8 +79,6 @@ export default function NavBar() {
     { name: "ดูรายการสต็อกสินค้า", icon: <AssignmentIcon  />, path: "/employee/Productstock" },
     { name: "จัดการโปรโมชั่น", icon: <StorefrontIcon  />, path: "/employee/manage-promotion" },
     { name: "ประวัติโปรโมชั่น", icon: <HistoryIcon />, path: "/employee/history-promotion" },
-
-
   ]
   const managerMenu = [
     { name: "จัดการตารางงานพนักงาน", icon: <AssignmentIcon  />, path: "/manager/manage-schedule/create" },

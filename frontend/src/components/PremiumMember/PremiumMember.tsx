@@ -3,30 +3,16 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 import { createStyles, Theme, makeStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
-import { MembersInterface } from "../../models/IUser";
+// import { MembersInterface } from "../../models/IUser";
 import { PremiumMemberPeriodInterface } from "../../models/IPremiumMemberPeriod";
 import { MemberClassInterface } from "../../models/IMemberClass";
 import { PremiumMemberInterface } from "../../models/IPremiumMember";
@@ -62,28 +48,14 @@ function CreatePremiumMember() {
 
   const [user, setUser] = useState<UsersInterface>();
 
-  const [member, setMember] = useState<MembersInterface[]>([]);
+  //const [member, setMember] = useState<MembersInterface[]>([]);
   const [premiumMemberPeriod, setPremiumMemberPeriod] = useState<PremiumMemberPeriodInterface[]>([]);
   const [memberClass, setMemberClass] = useState<MemberClassInterface[]>([]);
   const [premiumMember, setPremiumMember] = useState<Partial<PremiumMemberInterface>>({
     MemberClassID: 0,
     PremiumMemberPeriodID: 0,
   });
-  //const [orderItem, setOrderItem] = useState<Partial<PurchaseOrderItemsInterface>[]>([]);
   const [createTime, setCreateTime] = useState<Date | null>(new Date());
-
-  // TABLE CUSTOMIZE
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
 
   // QUERY DATA FROM DATABASE
   const getUser = async () => {
@@ -92,27 +64,28 @@ function CreatePremiumMember() {
       setUser(JSON.parse(localStorage.getItem("user") || ""));
     }
   }
-  const getPremiumMember = async () => {
-    const apiUrl = "http://localhost:8080/premium_members";
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-    }
 
-    fetch(apiUrl, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setPremiumMember(res.data);
-        } else {
-          console.log("else");
-        }
-      })
-  }
+  // const getPremiumMember = async () => {
+  //   const apiUrl = "http://localhost:8080/premium_members";
+  //   const requestOptions = {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+
+  //   fetch(apiUrl, requestOptions)
+  //     .then((response) => response.json())
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       if (res.data) {
+  //         setPremiumMember(res.data);
+  //       } else {
+  //         console.log("else");
+  //       }
+  //     })
+  // }
 
   const getPremiumMemberPeriod = async () => {
     const apiUrl = "http://localhost:8080/premium_member_period";
@@ -232,7 +205,7 @@ function CreatePremiumMember() {
 
   useEffect(() => {
     getUser();
-    getPremiumMember();
+    //getPremiumMember();
     getPremiumMemberPeriod();
     getMemberClasss();
 
@@ -242,6 +215,7 @@ function CreatePremiumMember() {
   console.log("user: ", user);
   console.log("class: ", memberClass);
   console.log("period: ", premiumMemberPeriod);
+  console.log("premium: ", premiumMember);
 
   return (
     <div>
@@ -256,11 +230,11 @@ function CreatePremiumMember() {
             {errorMsg}
           </Alert>
         </Snackbar>
-        <Paper className={classes.paper} style={{ backgroundColor: "#81c784", }}>
+        <Paper className={classes.paper}>
           <Grid container spacing={1}>
             {/* Head */}
             <Grid item xs={12}>
-              <Typography component="h4" variant="h5">
+              <Typography component="h4" variant="h5" color="primary">
                 สมัครสมาชิกพรีเมียม
               </Typography>
             </Grid>
@@ -304,7 +278,7 @@ function CreatePremiumMember() {
                       <p>Premium Member ID</p>
                       <TextField
                         fullWidth
-                        id="outlined-basic"
+                        id="PremiumMemberID"
                         variant="outlined"
                         placeholder="ID"
                         value={premiumMember.PremiumMemberID}
@@ -314,7 +288,7 @@ function CreatePremiumMember() {
                       <p>Point</p>
                       <TextField
                         fullWidth
-                        id="outlined-basic"
+                        id="Point"
                         variant="outlined"
                         type="number"
                         placeholder="Point"

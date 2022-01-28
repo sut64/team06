@@ -39,31 +39,34 @@ func CreatePurchaseOrder(c *gin.Context) {
 	var promotion entity.ManagePromotion
 	var payment entity.PaymentMethod
 
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร purchaseOrder
 	if err := c.ShouldBindJSON(&purchaseOrder); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Customer
+	// 9: ค้นหา member ด้วย id
 	if tx := entity.DB().Where("id = ?", purchaseOrder.MemberID).First(&member); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "member not found"})
 		return
 	}
 
-	// Promotion
+	// 10: ค้นหา promotion ด้วย id
 	if tx := entity.DB().Where("id = ?", purchaseOrder.PromotionID).First(&promotion); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "promotion not found"})
 		return
 	}
 
-	// PaymentMethod
+	// 11: ค้นหา payment method ด้วย id
 	if tx := entity.DB().Where("id = ?", purchaseOrder.PaymentMethodID).First(&payment); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "payment method not found"})
 		return
 	}
 
 	entity.DB().Transaction(func(tx *gorm.DB) error {
-		// PurchaseOrder
+		// Validation < COMING SOON >
+
+		// 12: สร้าง PurchaseOrder
 		order := entity.PurchaseOrder{
 			Member:          member,
 			Promotion:       promotion,
@@ -73,6 +76,8 @@ func CreatePurchaseOrder(c *gin.Context) {
 			OrderDiscount:   purchaseOrder.OrderDiscount,
 			OrderTotalPrice: purchaseOrder.OrderTotalPrice,
 		}
+
+		// 13: บันทึก PurchaseOrder
 		if err := tx.Create(&order).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return err
@@ -81,12 +86,13 @@ func CreatePurchaseOrder(c *gin.Context) {
 		var items []entity.PurchaseOrderItem
 		for _, orderItem := range purchaseOrder.OrderItems {
 			var product entity.Productstock
-			// Product
+			// 14: ค้นหา product ด้วย id
 			if tx1 := tx.Where("id = ?", orderItem.ProductstockID).First(&product); tx1.RowsAffected == 0 {
 				c.JSON(http.StatusBadRequest, gin.H{"error": "product stock not found"})
 				return tx1.Error
 			}
 
+			// 15: สร้าง PurchaseOrderItem
 			it := entity.PurchaseOrderItem{
 				Order:        order,
 				Productstock: product,
@@ -96,7 +102,7 @@ func CreatePurchaseOrder(c *gin.Context) {
 
 			items = append(items, it)
 		}
-		// PurchaseOrderItem
+		// 16: บันทึก PurchaseOrderItem
 		if err := tx.Create(&items).Error; err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return err
