@@ -156,32 +156,33 @@ export default function OrderHistory() {
   const classes = useStyles();
 
   const [orders, setOrders] = useState<PurchaseOrdersInterface[]>([]);
-  
-  const getOrders = async(user: UsersInterface) => {
-    const apiUrl = `http://localhost:8080/order-history/${user?.ID}`;
-    const requestOptions = {
-      method: "GET",
-      headers: { 
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json", 
-      },
-    }
-
-    fetch(apiUrl, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setOrders(res.data);
-        } else {
-          console.log("else");
-        }
-      });
-  }
 
   useEffect(() => {
     const user: UsersInterface = JSON.parse(localStorage.getItem("user") || "");
-    getOrders(user);
+  
+    const getOrders = async() => {
+      const apiUrl = `http://localhost:8080/order-history/${user?.ID}`;
+      const requestOptions = {
+        method: "GET",
+        headers: { 
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json", 
+        },
+      }
+  
+      fetch(apiUrl, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setOrders(res.data);
+          } else {
+            console.log("else");
+          }
+        });
+    }
+
+    getOrders();
   }, []);
   
   console.log("history orders: ", orders);
