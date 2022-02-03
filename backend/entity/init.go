@@ -229,11 +229,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 	// +------------------------------+
 
 	// PromotionPeriod
-	var PromotionPeriod0 = PromotionPeriod{
-		StartDate: time.Now(),
-		EndDate:   time.Now(),
-	}
-	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod0)
 	var PromotionPeriod1 = PromotionPeriod{
 		StartDate: time.Date(2022, 1, 1, 0, 0, 0, 0, time.Local),
 		EndDate:   time.Date(2022, 2, 1, 0, 0, 0, 0, time.Local),
@@ -254,13 +249,13 @@ func SetupIntoDatabase(db *gorm.DB) {
 		EndDate:   time.Date(2022, 8, 1, 0, 0, 0, 0, time.Local),
 	}
 	db.Model(&PromotionPeriod{}).Create(&PromotionPeriod4)
+
+	// NamePromotion
 	var NamePromotion0 = NamePromotion{
 		Name:   "ไม่ใช้โปรโมชั่น",
 		Detail: "",
 	}
 	db.Model(&NamePromotion{}).Create(&NamePromotion0)
-
-	// NamePromotion
 	var NamePromotion1 = NamePromotion{
 		Name:   "FLASH DEAL",
 		Detail: "ดีลสุดคุ้ม สินค้าใน Farm mart ซื้อขั้นต่ำตามกำหนดรับส่วนลดไปเลย ",
