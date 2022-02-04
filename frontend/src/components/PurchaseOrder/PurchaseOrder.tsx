@@ -1,15 +1,15 @@
-import React, { useState, 
-  useEffect, 
-  ChangeEvent, 
+import React, {
+  useState,
+  useEffect,
+  ChangeEvent,
   Fragment,
   SetStateAction,
-  Dispatch, 
+  Dispatch,
 } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import FormControl from "@material-ui/core/FormControl";
@@ -18,7 +18,6 @@ import Typography from "@material-ui/core/Typography";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import moment from "moment";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -31,8 +30,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Dialog from "@material-ui/core/Dialog";
 import Checkbox from "@material-ui/core/Checkbox";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { createStyles, Theme, makeStyles, IconButton } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -92,11 +90,11 @@ function ListPromotions(props: ListPromotionsProps) {
   const handleClickOpen = () => {
     setOpenDialog(true);
     setPromotions(props.promotions);
-    setOrder(props.order);
+    // setOrder(props.order);
   }
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    props.setOrder({...order, PromotionID: selected.length === 1 ? selected[0] : 0});
+    props.setOrder({ ...order, PromotionID: selected.length === 1 ? selected[0] : 0 });
   }
   const handleClickCell = (event: React.MouseEvent<unknown>, PromotionID: number) => {
     // If promotionMinPrice is lower than TotalPrice, it cannot checked!
@@ -107,10 +105,10 @@ function ListPromotions(props: ListPromotionsProps) {
     let newSelected: number[] = [];
     if (selectedIndex === -1 && selected.length === 0) {
       newSelected = newSelected.concat(selected, PromotionID);
-    } 
+    }
     else if (selectedIndex === 0 && selected.length === 1) {
       newSelected = newSelected.concat(selected.slice(1));
-    } 
+    }
     else if (selectedIndex === -1 && selected.length === 1) {
       newSelected = newSelected.concat(selected.slice(1));
       newSelected.push(PromotionID);
@@ -126,8 +124,42 @@ function ListPromotions(props: ListPromotionsProps) {
     return classes.tableCellDisabled;
   }
 
-  console.log("ListPromotion", promotions);
-  console.log("SelectedPromotionID", selected);
+  // set variable order inside ListPromotions()
+  useEffect(() => {
+    setOrder(order => {
+      return {...order, ...props.order};
+    })
+  }, [props.order]);
+  // set OrderDiscount when PromotionID is changing
+  useEffect(() => {
+    const subPromotionDiscount = (PromotionID: number | undefined) => {
+      let discount = 0;
+      if (PromotionID !== 0) {
+        discount = promotions.find(p => p.ID === PromotionID)?.Discount || 0;
+        return discount;
+      }
+      return discount;
+    }
+    setOrder(order => {
+      return {
+        ...order,
+        OrderDiscount: subPromotionDiscount(selected[0] ? selected[0] : 0),
+      }
+    });
+  }, [selected, promotions]);
+  // when OrderTotalPrice is less then promotionMinPrice, it will be reset var selected to empty array.
+  useEffect(() => {
+    setSelected(selected => {
+      if (Number(props.order.PromotionID === 0))
+        return [];
+      else
+        return [...selected];
+    });
+  }, [props.order.PromotionID]);
+
+  // console.log("props.order from main", props.order);
+  // console.log("props.order inside", order);
+  // console.log("SelectedPromotionID", selected);
   return (
     <Fragment>
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md">
@@ -135,24 +167,24 @@ function ListPromotions(props: ListPromotionsProps) {
           <Grid container>
             <Grid item xs={12} >
               <Typography color="primary" component="h4" variant="h6" style={{ paddingBottom: "1rem", textAlign: "center" }}>
-                  กรุณาเลือกโปรโมชั่น
+                กรุณาเลือกโปรโมชั่น
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="subtitle2" style={{ float: "right", paddingBottom: "0.5rem" }}>
-                  ราคารวมต่อ 1 ใบเสร็จในขณะนี้: {order.OrderTotalPrice?.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
+                ราคารวมต่อ 1 ใบเสร็จในขณะนี้: {order.OrderTotalPrice?.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
               </Typography>
             </Grid>
-            <Grid item xs={12}  style={{ paddingBottom: "1rem" }}>
+            <Grid item xs={12} style={{ paddingBottom: "1rem" }}>
               <TableContainer component={Paper} className={classes.tableContainer}>
                 <Table stickyHeader>
                   <TableHead className={classes.tableHead}>
                     <TableRow>
-                      <TableCell width="5%"></TableCell>
-                      <TableCell width="10%">รหัสโปรโมชั่น</TableCell>
-                      <TableCell width="15%">ชื่อโปรโมชั่น</TableCell>
-                      <TableCell width="5%">ราคาขั้นต่ำต่อ 1 ใบเสร็จ</TableCell>
-                      <TableCell width="5%">ส่วนลดจากโปรโมชั่น</TableCell>
+                      <TableCell width="1%"></TableCell>
+                      <TableCell width="10%" align="center">รหัสโปรโมชั่น</TableCell>
+                      <TableCell width="10%" align="center">ชื่อโปรโมชั่น</TableCell>
+                      <TableCell width="5%" align="center">ราคาขั้นต่ำต่อ 1 ใบเสร็จ</TableCell>
+                      <TableCell width="5%" align="center">ส่วนลดจากโปรโมชั่น</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -172,16 +204,16 @@ function ListPromotions(props: ListPromotionsProps) {
                               disabled={!checkMinPrice(row.MinPrice)}
                             />
                           </TableCell>
-                          <TableCell width="10%" className={checkCellColorWithMinPrice(row.MinPrice)}>
+                          <TableCell width="10%" align="center" className={checkCellColorWithMinPrice(row.MinPrice)}>
                             {row.PromotionCode}
                           </TableCell>
-                          <TableCell width="15%" className={checkCellColorWithMinPrice(row.MinPrice)}>
+                          <TableCell width="10%" className={checkCellColorWithMinPrice(row.MinPrice)}>
                             {row.NamePromotion.Name}
                           </TableCell>
-                          <TableCell width="5%" className={checkCellColorWithMinPrice(row.MinPrice)}>
-                            {row.MinPrice}
+                          <TableCell width="5%" align="center" className={checkCellColorWithMinPrice(row.MinPrice)}>
+                            {row.MinPrice.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}
                           </TableCell>
-                          <TableCell width="5%" className={checkCellColorWithMinPrice(row.MinPrice)}>
+                          <TableCell width="5%" align="center" className={checkCellColorWithMinPrice(row.MinPrice)}>
                             {row.Discount}
                           </TableCell>
                         </TableRow>
@@ -256,7 +288,7 @@ export default function PurchaseOrder() {
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.data);
+        // console.log("ProductStocks: ", res.data);
         if (res.data) {
           setProductStocks(res.data);
         } else {
@@ -278,7 +310,7 @@ export default function PurchaseOrder() {
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.data);
+        // console.log("PaymentMethods: ", res.data);
         if (res.data) {
           setPaymentMethods(res.data);
         } else {
@@ -300,7 +332,7 @@ export default function PurchaseOrder() {
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.data);
+        // console.log("Promotions: ", res.data);
         if (res.data) {
           setPromotions(res.data);
         } else {
@@ -315,6 +347,16 @@ export default function PurchaseOrder() {
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   const submit = () => {
+    let orderItemsSubmit: Partial<PurchaseOrderItemsInterface>[] = [];
+    orderItem.forEach(element => {
+      orderItemsSubmit.push({
+        ProductstockID: element.ProductstockID,
+        OrderAmount: element.OrderAmount,
+        ItemPrice: element.ItemPrice,
+        AmountPrice: element.AmountPrice,
+      });
+    });
+
     let data = {
       MemberID: user?.ID,
       PaymentMethodID: order.PaymentMethodID,
@@ -323,7 +365,7 @@ export default function PurchaseOrder() {
       DeliveryAddress: order.DeliveryAddress,
       OrderDiscount: order.OrderDiscount,
       OrderTotalPrice: order.OrderTotalPrice,
-      OrderItems: orderItem,
+      OrderItems: orderItemsSubmit,
     }
 
     const apiUrl = "http://localhost:8080/purchase-order";
@@ -378,9 +420,10 @@ export default function PurchaseOrder() {
       return
     currentItem.push({
       ProductstockID: newProductStock.ID as number,
-      OrderAmount: 1,  // default amount when select product
+      Productstock: newProductStock,
+      OrderAmount: 0,  // default amount when select product
       ItemPrice: newProductStock.Product.Price,  // record currently product price
-      AmountPrice: newProductStock.Product.Price * 1, // product_price * default_amount
+      AmountPrice: 0, // product_price * default_amount
     });
     setOrderItem(currentItem);
   }
@@ -397,22 +440,17 @@ export default function PurchaseOrder() {
     if (Number(currentItem.OrderAmount) >= Number(currentItem.Productstock?.Amount_remain) && stepAmount === ADD_QUANTITY) {
       return
     }
-
     // Update product amount, then update amount price
     let newItem: Partial<PurchaseOrderItemsInterface> = {
       ...currentItem,
       OrderAmount: (currentItem.OrderAmount || 0) + stepAmount,
       AmountPrice: ((currentItem.OrderAmount || 0) + stepAmount) * Number(productStocks.find(ps => ps.ID === currentItem.ProductstockID)?.Product.Price),
     };
-
-    let newOrderItem = [...orderItem]
-    // If amount is 0, it will remove from cart
-    if (Number(newItem.OrderAmount) === 0) {
-      newOrderItem = newOrderItem.filter((_, i) => i !== index);
-      setOrderItem(newOrderItem);
+    // If amount is 0, it will cannot be set negative number
+    if (Number(currentItem.OrderAmount) === 0 && stepAmount === DEC_QUANTITY) {
       return
     }
-
+    let newOrderItem = [...orderItem]
     newOrderItem[index] = newItem;
     setOrderItem(newOrderItem);
   }
@@ -431,31 +469,33 @@ export default function PurchaseOrder() {
   }, []);
 
   /* --- PRODUCT CART'S TOTAL PRICE --- */
+  // Calculate total price
   useEffect(() => {
-    const subTotalPrice = (items: Partial<PurchaseOrderItemsInterface>[]) => {
-      return items.map(({ AmountPrice }) => AmountPrice).reduce((sum, i) => Number(sum) + Number(i), 0);
-    }
-    setOrder({...order, OrderTotalPrice: subTotalPrice(orderItem)});
+    setOrder(order => {
+      return {
+        ...order,
+        OrderTotalPrice: orderItem.map(({ AmountPrice }) => AmountPrice).reduce((sum, i) => Number(sum) + Number(i), 0),
+      };
+    });
   }, [orderItem]);
-
-  /* --- PROMOTION --- */
+  // Check total price if less than promotionMinPrice, it will be reset discount
   useEffect(() => {
-    const subPromotionDiscount = () => {
-      let discount = 0;
-      if (order.PromotionID !== 0) {
-        discount = promotions.find(p => p.ID === order.PromotionID)?.Discount || 0;
-        setOrder({...order, OrderDiscount: discount});
-        return
-      }
-      setOrder({...order, OrderDiscount: discount});
-    }
-    subPromotionDiscount();
-  }, [order.PromotionID]);
+    setOrder(order => {
+      let promotionMinPrice = promotions.find(p => p.ID === order.PromotionID)?.MinPrice;
+      if (Number(order.OrderTotalPrice) < Number(promotionMinPrice))
+        return {
+          ...order,
+          PromotionID: 0,
+          OrderDiscount: 0,
+        };
+      else
+        return {...order};
+    });
+  }, [order.OrderTotalPrice, promotions]);
 
   // DEBUG CONSOLE MONITOR
-  // console.log("user: ", user);
-  // console.log("orderItem: ", orderItem);
-  console.log("order: ", order);
+  // console.log("Order: ", order);
+  // console.log("OrderItems: ", orderItem);
 
   return (
     <div>
@@ -529,12 +569,12 @@ export default function PurchaseOrder() {
                       <Table stickyHeader>
                         <TableHead className={classes.tableHead}>
                           <TableRow>
-                            <TableCell width="15%">ชื่อสินค้า</TableCell>
-                            <TableCell width="5%">ราคาต่อหน่วย</TableCell>
-                            <TableCell width="5%">สินค้าคงเหลือ</TableCell>
-                            <TableCell width="5%">จำนวน</TableCell>
-                            <TableCell width="5%">รวมทั้งหมด</TableCell>
-                            <TableCell width="5%"><IconButton disabled></IconButton></TableCell>
+                            <TableCell width="15%" align="center">ชื่อสินค้า</TableCell>
+                            <TableCell width="5%" align="center">ราคาต่อหน่วย</TableCell>
+                            <TableCell width="5%" align="center">สินค้าคงเหลือ</TableCell>
+                            <TableCell width="5%" align="center">จำนวน</TableCell>
+                            <TableCell width="5%" align="center">รวมทั้งหมด</TableCell>
+                            <TableCell width="5%" align="center"><IconButton disabled></IconButton></TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -542,9 +582,9 @@ export default function PurchaseOrder() {
                             return (
                               <TableRow key={index}>
                                 <TableCell width="15%">{productStocks.find(p => p.ID === row.ProductstockID)?.Product.Name}</TableCell>
-                                <TableCell width="5%">{productStocks.find(p => p.ID === row.ProductstockID)?.Product.Price.toLocaleString("th-Th", { style: "currency", currency: "THB" })}</TableCell>
-                                <TableCell width="5%">{productStocks.find(p => p.ID === row.ProductstockID)?.Amount_remain}</TableCell>
-                                <TableCell width="5%">
+                                <TableCell width="5%" align="center">{productStocks.find(p => p.ID === row.ProductstockID)?.Product.Price.toLocaleString("th-Th", { style: "currency", currency: "THB" })}</TableCell>
+                                <TableCell width="5%" align="center">{productStocks.find(p => p.ID === row.ProductstockID)?.Amount_remain}</TableCell>
+                                <TableCell width="5%" align="center">
                                   <ButtonGroup>
                                     <Button size="small" onClick={() => updateChangeQuantity(row, index, DEC_QUANTITY)}>
                                       <RemoveIcon fontSize="small" />
@@ -557,8 +597,8 @@ export default function PurchaseOrder() {
                                     </Button>
                                   </ButtonGroup>
                                 </TableCell>
-                                <TableCell width="5%">{row.AmountPrice?.toLocaleString("th-Th", { style: "currency", currency: "THB" })}</TableCell>
-                                <TableCell padding="checkbox"><IconButton size="small" onClick={() => removeFromCart(index)}><DeleteIcon /></IconButton></TableCell>
+                                <TableCell width="5%" align="center">{row.AmountPrice?.toLocaleString("th-Th", { style: "currency", currency: "THB" })}</TableCell>
+                                <TableCell padding="checkbox" align="center"><IconButton size="small" onClick={() => removeFromCart(index)}><DeleteIcon /></IconButton></TableCell>
                               </TableRow>
                             );
                           })}
@@ -601,7 +641,7 @@ export default function PurchaseOrder() {
                     <FormControl fullWidth size="small" variant="outlined">
                       <Typography className={classes.typoHeader} variant="subtitle2">กรุณาเลือกโปรโมชั่น (ถ้ามี)</Typography>
                       <Paper variant="outlined" style={{ padding: ".5rem", paddingBottom: ".5rem" }}>
-                        <Typography variant="subtitle2" noWrap style={{ height: "1rem"}}>
+                        <Typography variant="subtitle2" noWrap style={{ height: "1rem" }}>
                           {promotions.find(pr => pr.ID === order.PromotionID)?.PromotionCode}&nbsp;
                           {promotions.find(pr => pr.ID === order.PromotionID)?.NamePromotion.Name}
                         </Typography>
@@ -615,9 +655,21 @@ export default function PurchaseOrder() {
                     <FormControl fullWidth size="small" variant="outlined">
                       <Typography className={classes.typoHeader} variant="subtitle2">เลือกวิธีการชำระเงิน</Typography>
                       <Select
+                        id="PaymentMethodID"
                         value={order.PaymentMethodID}
                         inputProps={{ name: "PaymentMethodID" }}
                         onChange={handleChange}
+                        MenuProps={{
+                          anchorOrigin: {
+                            vertical: "bottom",
+                            horizontal: "left"
+                          },
+                          transformOrigin: {
+                            vertical: "top",
+                            horizontal: "left"
+                          },
+                          getContentAnchorEl: null
+                        }}
                       >
                         <MenuItem value={0} key={0} disabled>วิธีการชำระเงิน</MenuItem>
                         {paymentMethods.map((payment: PaymentMethodsInterface) => (
@@ -630,9 +682,8 @@ export default function PurchaseOrder() {
                     <FormControl fullWidth size="small" variant="outlined">
                       <Typography className={classes.typoHeader} variant="subtitle2">วันที่และเวลา</Typography>
                       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <DateTimePicker
+                        <KeyboardDateTimePicker
                           disableToolbar
-                          variant="inline"
                           id="enrollDateTime"
                           name="enrollDateTime"
                           value={orderTime}
