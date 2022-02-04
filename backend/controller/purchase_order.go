@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team06/backend/entity"
 	"gorm.io/gorm"
@@ -64,8 +65,6 @@ func CreatePurchaseOrder(c *gin.Context) {
 	}
 
 	entity.DB().Transaction(func(tx *gorm.DB) error {
-		// Validation < COMING SOON >
-
 		// 12: สร้าง PurchaseOrder
 		order := entity.PurchaseOrder{
 			Member:          member,
@@ -79,6 +78,12 @@ func CreatePurchaseOrder(c *gin.Context) {
 
 		// 13: บันทึก PurchaseOrder
 		if err := tx.Create(&order).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return err
+		}
+
+		// Validation ของ PurchaseOrder
+		if _, err := govalidator.ValidateStruct(order); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return err
 		}
@@ -98,6 +103,12 @@ func CreatePurchaseOrder(c *gin.Context) {
 				Productstock: product,
 				OrderAmount:  orderItem.OrderAmount,
 				ItemPrice:    orderItem.ItemPrice,
+			}
+
+			// Validation ของ PurchaseOrderItem
+			if _, err := govalidator.ValidateStruct(it); err != nil {
+				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+				return err
 			}
 
 			items = append(items, it)
