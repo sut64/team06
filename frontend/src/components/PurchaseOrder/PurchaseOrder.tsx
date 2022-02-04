@@ -467,7 +467,7 @@ export default function PurchaseOrder() {
         </Snackbar>
         <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
-            {errorMsg}
+            บันทึกข้อมูลไม่สำเร็จ: {errorMsg}
           </Alert>
         </Snackbar>
         <Paper className={classes.paper}>
