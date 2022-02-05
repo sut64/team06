@@ -54,34 +54,45 @@ func TestOrderCorrect(t *testing.T) {
 func TestDeliveryAddressMustBeMoreThan10Char(t *testing.T) {
 	g := NewGomegaWithT(t)
 
-	fixtures := []string{
-		"",     // สตริงว่าง
-		"9243", // สตริงมีน้อยกว่า 10 ตัวอักษร
+	order := PurchaseOrder{
+		DeliveryAddress: "9243", // สตริงมีน้อยกว่า 10 ตัวอักษร
+		OrderTime:       time.Now(),
 	}
 
-	for _, fixture := range fixtures {
-		order := PurchaseOrder{
-			DeliveryAddress: fixture, // ผิด
-			OrderTime:       time.Now(),
-		}
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(order)
 
-		// ตรวจสอบด้วย govalidator
-		ok, err := govalidator.ValidateStruct(order)
+	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+	g.Expect(ok).ToNot(BeTrue())
 
-		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-		g.Expect(ok).ToNot(BeTrue())
+	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+	g.Expect(err).ToNot(BeNil())
 
-		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-		g.Expect(err).ToNot(BeNil())
+	// err.Error ต้องมี error message แสดงออกมา
+	g.Expect(err.Error()).To(Equal("DeliveryAddress must not be less than 10 characters"))
 
-		// err.Error ต้องมี error message แสดงออกมา
-		switch err.Error() {
-		case "DeliveryAddress must be more than 10 characters":
-			g.Expect(err.Error()).To(Equal("DeliveryAddress must not be less than 10 characters"))
-		case "DeliveryAddress cannot be blank":
-			g.Expect(err.Error()).To(Equal("DeliveryAddress cannot be blank"))
-		}
+}
+
+func TestDeliveryAddressCannotBeBlank(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	order := PurchaseOrder{
+		DeliveryAddress: "", // สตริงว่าง
+		OrderTime:       time.Now(),
 	}
+
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(order)
+
+	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+	g.Expect(ok).ToNot(BeTrue())
+
+	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+	g.Expect(err).ToNot(BeNil())
+
+	// err.Error ต้องมี error message แสดงออกมา
+	g.Expect(err.Error()).To(Equal("DeliveryAddress cannot be blank"))
+
 }
 
 func TestOrderTimeMustBePresent(t *testing.T) {
