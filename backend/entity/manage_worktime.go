@@ -8,9 +8,9 @@ import (
 
 type ManageWorkTime struct {
 	gorm.Model
-	NameSchedule string
-	WorkingDate  time.Time
-	TimeTotal    uint
+	Comment     string
+	WorkingDate time.Time
+	TimeTotal   uint
 
 	ManagerID *uint
 	Manager   Employee
@@ -20,9 +20,6 @@ type ManageWorkTime struct {
 
 	DayID *uint
 	Day   Day
-
-	WeeklyID *uint
-	Weekly   Weekly
 
 	MonthID *uint
 	Month   Month
@@ -35,7 +32,7 @@ type ManageWorkTime struct {
 
 type Day struct {
 	gorm.Model
-	DayOfWeek string
+	DayNumber uint
 
 	ManageWorkTime []ManageWorkTime `gorm:"foreignKey:DayID"`
 }
@@ -45,13 +42,6 @@ type Month struct {
 	MonthOfYear string
 
 	ManageWorkTime []ManageWorkTime `gorm:"foreignKey:MonthID"`
-}
-
-type Weekly struct {
-	gorm.Model
-	WeekAt uint
-
-	ManageWorkTime []ManageWorkTime `gorm:"foreignKey:WeeklyID"`
 }
 
 type WorkingTime struct {

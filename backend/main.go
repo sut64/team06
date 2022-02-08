@@ -49,13 +49,13 @@ func main() {
 			// ManageWorkSchedule Routes
 			protected.POST("/manage/create", controller.CreateMangeWorkTime)
 			protected.GET("/manage/day/all", controller.GetAllDay)
-			protected.GET("/manage/week/all", controller.GetAllWeekly)
 			protected.GET("/manage/month/all", controller.GetAllMonth)
 			protected.GET("/manage/work/all", controller.GetAllWorkTime)
 			protected.GET("/manage/employee/all", controller.GetAllEmployee)
 			protected.GET("/manage/detail/all", controller.GetAllDetail)
 			protected.GET("/manage/pos/all", controller.GetAllPosition)
 			protected.GET("/manage/all", controller.GetAllManageWorkTime)
+			protected.DELETE("/manage/:id", controller.DeleteManageWorkTime)
 
 			// ProductStock Routes
 			protected.GET("/productstock", controller.ListProductstock)

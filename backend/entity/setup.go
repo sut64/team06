@@ -37,7 +37,6 @@ func SetupDatabase() {
 		// ManageWorkTime
 		&Day{},
 		&Month{},
-		&Weekly{},
 		&WorkingTime{},
 		&ManageWorkTime{},
 

@@ -381,21 +381,13 @@ func SetupIntoDatabase(db *gorm.DB) {
 	// |       MANAGE WORK TIME       |
 	// +------------------------------+
 	// Add day
-	allDay := []string{"วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"}
+	allDay := []uint{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+		15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31}
 	for _, s := range allDay {
 		tDay := Day{
-			DayOfWeek: s,
+			DayNumber: s,
 		}
 		db.Model(&Day{}).Create(&tDay)
-	}
-
-	// Add weekly
-	allWeek := []uint{1, 2, 3, 4}
-	for _, i := range allWeek {
-		tWeek := Weekly{
-			WeekAt: i,
-		}
-		db.Model(&Weekly{}).Create(&tWeek)
 	}
 
 	// Add month
@@ -453,11 +445,11 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 
 	// ManageWorkTime data
-	var Day_Fr Day
-	db.Model(&Day{}).Find(&Day_Fr, db.Where("id = ?", 6))
+	var Day26 Day
+	db.Model(&Day{}).Find(&Day26, db.Where("id = ?", 26))
 
-	var Week_01 Weekly
-	db.Model(&Weekly{}).Find(&Week_01, db.Where("id = ?", 1))
+	var Day7 Day
+	db.Model(&Day{}).Find(&Day7, db.Where("id = ?", 7))
 
 	var Month_1Jan Month
 	db.Model(&Month{}).Find(&Month_1Jan, db.Where("id = ?", 1))
@@ -466,24 +458,22 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&WorkingTime{}).Find(&wt_8t17, db.Where("id = ?", 1))
 
 	ManageWT_M01 := ManageWorkTime{
-		NameSchedule:  "ผู้จัดการ",
+		Comment:       "ตารางงานผู้จัดการ",
 		WorkingDate:   time.Date(2021, 1, 1, 9, 0, 0, 0, time.UTC),
-		TimeTotal:     9,
+		TimeTotal:     8,
 		Manager:       managerMai,
 		Employee:      managerMai,
-		DayID:         &Day_Fr.ID,
-		WeeklyID:      &Week_01.ID,
+		DayID:         &Day26.ID,
 		MonthID:       &Month_1Jan.ID,
 		WorkingTimeID: &wt_8t17.ID,
 	}
 	ManageWT_E01 := ManageWorkTime{
-		NameSchedule:  "พนักงาน",
+		Comment:       "ตารางงานพนักงาน",
 		WorkingDate:   time.Date(2021, 1, 1, 8, 0, 0, 0, time.UTC),
 		TimeTotal:     8,
 		Manager:       managerMai,
 		Employee:      employeeSakeet,
-		DayID:         &Day_Fr.ID,
-		WeeklyID:      &Week_01.ID,
+		DayID:         &Day7.ID,
 		MonthID:       &Month_1Jan.ID,
 		WorkingTimeID: &wt_8t17.ID,
 	}
