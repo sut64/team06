@@ -189,7 +189,7 @@ function Row(props: any) {
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>ID</TableCell>
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Schedule</TableCell>
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Day</TableCell>
-                   <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Weekly</TableCell>
+                   {/* <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Weekly</TableCell> */}
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Mouth</TableCell>
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>WorkingDate</TableCell>
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Time</TableCell>
@@ -200,9 +200,9 @@ function Row(props: any) {
                  {employeeManageWorkTime.map((mwt: ManageWorkTimeInterface) => (  
                    <TableRow key={mwt.ID} hover >
                      <TableCell component="th" scope="row" align="center">{mwt.ID}</TableCell>
-                     <TableCell align="center">{mwt.NameSchedule}</TableCell>
-                     <TableCell align="center">{mwt.Day.DayOfWeek}</TableCell>
-                     <TableCell align="center">{mwt.Weekly.WeekAt}</TableCell>
+                     <TableCell align="center">{mwt.Comment}</TableCell>
+                     <TableCell align="center">{mwt.Day.DayNumber}</TableCell>
+                     {/* <TableCell align="center">{mwt.Weekly.WeekAt}</TableCell> */}
                      <TableCell align="center">{mwt.Month.MonthOfYear}</TableCell>
                      <TableCell align="center">{moment(mwt.WorkingDate).format("DD/MM/YYYY")}</TableCell>
                      <TableCell align="center">{mwt.WorkingTime.TimeToTime}</TableCell>

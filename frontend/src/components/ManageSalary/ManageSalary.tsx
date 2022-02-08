@@ -467,7 +467,7 @@ function SalaryCreate() {
                                   <TableCell align="center">ID</TableCell>
                                   <TableCell align="center">Schedule</TableCell>
                                   <TableCell align="center">Day</TableCell>
-                                  <TableCell align="center">Weekly</TableCell>
+                                  {/* <TableCell align="center">Weekly</TableCell> */}
                                   <TableCell align="center">Mouth</TableCell>
                                   <TableCell align="center">WorkingDate</TableCell>
                                   <TableCell align="center">Time</TableCell>
@@ -487,9 +487,9 @@ function SalaryCreate() {
                                       />
                                     </TableCell>
                                     <TableCell component="th" scope="row" align="center">{mwt.ID}</TableCell>
-                                    <TableCell align="center">{mwt.NameSchedule}</TableCell>
-                                    <TableCell align="center">{mwt.Day.DayOfWeek}</TableCell>
-                                    <TableCell align="center">{mwt.Weekly.WeekAt}</TableCell>
+                                    <TableCell align="center">{mwt.Comment}</TableCell>
+                                    <TableCell align="center">{mwt.Day.DayNumber}</TableCell>
+                                    {/* <TableCell align="center">{mwt.Weekly.WeekAt}</TableCell> */}
                                     <TableCell align="center">{mwt.Month.MonthOfYear}</TableCell>
                                     <TableCell align="center">{moment(mwt.WorkingDate).format("DD/MM/YYYY")}</TableCell>
                                     <TableCell align="center">{mwt.WorkingTime.TimeToTime}</TableCell>

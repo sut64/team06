@@ -2,7 +2,7 @@ import { EmployeesInterface } from "./IUser";
 
 export interface DayInterface {
     ID: number,
-    DayOfWeek: string
+    DayNumber: string
 }
 
 export interface WeeklyInterface {
@@ -22,7 +22,7 @@ export interface WorkingTimeInterface {
 
 export interface ManageWorkTimeInterface {
     ID: number,
-    NameSchedule: string,
+    Comment: string,
     WorkingDate: string,
     TimeTotal: number,
 
@@ -34,9 +34,6 @@ export interface ManageWorkTimeInterface {
 
     DayID: number,
     Day: DayInterface,
-
-    WeeklyID: number,
-    Weekly: WeeklyInterface,
 
     MonthID: number,
     Month: MonthInterface,
