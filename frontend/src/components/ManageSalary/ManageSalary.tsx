@@ -249,6 +249,7 @@ function SalaryCreate() {
  const [errorBonusAmount, setErrorBonusAmount] = React.useState(false);
  const [errorBonusDetail, setErrorBonusDetail] = React.useState(false);
  const [errorCreateAt, setErrorCreateAt] = React.useState(false);
+ const [errorMessage, setErrorMessage] = React.useState("");
  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
    if (reason === "clickaway") {
      return;
@@ -307,7 +308,10 @@ function SalaryCreate() {
          setSuccess(true);
          cancelUpdateMS();
        } else {
-         const text = res.error.trim().split(":", 1)[0];
+         setError(true);
+         setErrorMessage(res.error);
+         cancelUpdateMS();
+         const text = res.error.trim().split(" ", 1)[0];
          if (text === "BonusAmount") {
            console.log(text)
            setErrorBonusAmount(true)
@@ -319,7 +323,7 @@ function SalaryCreate() {
            setErrorCreateAt(true)
           } else {
            console.log(text)
-           setError(true);
+          //  setError(true);
          }
        }
      });
@@ -334,22 +338,7 @@ function SalaryCreate() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
-        </Alert>
-      </Snackbar>
-      <Snackbar open={errorBonusAmount} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ เนื่องจากจำนวนเงินโบนัสต้องเป็นจำนวนจริงบวก
-        </Alert>
-      </Snackbar>
-      <Snackbar open={errorBonusDetail} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ เนื่องจากข้อความหมายเหตุ ต้องมีความยาวไม่เกิน 200 ตัวอักษร
-        </Alert>
-      </Snackbar>
-      <Snackbar open={errorCreateAt} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ เนื่องจากวันที่ต้องไม่เป็นวันในอดีต
+          บันทึกข้อมูลไม่สำเร็จ: {errorMessage}
         </Alert>
       </Snackbar>
       <Paper className={classes.paper}>
@@ -396,11 +385,11 @@ function SalaryCreate() {
 
           <Grid container item xs={12} spacing={3} className={classes.root} >
             <Grid item xs={3} justify="flex-end" alignContent="flex-end">
-              <Typography variant="body1" align="right" style={{marginTop: '1.3rem'}}>รหัสพนักงาน</Typography>
+              <Typography variant="body1" align="right" style={{marginTop: '1.3rem'}}>ชื่อพนักงาน</Typography>
             </Grid>
             <Grid item xs={3}>
               <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="Code">กรุณาเลือกรหัสพนักงาน</InputLabel>
+                <InputLabel id="Code">กรุณาเลือกพนักงาน</InputLabel>
                 <Select
                   labelId="Code"
                   id="ManageWorkTimeID"
