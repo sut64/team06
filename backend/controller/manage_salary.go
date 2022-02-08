@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	// "github.com/asaskevich/govalidator"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team06/backend/entity"
 )
@@ -189,12 +189,11 @@ func CreateManageSalaryByManageSalary(c *gin.Context) {
 		CreateAt:       manageSalary.CreateAt,    // ตั้งค่าฟิลด์ CreateAt
 	}
 
-	// // TODO: add validation
-	// // validate entity ManageSalary -> BonusAmount, BonusDetail, CreateAt
-	// if _, err := govalidator.ValidateStruct(ms); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
+	// ขั้นตอนการ validation entity ManageSalary -> BonusAmount, BonusDetail, CreateAt
+	if _, err := govalidator.ValidateStruct(ms); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	// 15: บันทึก
 	if err := entity.DB().Create(&ms).Error; err != nil {
@@ -262,11 +261,10 @@ func UpdateManageSalaryByManageSalary(c *gin.Context) {
 	update_manageSalary.BonusStatus = bonusStatus
 	update_manageSalary.CreateAt = manageSalary.CreateAt
 
-	// // TODO: add validation
-	// if _, err := govalidator.ValidateStruct(update_manageSalary); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
+	if _, err := govalidator.ValidateStruct(update_manageSalary); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	if err := entity.DB().Save(&update_manageSalary).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
