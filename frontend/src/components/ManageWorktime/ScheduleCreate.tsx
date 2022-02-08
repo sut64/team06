@@ -136,7 +136,6 @@ export default function ScheduleCreate() {
             numDays = lastDate.getDate();
         setAllDayOfMonth(numDays);
 
-        // console.log(year, month, firstDate, lastDate)
         let offset = 0;
         if (firstDate.getDay() === 0) offset = 1;
         // else if (firstDate.getDay() === 6) offset = 2;

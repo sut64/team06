@@ -29,7 +29,6 @@ type ManageWorkTime struct {
 
 	ManageSalary []ManageSalary `gorm:"foreignkey:ManageWorkTimeID"`
 }
-
 type Day struct {
 	gorm.Model
 	DayNumber uint
