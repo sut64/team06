@@ -1,8 +1,10 @@
 package controller
+
 import (
 	"net/http"
-	"github.com/sut64/team06/backend/entity"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
+	"github.com/sut64/team06/backend/entity"
 )
 func CreateProductstock(c *gin.Context) {
 
@@ -19,19 +21,19 @@ func CreateProductstock(c *gin.Context) {
 
 	// 9: ค้นหา product ด้วย id
 	if tx := entity.DB().Where("id = ?",productstock.ProductID).First(&product); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "video not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "product not found"})
 		return
 	}
 
 	// 10: ค้นหา shelfstore ด้วย id
 	if tx := entity.DB().Where("id = ?", productstock.ShelfstoreID).First(&shelfstore); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "resolution not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "shelfstore not found"})
 		return
 	}
 
 	// 11: ค้นหา user ด้วย id
 	if tx := entity.DB().Where("id = ?",productstock.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "playlist not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
 		return
 	}
 	// 12: สร้าง 
@@ -42,6 +44,11 @@ func CreateProductstock(c *gin.Context) {
 		Shelfstore: shelfstore,
 		Employee: employee,
 		Update_datetime: productstock.Update_datetime,
+	}
+	// validate
+	if _,err := govalidator.ValidateStruct(p); err != nil{
+		c.JSON(http.StatusBadRequest,gin.H{"error":err.Error()})
+		return
 	}
 
 	// 13: บันทึก
@@ -90,7 +97,7 @@ func CreateProduct(c *gin.Context) {
 
 	// 9: ค้นหา producttype ด้วย id
 	if tx := entity.DB().Where("id = ?",product.TypeproductID).First(&typeproduct); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "video not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "producttype not found"})
 		return
 	}
 

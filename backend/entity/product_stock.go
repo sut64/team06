@@ -2,25 +2,25 @@ package entity
 
 import (
 	"time"
-
+	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
 type Productstock struct {
 	gorm.Model
-	Amount_remain   uint
-	Update_datetime time.Time
-	Detail          string
+	Amount_remain   int32 `valid:"required~Amont remain cannot be zero,notnegative~Amont remain cannot be negative"`
+	Update_datetime time.Time`valid:"notpast~Update_datetime must not be in the past"`
+	Detail          string `valid:"required~Detail cannot be blank"`
 
-	ProductID *uint
+	ProductID *uint	`gorm:"uniqueIndex"`
 
-	Product   Product	`gorm:"references:ID"`
+	Product   Product	`gorm:"references:ID" valid:"-"`
 
 	ShelfstoreID *uint
-	Shelfstore   Shelfstore	`gorm:"references:ID"`
+	Shelfstore   Shelfstore	`gorm:"references:ID" valid:"-"`
 
 	EmployeeID *uint
-	Employee   Employee		`gorm:"references:ID"`
+	Employee   Employee		`gorm:"references:ID" valid:"-"`
 
 }
 
@@ -42,7 +42,7 @@ type Product struct {
 	Productstock []Productstock	`gorm:"foreignkey:ProductID"`
 
 	TypeproductID *uint
-	Typeproduct   Typeproduct	`gorm:"references:ID"`
+	Typeproduct   Typeproduct	`gorm:"references:ID" valid:"-"`
 
 }
 
@@ -54,3 +54,15 @@ type Typeproduct struct {
 	Product []Product	`gorm:"foreignkey:TypeproductID"`
 }
 
+func init() {
+	govalidator.CustomTypeTagMap.Set("notpast", func(i interface{}, o interface{}) bool {
+		t := i.(time.Time)
+		// ย้อนหลังไม่เกิน 1 วัน
+		return t.After(time.Now().AddDate(0, 0, -1))
+	})
+
+	govalidator.CustomTypeTagMap.Set("notnegative", func(i interface{}, o interface{}) bool {
+		a := i.(int32)
+		return a >= 1
+	})
+}
