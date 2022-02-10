@@ -26,6 +26,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Select from "@material-ui/core/Select";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import TextField from "@material-ui/core/TextField";
+import { colors } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -152,16 +153,16 @@ function CreateProduct() {
               <Typography
                 component="h2"
                 variant="h6"
-                color="primary"
                 gutterBottom
+                color="primary"
               >
                 บันทึกสินค้าใหม่
               </Typography>
             </Box>
           </Box>
           <Divider />
-          <Grid container spacing={3} className={classes.root}>
-            <Grid item xs={6}>
+          <Grid container spacing={2} className={classes.root}>
+            <Grid item xs={12}>
               <FormControl fullWidth variant="outlined">
                 <p>ชื่อผู้ใช้งานระบบ</p>
                 <Select
@@ -177,34 +178,32 @@ function CreateProduct() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <p>ชื่อสินค้า</p>
               <TextField
                 fullWidth
                 id="outlined-basic"
-                variant="outlined"
-                placeholder="กรอกรายละเอียดสินค้า"
+                placeholder="กรอกชื่อสินค้า"
                 value={product.Name}
                 onChange={handleChange}
                 inputProps={{ name: "Name" }}
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <p>ราคา</p>
               <TextField
                 fullWidth
                 id="outlined-basic"
-                variant="outlined"
                 type = "number"
-                placeholder="กรอกรายละเอียดสินค้า"
+                placeholder="กรอกราคาสินค้า"
                 value={product.Price}
                 onChange={handleChange}
                 inputProps={{ name: "Price" }}
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth variant="outlined">
                 <p>ประเภทสินค้า</p>
                 <Select
