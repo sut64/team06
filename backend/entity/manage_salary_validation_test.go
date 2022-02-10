@@ -38,16 +38,13 @@ var managerMai = Employee{
 }
 
 var ManageWT = ManageWorkTime{
-	NameSchedule: "ผู้จัดการ",
-	WorkingDate:  time.Date(2021, 1, 1, 9, 0, 0, 0, time.UTC),
-	TimeTotal:    9,
-	Manager:      managerMai,
-	Employee:     managerMai,
+	Comment:     "ตารางงานผู้จัดการ",
+	WorkingDate: time.Date(2021, 1, 1, 9, 0, 0, 0, time.UTC),
+	TimeTotal:   9,
+	Manager:     managerMai,
+	Employee:    managerMai,
 	Day: Day{
-		DayOfWeek: "วันศุกร์",
-	},
-	Weekly: Weekly{
-		WeekAt: 1,
+		DayNumber: 26,
 	},
 	Month: Month{
 		MonthOfYear: "มกราคม",
