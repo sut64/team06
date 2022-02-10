@@ -3,6 +3,7 @@ package entity
 import (
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
@@ -44,11 +45,28 @@ type ManagePromotion struct {
 	PromotionTypeID *uint
 	PromotionType   PromotionType `gorm:"references:ID"`
 
-	PromotionCode string `gorm:"uniqueIndex"`
-	MinPrice      float64
+	PromotionCode string  `valid:"required~,matches(^[A]\\d{4}$)"`
+	MinPrice      float64 `valid:"required~MinPrice must not be zero, MinPrice~MinPrice must not be negative"`
 
-	Discount       float64
-	Createdatetime time.Time
+	Discount       float64   `valid:"required~Discount must not be zero, Discount~Discount must not be negative"`
+	Createdatetime time.Time `valid:"notpast~Createdatetime must not be in the past"`
 
 	Orders []PurchaseOrder `gorm:"foreignKey:PromotionID"`
+}
+
+func init() {
+	govalidator.CustomTypeTagMap.Set("notpast", func(i interface{}, o interface{}) bool {
+		t := i.(time.Time)
+		// ย้อนหลังไม่เกิน 1 วัน
+		return t.After(time.Now().AddDate(0, 0, -1))
+	})
+
+	govalidator.CustomTypeTagMap.Set("MinPrice", func(i interface{}, o interface{}) bool {
+		a := i.(float64)
+		return a >= 1
+	})
+	govalidator.CustomTypeTagMap.Set("Discount", func(i interface{}, o interface{}) bool {
+		a := i.(float64)
+		return a >= 1
+	})
 }

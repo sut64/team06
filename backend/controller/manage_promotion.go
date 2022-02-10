@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team06/backend/entity"
 )
@@ -49,7 +50,13 @@ func CreateManagePromotion(c *gin.Context) {
 		Discount:        managepromotion.Discount,
 		PromotionCode:   managepromotion.PromotionCode,
 	}
+	//ขั้นตอนการ validate
+	if _, err := govalidator.ValidateStruct(promotion); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
+	//บันทึก
 	if err := entity.DB().Create(&promotion).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
