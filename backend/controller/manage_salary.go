@@ -22,7 +22,7 @@ func ListEmployeesByManageSalary(c *gin.Context) {
 	var employees []entity.Employee
 	if err := entity.DB().Model(&entity.Employee{}).
 		Preload("UserLogin.UserRole").Preload("UserDetail.Gender").Preload("Position").
-		Preload("EmployeeManageWorkTime.Manager.UserDetail").Preload("EmployeeManageWorkTime.Day").Preload("EmployeeManageWorkTime.Weekly").Preload("EmployeeManageWorkTime.Month").Preload("EmployeeManageWorkTime.WorkingTime").
+		Preload("EmployeeManageWorkTime.Manager.UserDetail").Preload("EmployeeManageWorkTime.Day").Preload("EmployeeManageWorkTime.Month").Preload("EmployeeManageWorkTime.WorkingTime").
 		Find(&employees, entity.DB().Where("superior_id = ?", manager.ID)).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -38,7 +38,7 @@ func ListEmployeesByManageSalary(c *gin.Context) {
 func ListManageWorkTimeByManageSalary(c *gin.Context) {
 	var manageWorkTime []entity.ManageWorkTime
 	if err := entity.DB().Model(&entity.ManageWorkTime{}).
-		Preload("Manager").Preload("Employee").Preload("Day").Preload("Weekly").Preload("Month").Preload("WorkingTime").
+		Preload("Manager").Preload("Employee").Preload("Day").Preload("Month").Preload("WorkingTime").
 		Find(&manageWorkTime).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -54,7 +54,7 @@ func GetManageWorkTimeByManageSalary(c *gin.Context) {
 	if err := entity.DB().Model(&entity.ManageWorkTime{}).
 		Preload("Manager.UserLogin.UserRole").Preload("Manager.UserDetail.Gender").Preload("Manager.Position").
 		Preload("Employee.UserLogin.UserRole").Preload("Employee.UserDetail.Gender").Preload("Employee.Position").
-		Preload("Day").Preload("Weekly").Preload("Month").Preload("WorkingTime").
+		Preload("Day").Preload("Month").Preload("WorkingTime").
 		Joins("Employee").
 		Find(&manageWorkTime, entity.DB().Where("`Employee__id` = ?", id)).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -102,8 +102,8 @@ func ListManageSalaryByManageSalary(c *gin.Context) {
 		Preload("UserDetail").Preload("Position").
 		Preload("ManageSalarys.Manager.UserDetail").Preload("ManageSalarys.Manager.Position").
 		Preload("ManageSalarys.Assessment").Preload("ManageSalarys.BonusStatus").
-		Preload("ManageSalarys.ManageWorkTime.Manager.UserDetail").Preload("ManageSalarys.ManageWorkTime.Day").Preload("ManageSalarys.ManageWorkTime.Weekly").Preload("ManageSalarys.ManageWorkTime.Month").Preload("ManageSalarys.ManageWorkTime.WorkingTime").
-		Preload("EmployeeManageWorkTime.Manager.UserDetail").Preload("EmployeeManageWorkTime.Day").Preload("EmployeeManageWorkTime.Weekly").Preload("EmployeeManageWorkTime.Month").Preload("EmployeeManageWorkTime.WorkingTime").
+		Preload("ManageSalarys.ManageWorkTime.Manager.UserDetail").Preload("ManageSalarys.ManageWorkTime.Day").Preload("ManageSalarys.ManageWorkTime.Month").Preload("ManageSalarys.ManageWorkTime.WorkingTime").
+		Preload("EmployeeManageWorkTime.Manager.UserDetail").Preload("EmployeeManageWorkTime.Day").Preload("EmployeeManageWorkTime.Month").Preload("EmployeeManageWorkTime.WorkingTime").
 		Find(&employee_manageSalaries).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -161,7 +161,7 @@ func CreateManageSalaryByManageSalary(c *gin.Context) {
 	}
 
 	// 11: ค้นหา ManageWorkTime ด้วย id
-	if tx := entity.DB().Model(&entity.ManageWorkTime{}).Preload("Manager").Preload("Employee").Preload("Day").Preload("Weekly").Preload("Month").Preload("WorkingTime").Find(&manageWorkTime, entity.DB().Where("id = ?", manageSalary.ManageWorkTimeID)); tx.RowsAffected == 0 {
+	if tx := entity.DB().Model(&entity.ManageWorkTime{}).Preload("Manager").Preload("Employee").Preload("Day").Preload("Month").Preload("WorkingTime").Find(&manageWorkTime, entity.DB().Where("id = ?", manageSalary.ManageWorkTimeID)); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ManageWorkTime not found"})
 		return
 	}
@@ -235,7 +235,7 @@ func UpdateManageSalaryByManageSalary(c *gin.Context) {
 		return
 	}
 
-	if tx := entity.DB().Model(&entity.ManageWorkTime{}).Preload("Manager").Preload("Employee").Preload("Day").Preload("Weekly").Preload("Month").Preload("WorkingTime").Find(&manageWorkTime, entity.DB().Where("id = ?", manageSalary.ManageWorkTimeID)); tx.RowsAffected == 0 {
+	if tx := entity.DB().Model(&entity.ManageWorkTime{}).Preload("Manager").Preload("Employee").Preload("Day").Preload("Month").Preload("WorkingTime").Find(&manageWorkTime, entity.DB().Where("id = ?", manageSalary.ManageWorkTimeID)); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ManageWorkTime not found"})
 		return
 	}
