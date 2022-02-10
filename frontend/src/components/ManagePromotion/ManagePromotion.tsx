@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -53,9 +53,13 @@ export default function ManagePromotion() {
     new Date()
   );
 
-  // const [user, setUser] = React.useState<Partial<EmployeesInterface>>({});
+  
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
+  const [errorMessage, setErrorMassage] = useState(""); 
+
+
+
   const [Promotion, setPromotion] = React.useState<Partial<ManagePromotionsInterface>>({
     NamePromotionID: 0,
     PromotionPeriodID: 0,
@@ -99,23 +103,12 @@ export default function ManagePromotion() {
       setdetail(NamePromotion.find((r) => r.ID === event.target.value));
     }
   };
-  // const [isItemEmpty, setIsItemEmpty] = useState<boolean>(false);
-  // const [msg, setMsg] = useState<string>("");
+ 
 
 
   function submit() {
 
-    // if(Promotion?.PromotionCode === "" ||
-    //  Promotion?.NamePromotionID === 0 ||
-    //  Promotion?.PromotionTypeID === 0 ||
-    //  Promotion?.MinPrice === 0 ||
-    //  Promotion?.Discount === 0 ||
-    //  Promotion?.Quantity === 0 
-    //  ){
-    //   setIsItemEmpty(true);
-    //   setMsg("กรุณากรอกข้อมูลให้ครบถ้วน");
-    //   return;
-    // }
+   
 
 
     let data = {
@@ -141,8 +134,10 @@ export default function ManagePromotion() {
       .then((res) => {
         if (res.data) {
           setSuccess(true);
+          setErrorMassage("")
         } else {
           setError(true);
+          setErrorMassage(res.error)
         }
       });
    
@@ -232,10 +227,7 @@ export default function ManagePromotion() {
     getPromotionType();
   }, []);
   
-  // const convertType = (data: Date | undefined) => {    
-  //    let val = typeof data === "undefined" ? String(data) : data;   
-  //      return val;   };
-
+ 
   return (
     <Container className={classes.container} maxWidth="md">
       <Snackbar open={success} autoHideDuration={3000} onClose={handleClose}>
@@ -245,7 +237,7 @@ export default function ManagePromotion() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+          บันทึกข้อมูลไม่สำเร็จ {errorMessage}
         </Alert>
       </Snackbar>
       <Paper className={classes.paper}>
