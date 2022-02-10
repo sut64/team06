@@ -68,6 +68,7 @@ function CreateProductstock() {
   };
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
@@ -163,12 +164,13 @@ function CreateProductstock() {
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          setError(false);
           setSuccess(true);
           console.log("บันทึกได้");
+          setErrorMessage("")
         } else {
           setError(true);
           console.log("บันทึกไม่ได้");
+          setErrorMessage(res.error)
         }
       });
   }
@@ -182,7 +184,7 @@ function CreateProductstock() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          ไม่สามารถบันทึกได้
+          บันทึกข้อมูลไม่สำเร็จ : {errorMessage}
         </Alert>
       </Snackbar>
       <Container className={classes.container} maxWidth="md">
@@ -200,8 +202,8 @@ function CreateProductstock() {
             </Box>
           </Box>
           <Divider />
-          <Grid container spacing={3} className={classes.root}>
-            <Grid item xs={6}>
+          <Grid container spacing={2} className={classes.root}>
+            <Grid item xs={12}>
               <FormControl fullWidth variant="outlined">
                 <p>ชื่อผู้ใช้งานระบบ</p>
                 <Select
@@ -216,7 +218,7 @@ function CreateProductstock() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth variant="outlined">
                 <p>รายการสินค้า</p>
                 <Select
@@ -238,7 +240,7 @@ function CreateProductstock() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth variant="outlined">
                 <p>ชั้นวางสินค้า</p>
                 <Select
@@ -260,13 +262,12 @@ function CreateProductstock() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth variant="outlined">
                 <p>จำนวนสินค้า</p>
                 <TextField
                   fullWidth
                   id="outlined-basic"
-                  variant="outlined"
                   type="number"
                   placeholder="กรอกจำนวนสินค้า"
                   value={productstock.Amount_remain}
@@ -275,12 +276,11 @@ function CreateProductstock() {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <p>รายอะเลียดสินค้า</p>
               <TextField
                 fullWidth
                 id="outlined-basic"
-                variant="outlined"
                 placeholder="กรอกรายละเอียดสินค้า"
                 value={productstock.Detail}
                 onChange={handleChange}
@@ -288,7 +288,7 @@ function CreateProductstock() {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth variant="outlined">
                 <p>วันที่และเวลา</p>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
