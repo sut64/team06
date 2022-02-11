@@ -4,6 +4,7 @@ import {
     createStyles,
     makeStyles,
     Theme,
+    withStyles,
 } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import FormControl from '@material-ui/core/FormControl';
@@ -16,6 +17,7 @@ import {
     Snackbar,
     MenuItem,
     InputLabel,
+    Divider
 } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert"
 import TextField from '@material-ui/core/TextField';
@@ -23,12 +25,19 @@ import {
     MuiPickersUtilsProvider,
     DatePicker
 } from "@material-ui/pickers";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import DateFnsUtils from "@date-io/date-fns";
+import { format } from 'date-fns';
 
-// import { green } from "@material-ui/core/colors";
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import TableChartIcon from '@material-ui/icons/TableChart';
-import DehazeIcon from '@material-ui/icons/Dehaze';
 
 import {
     DayInterface,
@@ -63,8 +72,24 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: {
             margin: theme.spacing(1),
         },
+        containerTable: {
+            maxHeight: 440,
+        },
+        rootCard: {
+            minWidth: 275,
+        },
     })
 );
+
+const StyledTableHead = withStyles((theme) => ({
+    head: {
+        backgroundColor: '#334756',
+        color: theme.palette.common.white,
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
 
 function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -74,7 +99,6 @@ export default function ScheduleCreate() {
     const classes = useStyles();
     const [employee, setEmployee] = useState<EmployeesInterface[]>([]);
     const [day, setDay] = useState<DayInterface[]>([]);
-    const [stepDay, setStepDay] = useState<number[]>([]);
     const [month, setMonth] = useState<MonthInterface[]>([]);
     const [workingTime, setWorkingTime] = useState<WorkingTimeInterface[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -82,12 +106,25 @@ export default function ScheduleCreate() {
     const [allManageWorkTime, setAllManageWorkTime] = useState<ManageWorkTimeInterface[]>([]);
     const [allDayOfMonth, setAllDayOfMonth] = useState<number>(0);
     const [createdDayWorking, setCreatedDayWorking] = useState<number[]>([]);
+    const [selectMwtByEm, setselectMwtByEm] = useState<ManageWorkTimeInterface[]>([]);
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const [openAlertSucess, setOpenAlertSucess] = useState(false);
     const [openAlertError, setOpenAlertError] = useState(false);
     const handleClose = () => {
         setOpenAlertSucess(false);
         setOpenAlertError(false);
+    };
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
     };
 
     const BaseURL = "http://127.0.0.1:8080";
@@ -98,11 +135,11 @@ export default function ScheduleCreate() {
             "Content-Type": "application/json",
         },
     };
-    const totalWorkTime = (eId: any) => {
+    const totalWorkTime = (emId: any) => {
         const tempManage = allManageWorkTime
         let total = 0;
         for (const data of tempManage) {
-            if (data.EmployeeID === eId) {
+            if (data.EmployeeID === emId) {
                 console.log(data.TimeTotal)
                 total = total + data.TimeTotal;
             }
@@ -115,11 +152,11 @@ export default function ScheduleCreate() {
         // manageWorkTime.TimeTotal = manageWorkTime.TimeTotal ? manageWorkTime.TimeTotal + 8 : 8
         manageWorkTime.TimeTotal = 8;
     }
-    const getCreatedDay = (eId: any, mId: any) => {
+    const getCreatedDay = (emId: any, mId: any) => {
         const saveDay: any = [];
         allManageWorkTime.map((item: ManageWorkTimeInterface) => {
             // console.log(manageWorkTime.MonthID)
-            if (item.EmployeeID === eId && item.MonthID === mId) {
+            if (item.EmployeeID === emId && item.MonthID === mId) {
                 saveDay.push(item.Day.DayNumber)
             }
         });
@@ -130,44 +167,27 @@ export default function ScheduleCreate() {
         let date = new Date(),
             year = date.getFullYear(),
             tMonth = month - 1
-        const weeks = [],
-            firstDate = new Date(year, tMonth, 1),
-            lastDate = new Date(year, tMonth + 1, 0),
+        const lastDate = new Date(year, tMonth + 1, 0),
             numDays = lastDate.getDate();
         setAllDayOfMonth(numDays);
+    }
 
-        let offset = 0;
-        if (firstDate.getDay() === 0) offset = 1;
-        // else if (firstDate.getDay() === 6) offset = 2;
-
-        let start = 1 + offset;
-        let end: number;
-
-        if (offset === 0) end = 6 - firstDate.getDay() + 1;
-        else end = 6 - start + 1 + (offset * 2);
-
-        while (start <= numDays) {
-            let temp = start;
-            for (let i = start; i <= end; i++) {
-                weeks.push(temp);
-                temp += 1;
+    const getSelectManageByEmployee = (emId: any) => {
+        const tempManage = allManageWorkTime;
+        const tempData: any = [];
+        for (const data of tempManage) {
+            if (data.EmployeeID === emId) {
+                tempData.push(data)
             }
-            start = end + 2;
-            end = end + 7;
-            end = start === 1 && end === 8 ? 1 : end;
-            if (end > numDays) end = numDays;
         }
-
-        // return weeks;
-        // console.log(weeks)
-        setStepDay(weeks);
+        setselectMwtByEm(tempData)
     }
 
     const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
         // console.log(event.target.name, event.target.value)
         const name = event.target.name as keyof typeof manageWorkTime;
         if (name === "EmployeeID") {
-            totalWorkTime(event.target.value)
+            getSelectManageByEmployee(event.target.value)
             getCreatedDay(event.target.value, manageWorkTime.MonthID);
         } else if (name === "WorkingTimeID") {
             addTimeTotal();
@@ -252,6 +272,7 @@ export default function ScheduleCreate() {
                     // console.log("[GET] All ManageWorkingTime => ", res.data)
                     setAllManageWorkTime(res.data)
                     getCreatedDay(manageWorkTime.EmployeeID, manageWorkTime.MonthID);
+                    getSelectManageByEmployee(manageWorkTime.EmployeeID);
                 } else {
                     console.log("FAIL!")
                 }
@@ -325,7 +346,7 @@ export default function ScheduleCreate() {
                 </Snackbar>
                 <h1 style={{ textAlign: "center" }}>จัดตารางงาน</h1>
                 <Paper elevation={2} className={classes.root}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} style={{ marginBottom: "5px" }}>
                         <Grid item xs={12} style={{ marginTop: "5px", marginRight: "20px" }} container direction="row" justifyContent="flex-end" alignItems="center">
                             <Button
                                 component={RouterLink}
@@ -338,36 +359,110 @@ export default function ScheduleCreate() {
                             </Button>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={5}>
-                        <Grid item xs={12} container direction="row" justifyContent="center" alignContent="center">
-                            <FormControl required className={classes.formControl}>
-                                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                    ชื่อพนักงาน
-                                </InputLabel>
-                                <Select
-                                    // native
-                                    labelId="demo-simple-select-placeholder-label-label"
-                                    value={manageWorkTime.EmployeeID || ""}
-                                    onChange={handleChange}
-                                    displayEmpty
-                                    className={classes.selectEmpty}
-                                    inputProps={{
-                                        name: 'EmployeeID',
-                                    }}
-                                >
-                                    <MenuItem value="" disabled><em>กรุณาเลือกชื่อพนักงาน</em></MenuItem>
-                                    {employee.map((item: EmployeesInterface) => (
-                                        <MenuItem value={item.ID} key={item.ID}>
-                                            {item.UserDetail.FirstName + " " + item.UserDetail.LastName}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                                {/* <FormHelperText>Some important helper text</FormHelperText> */}
-                            </FormControl>
+                    <Divider />
+                    <Grid container spacing={5} style={{ marginTop: "0.7rem" }}>
+                        <Grid container direction="column" justifyContent="center" alignContent="center" alignItems="stretch">
+                            <Grid item xs>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel shrink id="Employee">
+                                        ชื่อพนักงาน
+                                    </InputLabel>
+                                    <Select
+                                        // native
+                                        labelId="Employee"
+                                        value={manageWorkTime.EmployeeID || ""}
+                                        onChange={handleChange}
+                                        displayEmpty
+                                        className={classes.selectEmpty}
+                                        inputProps={{
+                                            name: 'EmployeeID',
+                                        }}
+                                    >
+                                        <MenuItem value="" disabled><em>กรุณาเลือกชื่อพนักงาน</em></MenuItem>
+                                        {employee.map((item: EmployeesInterface) => (
+                                            <MenuItem value={item.ID} key={item.ID}>
+                                                {item.UserDetail.FirstName + " " + item.UserDetail.LastName}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    {/* <FormHelperText>Some important helper text</FormHelperText> */}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs>
+                                <Grid container direction="row" justifyContent="center" alignContent="center">
+                                    <Card variant="outlined">
+                                        <CardContent>
+                                            <TableContainer className={classes.containerTable}>
+                                                <Table stickyHeader aria-label="sticky table">
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                ลำดับ
+                                                            </StyledTableHead>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                ตำแหน่ง
+                                                            </StyledTableHead>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                ความคิดเห็น
+                                                            </StyledTableHead>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                วันที่
+                                                            </StyledTableHead>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                เดือน
+                                                            </StyledTableHead>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                ช่วงเวลาทำงาน
+                                                            </StyledTableHead>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                เวลารวม
+                                                            </StyledTableHead>
+                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                                วันที่สร้าง
+                                                            </StyledTableHead>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        {selectMwtByEm.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => {
+                                                            return (
+                                                                <TableRow hover role="checkbox" tabIndex={-1} key={item.ID}>
+                                                                    <TableCell align="center">{item.ID}</TableCell>
+                                                                    {/* <TableCell align="center">{item.Employee.UserDetail.FirstName}</TableCell> */}
+                                                                    <TableCell align="center">{item.Employee.Position.PositionNameTH}</TableCell>
+                                                                    <TableCell align="center">{item.Comment}</TableCell>
+                                                                    <TableCell align="center">{item.Day.DayNumber}</TableCell>
+                                                                    <TableCell align="center">{item.Month.MonthOfYear}</TableCell>
+                                                                    <TableCell align="center">{item.WorkingTime.TimeToTime}</TableCell>
+                                                                    <TableCell align="center">{item.TimeTotal}</TableCell>
+                                                                    <TableCell align="center">{format((new Date(item.WorkingDate)), 'dd/MMMM/yyyy')}</TableCell>
+                                                                    {/* <TableCell align="center">
+                                                            <IconButton aria-label="delete">
+                                                                <DeleteIcon onClick={() => handleSaveID(item.ID)} />
+                                                            </IconButton>
+                                                        </TableCell> */}
+                                                                </TableRow>
+                                                            );
+                                                        })}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                            <TablePagination
+                                                rowsPerPageOptions={[5]}
+                                                component="div"
+                                                count={selectMwtByEm.length}
+                                                rowsPerPage={rowsPerPage}
+                                                page={page}
+                                                onPageChange={handleChangePage}
+                                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                            />
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid container spacing={0} justifyContent="center">
+                        <Grid container spacing={1} justifyContent="center" style={{ marginTop: "0.5rem" }}>
                             <Grid item>
-                                <FormControl className={classes.formControl}>
+                                <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel shrink id="demo-simple-select-placeholder-label-label">
                                         เดือน
                                     </InputLabel>
@@ -392,7 +487,7 @@ export default function ScheduleCreate() {
                                 </FormControl>
                             </Grid>
                             <Grid item>
-                                <FormControl className={classes.formControl} disabled={manageWorkTime.MonthID ? false : true}>
+                                <FormControl variant="outlined" className={classes.formControl} disabled={manageWorkTime.MonthID ? false : true}>
                                     <InputLabel shrink id="demo-simple-select-placeholder-label-label">
                                         วัน
                                     </InputLabel>
@@ -416,9 +511,9 @@ export default function ScheduleCreate() {
                                                         {item.DayNumber}
                                                     </MenuItem>
                                                 ) : (
-                                                <MenuItem value={item.ID} key={item.ID} disabled>
-                                                    {item.DayNumber} - สร้างตารางแล้ว
-                                                </MenuItem>
+                                                    <MenuItem value={item.ID} key={item.ID} disabled>
+                                                        {item.DayNumber} - สร้างตารางแล้ว
+                                                    </MenuItem>
                                                 ))
                                             ))
                                             return items;
@@ -428,49 +523,50 @@ export default function ScheduleCreate() {
                                 </FormControl>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} container direction="row" justifyContent="center" alignContent="center">
-                            <FormControl className={classes.formControl}>
-                                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                    เวลาทำงาน
-                                </InputLabel>
-                                <Select
-                                    // native
-                                    value={manageWorkTime.WorkingTimeID || ""}
-                                    onChange={handleChange}
-                                    displayEmpty
-                                    className={classes.selectEmpty}
-                                    inputProps={{
-                                        name: 'WorkingTimeID'
-                                    }}
-                                >
-                                    <MenuItem value="" disabled><em>กรุณาเลือกเวลาทำงาน</em></MenuItem>
-                                    {workingTime.map((item: WorkingTimeInterface) => (
-                                        <MenuItem value={item.ID} key={item.ID}>
-                                            {item.TimeToTime}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                                {/* <FormHelperText>Some important helper text</FormHelperText> */}
-                            </FormControl>
-                        </Grid>
-                        <Grid container spacing={3} alignItems="flex-end" direction="row" justifyContent="center" alignContent="center">
+                        <Grid container spacing={0} direction="row" justifyContent="center">
                             <Grid item>
-                                <AccessAlarmIcon />
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                                        ช่วงเวลาทำงาน
+                                    </InputLabel>
+                                    <Select
+                                        // native
+                                        value={manageWorkTime.WorkingTimeID || ""}
+                                        onChange={handleChange}
+                                        displayEmpty
+                                        className={classes.selectEmpty}
+                                        inputProps={{
+                                            name: 'WorkingTimeID'
+                                        }}
+                                    >
+                                        <MenuItem value="" disabled><em>กรุณาเลือกเวลาทำงาน</em></MenuItem>
+                                        {workingTime.map((item: WorkingTimeInterface) => (
+                                            <MenuItem value={item.ID} key={item.ID}>
+                                                {item.TimeToTime}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
                             </Grid>
                             <Grid item>
-                                <TextField
-                                    id="TimeTotal"
-                                    name="TimeTotal"
-                                    // type="number"
-                                    label="กรอกเวลางาน"
-                                    value={manageWorkTime.TimeTotal || 0}
-                                    onChange={handleInputChange}
-                                    InputProps={{
-                                        readOnly: true,
-                                    }}
-                                />
+                                <p></p>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <TextField
+                                        id="TimeTotal"
+                                        name="TimeTotal"
+                                        // type="number"
+                                        variant="outlined"
+                                        label="เวลางานทั้งหมด ชม."
+                                        value={manageWorkTime.TimeTotal || 0}
+                                        onChange={handleInputChange}
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
+                                    />
+                                </FormControl>
                             </Grid>
                         </Grid>
+
                         <Grid item xs={12} container direction="row" justifyContent="center" alignContent="center">
                             <FormControl variant="outlined">
                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -487,15 +583,16 @@ export default function ScheduleCreate() {
                             </FormControl>
                         </Grid>
                         <Grid container spacing={3} alignItems="flex-end" direction="row" justifyContent="center" alignContent="center">
-                            <Grid item>
-                                <DehazeIcon />
-                            </Grid>
-                            <Grid item>
+                            <Grid item xs={8}>
                                 <TextField
                                     id="Comment"
                                     name="Comment"
                                     type="text"
-                                    label="กรอกชื่อตารางงาน"
+                                    label="คำอธิบาย"
+                                    multiline
+                                    rows={4}
+                                    fullWidth
+                                    variant="outlined"
                                     value={manageWorkTime.Comment || ""}
                                     onChange={handleInputChange}
                                 />
