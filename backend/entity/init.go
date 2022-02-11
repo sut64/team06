@@ -514,13 +514,13 @@ func SetupIntoDatabase(db *gorm.DB) {
 	//* |         PREMIUM MEMBER       |
 	//* +------------------------------+
 	period1 := PremiumMemberPeriod{
-		Period: "one month",
+		Period: "1 month",
 	}
 	period2 := PremiumMemberPeriod{
-		Period: "two month",
+		Period: "2 month",
 	}
 	period3 := PremiumMemberPeriod{
-		Period: "tre month",
+		Period: "3 month",
 	}
 	class1 := MemberClass{
 		Name: "Bronz",

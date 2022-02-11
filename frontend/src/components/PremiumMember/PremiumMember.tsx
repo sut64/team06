@@ -11,6 +11,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { createStyles, Theme, makeStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import { MuiPickersUtilsProvider, DateTimePicker, DatePicker } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+
 
 // import { MembersInterface } from "../../models/IUser";
 import { PremiumMemberPeriodInterface } from "../../models/IPremiumMemberPeriod";
@@ -56,6 +59,7 @@ function CreatePremiumMember() {
     PremiumMemberPeriodID: 0,
   });
   const [createTime, setCreateTime] = useState<Date | null>(new Date());
+  const [errorMassage, SetErrorMassage] = useState("");
 
   // QUERY DATA FROM DATABASE
   const getUser = async () => {
@@ -147,7 +151,7 @@ function CreatePremiumMember() {
       MemberID: user?.ID,
       MemberClassID: premiumMember.MemberClassID,
       PremiumMemberPeriodID: convertType(premiumMember.PremiumMemberPeriodID),
-      CrateAt: createTime,
+      CreateAt: createTime,
       Point: convertType(premiumMember.Point),
       PremiumMemberID: premiumMember.PremiumMemberID,
     }
@@ -169,10 +173,12 @@ function CreatePremiumMember() {
           console.log(res.data);
           setError(false);
           setSuccess(true);
+          SetErrorMassage("");
         } else {
           console.log(res.error);
           setError(true);
           setErrorMsg(res.error);
+          SetErrorMassage(res.error);
         }
       });
   }
@@ -198,7 +204,8 @@ function CreatePremiumMember() {
     setPremiumMember({ ...premiumMember, [id]: value });
   };
 
-  const handleCreateTime = (date: Date | null) => {
+  const handleCreateDateTime = (date: Date | null) => {
+    console.log(date);
     setCreateTime(date);
   }
 
@@ -227,7 +234,7 @@ function CreatePremiumMember() {
         </Snackbar>
         <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">
-            {errorMsg}
+            {errorMassage}
           </Alert>
         </Snackbar>
         <Paper className={classes.paper}>
@@ -299,8 +306,25 @@ function CreatePremiumMember() {
                     </FormControl>
                   </Grid>
                 </Grid>
+                <Grid item xs={12}>
+                    <FormControl fullWidth size="small" variant="outlined">
+                    <p>วันที่และเวลา</p>
+                      <Typography className={classes.typoHeader} variant="subtitle2"></Typography>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                                        style={{ justifyContent: "center" }}
+                                        name="CreateAt"
+                                        value={createTime}
+                                        onChange={handleCreateDateTime}
+                                        label="กรุณาเลือกวันที่และเวลา"
+                                      minDate={new Date("2018-01-01T00:00")}
+                                      format="yyyy/MM/dd"
+                        />
+                      </MuiPickersUtilsProvider>
+                    </FormControl>
+                  </Grid>
               </Paper>
-            </Grid>
+            </Grid>           
 
             {/* Bottom */}
             <Grid item xs={12} style={{ marginTop: ".5rem" }}>
