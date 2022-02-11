@@ -3,6 +3,7 @@ package entity
 import (
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
@@ -10,22 +11,22 @@ type ManageWorkTime struct {
 	gorm.Model
 	Comment     string
 	WorkingDate time.Time
-	TimeTotal   uint
+	TimeTotal   uint `valid:"customEqualEight~TimeTotal must be equal 8 hr."`
 
 	ManagerID *uint
-	Manager   Employee
+	Manager   Employee `gorm:"references:ID" valid:"-"`
 
 	EmployeeID *uint
-	Employee   Employee
+	Employee   Employee `gorm:"references:ID" valid:"-"`
 
 	DayID *uint
-	Day   Day
+	Day   Day `gorm:"references:ID" valid:"-"`
 
 	MonthID *uint
-	Month   Month
+	Month   Month `gorm:"references:ID" valid:"-"`
 
 	WorkingTimeID *uint
-	WorkingTime   WorkingTime
+	WorkingTime   WorkingTime `gorm:"references:ID" valid:"-"`
 
 	ManageSalary []ManageSalary `gorm:"foreignkey:ManageWorkTimeID"`
 }
@@ -48,4 +49,15 @@ type WorkingTime struct {
 	TimeToTime string
 
 	ManageWorkTime []ManageWorkTime `gorm:"foreignKey:WorkingTimeID"`
+}
+
+func init() {
+	govalidator.CustomTypeTagMap.Set("customEqualEight", func(i interface{}, context interface{}) bool {
+		return i.(uint) == 8
+	})
+
+	govalidator.CustomTypeTagMap.Set("future", func(i interface{}, context interface{}) bool {
+		t := i.(time.Time)
+		return t.After(time.Now())
+	})
 }
