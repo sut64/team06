@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team06/backend/entity"
 )
@@ -65,6 +66,12 @@ func CreatePremiumMember(c *gin.Context) {
 		CreateAt:            premiumMember.CreateAt,        // set field CreateAt
 		Point:               premiumMember.Point,           // set field Point
 	}
+
+	// Validation
+if _, err := govalidator.ValidateStruct(pm); err != nil {
+	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	return
+}
 
 	// save
 	if err := entity.DB().Create(&pm).Error; err != nil {
