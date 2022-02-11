@@ -40,7 +40,7 @@ var managerMai = Employee{
 var ManageWT = ManageWorkTime{
 	Comment:     "ตารางงานผู้จัดการ",
 	WorkingDate: time.Date(2021, 1, 1, 9, 0, 0, 0, time.UTC),
-	TimeTotal:   9,
+	TimeTotal:   8,
 	Manager:     managerMai,
 	Employee:    managerMai,
 	Day: Day{
