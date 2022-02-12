@@ -9,9 +9,9 @@ import (
 
 type ManageWorkTime struct {
 	gorm.Model
-	Comment     string
-	WorkingDate time.Time
-	TimeTotal   uint `valid:"customEqualEight~TimeTotal must be equal 8 hr."`
+	Comment     string    `valid:"stringlength(0|200)~Comment length must be between 0 - 200"`
+	WorkingDate time.Time `valid:"present~WorkingDate must be present or future"`
+	TimeTotal   uint      `valid:"customEqualEight~TimeTotal must be equal 8 hr."`
 
 	ManagerID *uint
 	Manager   Employee `gorm:"references:ID" valid:"-"`
@@ -56,7 +56,7 @@ func init() {
 		return i.(uint) == 8
 	})
 
-	govalidator.CustomTypeTagMap.Set("future", func(i interface{}, context interface{}) bool {
+	govalidator.CustomTypeTagMap.Set("present", func(i interface{}, context interface{}) bool {
 		t := i.(time.Time)
 		return t.After(time.Now())
 	})

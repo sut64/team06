@@ -37,7 +37,78 @@ var managerChut = Employee{
 	},
 }
 
-func TestManageWorkTimeTimeToTalMustEqualEight(t *testing.T) {
+func TestManageWorkTimePass(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	// ข้อมูลถูกต้องหมดทุก field
+	manageWorkTime := ManageWorkTime{
+		Comment:     "ตารางงานพนักงาน",
+		WorkingDate: time.Now(),
+		TimeTotal:   8,
+		Manager:     managerChut,
+		Employee:    managerChut,
+		Day: Day{
+			DayNumber: 26,
+		},
+		Month: Month{
+			MonthOfYear: "มกราคม",
+		},
+		WorkingTime: WorkingTime{
+			TimeToTime: "08.00-17.00",
+		},
+	}
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(manageWorkTime)
+
+	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+	g.Expect(ok).ToNot(BeTrue())
+
+	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+	g.Expect(err).ToNot(BeNil())
+
+	// err.Error ต้องมี error message แสดงออกมา
+	g.Expect(err.Error()).To(Equal("TimeTotal must be equal 8 hr."))
+}
+
+func TestManageWorkTimeCommentMustBeValid(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	test_data := ""
+	for i := 0; i < 201; i++ {
+		test_data += "B"
+	}
+
+	// ข้อมูลถูกต้องหมดทุก field
+	manageWorkTime := ManageWorkTime{
+		Comment:     test_data,
+		WorkingDate: time.Now(),
+		TimeTotal:   8,
+		Manager:     managerChut,
+		Employee:    managerChut,
+		Day: Day{
+			DayNumber: 26,
+		},
+		Month: Month{
+			MonthOfYear: "มกราคม",
+		},
+		WorkingTime: WorkingTime{
+			TimeToTime: "08.00-17.00",
+		},
+	}
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(manageWorkTime)
+
+	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+	g.Expect(ok).ToNot(BeTrue())
+
+	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+	g.Expect(err).ToNot(BeNil())
+
+	// err.Error ต้องมี error message แสดงออกมา
+	g.Expect(err.Error()).To(Equal("Comment length must be between 0 - 200"))
+}
+
+func TestManageWorkTimeTimeTotalMustEqualEight(t *testing.T) {
 	g := NewGomegaWithT(t)
 
 	fixtures := []uint{
@@ -75,4 +146,39 @@ func TestManageWorkTimeTimeToTalMustEqualEight(t *testing.T) {
 		// err.Error ต้องมี error message แสดงออกมา
 		g.Expect(err.Error()).To(Equal("TimeTotal must be equal 8 hr."))
 	}
+}
+
+func TestManageWorkWorkingTimeMustBePresentOrFuture(t *testing.T) {
+	g := NewGomegaWithT(t)
+
+	test_data := time.Now().Add(-12 * time.Hour)
+
+	manageWorkTime := ManageWorkTime{
+		Comment:     "ตารางงานพนักงาน",
+		WorkingDate: test_data, // ผิด
+		TimeTotal:   8,
+		Manager:     managerChut,
+		Employee:    managerChut,
+		Day: Day{
+			DayNumber: 26,
+		},
+		Month: Month{
+			MonthOfYear: "มกราคม",
+		},
+		WorkingTime: WorkingTime{
+			TimeToTime: "08.00-17.00",
+		},
+	}
+
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(manageWorkTime)
+
+	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+	g.Expect(ok).ToNot(BeTrue())
+
+	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+	g.Expect(err).ToNot(BeNil())
+
+	// err.Error ต้องมี error message แสดงออกมา
+	g.Expect(err.Error()).To(Equal("WorkingDate must be present or future"))
 }

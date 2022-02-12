@@ -458,24 +458,24 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&WorkingTime{}).Find(&wt_8t17, db.Where("id = ?", 1))
 
 	ManageWT_M01 := ManageWorkTime{
-		Comment:       "ตารางงานผู้จัดการ",
-		WorkingDate:   time.Date(2021, 1, 1, 9, 0, 0, 0, time.UTC),
-		TimeTotal:     8,
-		Manager:       managerMai,
-		Employee:      managerMai,
-		DayID:         &Day26.ID,
-		MonthID:       &Month_1Jan.ID,
-		WorkingTimeID: &wt_8t17.ID,
+		Comment:     "ตารางงานผู้จัดการ",
+		WorkingDate: time.Now(),
+		TimeTotal:   8,
+		Manager:     managerMai,
+		Employee:    managerMai,
+		Day:         Day26,
+		Month:       Month_1Jan,
+		WorkingTime: wt_8t17,
 	}
 	ManageWT_E01 := ManageWorkTime{
-		Comment:       "ตารางงานพนักงาน",
-		WorkingDate:   time.Date(2021, 1, 1, 8, 0, 0, 0, time.UTC),
-		TimeTotal:     8,
-		Manager:       managerMai,
-		Employee:      employeeSakeet,
-		DayID:         &Day7.ID,
-		MonthID:       &Month_1Jan.ID,
-		WorkingTimeID: &wt_8t17.ID,
+		Comment:     "ตารางงานพนักงาน",
+		WorkingDate: time.Now(),
+		TimeTotal:   8,
+		Manager:     managerMai,
+		Employee:    employeeSakeet,
+		Day:         Day7,
+		Month:       Month_1Jan,
+		WorkingTime: wt_8t17,
 	}
 
 	// ManageSalary data
