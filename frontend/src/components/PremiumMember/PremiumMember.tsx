@@ -15,6 +15,7 @@ import { MuiPickersUtilsProvider, DateTimePicker, DatePicker } from "@material-u
 import DateFnsUtils from "@date-io/date-fns";
 
 
+
 // import { MembersInterface } from "../../models/IUser";
 import { PremiumMemberPeriodInterface } from "../../models/IPremiumMemberPeriod";
 import { MemberClassInterface } from "../../models/IMemberClass";
@@ -60,6 +61,13 @@ function CreatePremiumMember() {
   });
   const [createTime, setCreateTime] = useState<Date | null>(new Date());
   const [errorMassage, SetErrorMassage] = useState("");
+
+  const [pointInputError, setPointInputError]  = React.useState(false);
+  const [pointError, setPointError] = React.useState("");
+
+  const [pIDInputError, setPIDInputError]  = React.useState(false);
+  const [pIDError, setPIDError] = React.useState("");
+
 
   // QUERY DATA FROM DATABASE
   const getUser = async () => {
@@ -202,13 +210,15 @@ function CreatePremiumMember() {
     const id = event.target.id as keyof typeof premiumMember;
     const { value } = event.target;
     setPremiumMember({ ...premiumMember, [id]: value });
+    const validateValue = value.toString();
+    checkPoint(id, validateValue);
   };
 
   const handleCreateDateTime = (date: Date | null) => {
     console.log(date);
     setCreateTime(date);
   }
-
+  
 
   useEffect(() => {
     getUser();
@@ -223,6 +233,55 @@ function CreatePremiumMember() {
   console.log("class: ", memberClass);
   console.log("period: ", premiumMemberPeriod);
   console.log("premium: ", premiumMember);
+
+  //validation
+  const validatePoint = (point:string) => {
+    if (Number(point) >=  0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  const validateFcPID = (pid: string) => {
+    if (pid[0] == 'P'){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  const validatePID = (pid: string) => {
+    if (pid.length == 8) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  const checkPoint = (id: string, value: string) => {
+    switch (id) {
+      case 'Point':
+        validatePoint(value) ? setPointError(''): setPointError("Point ต้องมากกว่า 0");
+        validatePoint(value) ? setPointInputError(false) : setPointInputError(true)
+        return;
+      case 'PremiumMemberID':
+        validateFcPID(value) ? setPIDError(''): setPIDError("อักษรตัวแรกต้องเป็น P");
+        validateFcPID(value) ? setPIDInputError(false): setPIDInputError(true)
+        if (validateFcPID(value) == true) { 
+          validatePID(value) ? setPIDError(''): setPIDError("ต้องมีตัวอักษรจํานวน 8 ตัวอักษร");
+          validatePID(value) ? setPIDInputError(false): setPIDInputError(true)
+          return;
+        }
+        else {
+          return;
+        }
+      default:
+        return;
+    }
+  }
 
   return (
     <div>
@@ -253,7 +312,7 @@ function CreatePremiumMember() {
                   <Grid item xs={12}>
                     <FormControl fullWidth variant="outlined">
                       <p>Member Class</p>
-                      <Select
+                      <Select                       
                         value={premiumMember.MemberClassID}
                         inputProps={{ name: "MemberClassID" }}
                         onChange={handleChange}
@@ -288,20 +347,26 @@ function CreatePremiumMember() {
                         id="PremiumMemberID"
                         variant="outlined"
                         placeholder="ID"
+                        label = "Premium ID"
                         value={premiumMember.PremiumMemberID}
                         onChange={handleInputChange}
                         inputProps={{ name: "Name" }}
+                        helperText = {pIDError}
+                        error = {pIDInputError}
                       />
-                      <p>Point</p>
+                      <p>Poit</p>
                       <TextField
                         fullWidth
                         id="Point"
                         variant="outlined"
                         type="number"
-                        placeholder="Point"
+                        label = "Point"
+                        placeholder="0"
                         value={premiumMember.Point}
-                        onChange={handleInputChange}
+                        onChange={handleInputChange}                       
                         inputProps={{ name: "Point" }}
+                        helperText={pointError}
+                        error={pointInputError}
                       />
                     </FormControl>
                   </Grid>
@@ -312,13 +377,14 @@ function CreatePremiumMember() {
                       <Typography className={classes.typoHeader} variant="subtitle2"></Typography>
                       <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <DatePicker
-                                        style={{ justifyContent: "center" }}
-                                        name="CreateAt"
-                                        value={createTime}
-                                        onChange={handleCreateDateTime}
-                                        label="กรุณาเลือกวันที่และเวลา"
-                                      minDate={new Date("2018-01-01T00:00")}
-                                      format="yyyy/MM/dd"
+                          style={{ justifyContent: "center" }}
+                          name="CreateAt"
+                          value={createTime}
+                          onChange={handleCreateDateTime}
+                          label="กรุณาเลือกวันที่และเวลา"
+                          minDate={new Date("2018-01-01T00:00")}
+                          format="yyyy/MM/dd"
+
                         />
                       </MuiPickersUtilsProvider>
                     </FormControl>
