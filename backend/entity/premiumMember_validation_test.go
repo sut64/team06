@@ -33,7 +33,7 @@ func TestPremiumIDMustBeInValidPattern(t *testing.T) {
 
 		//"",			 //null
 		"P00000000",
-		"M00000000", // mp ตามด้วย A และ \d 6 ตัว
+		"M00000000", // M ตามด้วย A และ \d 6 ตัว
 		"MP0000000", // pm ตามด้วย \d 7 ตัว
 		"P0M000000", // B ตามด้วย \d 8 ตัว
 
@@ -66,47 +66,6 @@ func TestPremiumIDMustBeInValidPattern(t *testing.T) {
 		
 	}
 }
-
-/*func TestCreateMustBePast(t *testing.T) {
-	g := NewGomegaWithT(t)
-
-	ca := PremiumMember{
-		CreateAt: time.Now().Add(24 * time.Hour), // อนาคต, fail
-	}
-
-	// ตรวจสอบด้วย govalidator
-	ok, err := govalidator.ValidateStruct(ca)
-
-	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	g.Expect(ok).ToNot(BeTrue())
-
-	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
-
-	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("CreateAt must be in the past"))
-}*/
-/*func TestPremiumPoint(t *testing.T) {
-	g := NewGomegaWithT(t)
-
-	// ข้อมูลถูกต้องหมดทุก field
-	po := PremiumMember{
-		PremiumMemberID: "P1234567",
-		CreateAt: time.Now(),
-		Point:         "s"  ,
-	}
-	// ตรวจสอบด้วย govalidator
-	ok, err := govalidator.ValidateStruct(po)
-
-	// ok ต้องเป็น true แปลว่าไม่มี error
-	g.Expect(ok).ToNot(BeTrue())
-
-	// err เป็นค่า nil แปลว่าไม่มี error
-	g.Expect(err).ToNot(BeNil())
-
-	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal(`Point must be Number`))
-}*/
 
 func TestPointMustBePositive(t *testing.T) {
 	g := NewGomegaWithT(t)
