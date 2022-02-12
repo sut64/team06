@@ -1,0 +1,1923 @@
+{
+  "id": "4aa22c9d-46dd-43b0-8d75-889e2eed9068",
+  "version": "2.0",
+  "name": "ฺB6209568 - ManagePromotion",
+  "url": "http://localhost:3000/",
+  "tests": [{
+    "id": "c00f1d30-1195-49f4-932b-9f760bafe116",
+    "name": "B6209568 - ตรวจสอบ Minprice ต้องมากกว่า 0",
+    "commands": [{
+      "id": "85716180-8ae3-47ae-9e85-de084907c7ba",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bf4de85f-291b-4fe6-a4f2-5efd3d7955ed",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1174x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "db1f3cb5-da74-4ea4-a6ab-1bfc708988b3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'จัดการโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ae17cd5-e9ab-47eb-9f41-57da0e8ad1ab",
+      "comment": "",
+      "command": "click",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b577b3d-8bbe-428f-bf0b-ae7e1ff222af",
+      "comment": "",
+      "command": "type",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "A1500"
+    }, {
+      "id": "c43dae2f-79a5-4435-ac4f-8cf040f964c6",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NamePromotionID",
+      "targets": [
+        ["id=mui-component-select-NamePromotionID", "id"],
+        ["css=#mui-component-select-NamePromotionID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NamePromotionID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e779b150-d007-49bb-9452-02d5f058c8b1",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกชื่อโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f423c463-5c52-45d7-8db9-c0493a9cc1f4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "753eab5d-af48-4bcd-95a1-912bd9d26c7c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'FLASH DEAL')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6fdca2a8-507c-4de9-8f31-956dac426ada",
+      "comment": "",
+      "command": "click",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "605fbf1d-42fc-4507-a278-fe50f9ceadad",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionTypeID",
+      "targets": [
+        ["id=mui-component-select-PromotionTypeID", "id"],
+        ["css=#mui-component-select-PromotionTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[5]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "99327ccf-49a0-494b-863d-94da88d7b776",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกชนิดโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9f63a9ce-e58e-4921-869c-64fd6823a55b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2fa7b53e-bc7c-4f2f-9e0d-8504c8cf9c89",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPaper-root:nth-child(3) > .MuiList-root",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) > .MuiList-root", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul", "xpath:idRelative"],
+        ["xpath=//div[3]/ul", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "edff59cf-cabf-42ac-a25f-907f3dfa6d1d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ช่วงเทศกาล')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5013c36c-bd30-4903-a277-1a7dd7ab99dc",
+      "comment": "",
+      "command": "click",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "aad2975a-0110-48ac-a397-ed9fda25c105",
+      "comment": "",
+      "command": "type",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": "-5"
+    }, {
+      "id": "a6e95c89-917a-45c1-a18b-ec5c91844ab9",
+      "comment": "",
+      "command": "click",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "013abcdd-9608-4e35-b596-6a7c3943817a",
+      "comment": "",
+      "command": "type",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": "100"
+    }, {
+      "id": "5bd56fe6-53be-4b00-a4c4-1ed0aa0f2751",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,292.4444580078125)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fe0a3120-9aa1-4dd3-8bca-ae1a9886df71",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionPeriodID",
+      "targets": [
+        ["id=mui-component-select-PromotionPeriodID", "id"],
+        ["css=#mui-component-select-PromotionPeriodID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionPeriodID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[9]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "627f7694-7370-4237-a0e5-c231153ba0f1",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกช่วงเวลาโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0d5ed2df-f826-42c4-aa2f-1ed08b52ae97",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "727e9ffd-e531-4b50-b74b-9ef548b1e939",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 10/04/2022 12:00 AM ถึง 20/04/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d9172197-4e38-42b6-89bf-8103b8332a50",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c901323-27d6-490f-aa1c-42e4945e9835",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "85166fe0-8b9c-4f48-8b59-ba2fb0e8ee83",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "3d670127-e305-4655-bbd7-e655504b5551",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eec968ad-ee40-453c-aba2-adaf8319b2c9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "12ea1c4f-fdf9-4350-a88c-c1747c9c6709",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "223c0f06-6983-4e3b-907a-3ee904a93fa2",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5182c886-6777-4ada-8e3b-d8f2fbc22dac",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f681bb4b-c392-4e30-81f5-b1bd92b364db",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b58644d9-8ad1-4ef8-bd5e-be856a33fe64",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiAlert-root",
+      "targets": [
+        ["css=.MuiAlert-root", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2926f015-7b6b-45fe-964d-ba493f2d7b2a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div[2]", "xpath:position"]
+      ],
+      "value": "บันทึกข้อมูลไม่สำเร็จ MinPrice must not be negative"
+    }]
+  }, {
+    "id": "d49af80d-c05a-4e8c-8eaa-458db98eb810",
+    "name": "B6209568 - ตรวจสอบ PromotionCode มีตัวหนังสือAเเละตัวเลข4หลัก",
+    "commands": [{
+      "id": "d90c0898-661a-4674-b612-5eff8dd89083",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "14db21e7-70b1-496e-8fa8-59ed368697f3",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1170x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "999d5ba8-51ef-4217-9336-200a6f6acd2d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'จัดการโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd7f9ec5-f943-40b2-b639-bf4b291bfbd3",
+      "comment": "",
+      "command": "click",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8cf43aee-4c99-492a-ad8b-6cb51b405a21",
+      "comment": "",
+      "command": "type",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "B50"
+    }, {
+      "id": "222a0433-7243-4fa9-8479-6f0e666687ae",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NamePromotionID",
+      "targets": [
+        ["id=mui-component-select-NamePromotionID", "id"],
+        ["css=#mui-component-select-NamePromotionID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NamePromotionID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "364e1912-47f3-4b47-9d6f-93d01a847884",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiPaper-root:nth-child(3) > .MuiList-root",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) > .MuiList-root", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul", "xpath:idRelative"],
+        ["xpath=//div[3]/ul", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ec564593-9b89-4f15-825d-2512be408452",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f87dc52-7485-45a5-bd5f-7ca455f26e63",
+      "comment": "",
+      "command": "mouseDownAt",
+      "target": "css=.MuiButtonBase-root:nth-child(4)",
+      "targets": [
+        ["css=.MuiButtonBase-root:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[4]", "xpath:idRelative"],
+        ["xpath=//li[4]", "xpath:position"],
+        ["xpath=//li[contains(.,'BLACK FRIDAY')]", "xpath:innerText"]
+      ],
+      "value": "160,23"
+    }, {
+      "id": "e4245a41-ec5c-410e-9419-dc20760ccee7",
+      "comment": "",
+      "command": "mouseMoveAt",
+      "target": "css=.MuiButtonBase-root:nth-child(4)",
+      "targets": [
+        ["css=.MuiButtonBase-root:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[4]", "xpath:idRelative"],
+        ["xpath=//li[4]", "xpath:position"],
+        ["xpath=//li[contains(.,'BLACK FRIDAY')]", "xpath:innerText"]
+      ],
+      "value": "160,23"
+    }, {
+      "id": "a76bfcc9-c63c-4bdd-9d4c-c0c9aa431722",
+      "comment": "",
+      "command": "mouseUpAt",
+      "target": "css=.MuiButtonBase-root:nth-child(4)",
+      "targets": [
+        ["css=.MuiButtonBase-root:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[4]", "xpath:idRelative"],
+        ["xpath=//li[4]", "xpath:position"],
+        ["xpath=//li[contains(.,'BLACK FRIDAY')]", "xpath:innerText"]
+      ],
+      "value": "160,23"
+    }, {
+      "id": "01886d18-d08c-4508-be51-dec3ff3df86e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPaper-root:nth-child(3) > .MuiList-root",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) > .MuiList-root", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul", "xpath:idRelative"],
+        ["xpath=//div[3]/ul", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "19eae96b-3cd4-49aa-ae2e-5c05a1e0f19b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButtonBase-root:nth-child(4)",
+      "targets": [
+        ["css=.MuiButtonBase-root:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[4]", "xpath:idRelative"],
+        ["xpath=//li[4]", "xpath:position"],
+        ["xpath=//li[contains(.,'BLACK FRIDAY')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4af46f46-c9fa-4763-9f4b-5d444d12932a",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,222.22222900390625)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0be3d7ce-8f42-4df5-925a-a00b04d734cb",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionTypeID",
+      "targets": [
+        ["id=mui-component-select-PromotionTypeID", "id"],
+        ["css=#mui-component-select-PromotionTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[5]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4c712d7a-0c23-43f8-a892-eff56f20ac3c",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ช่วงเทศกาล')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4f33d455-7910-4786-aa00-6dd441e684e2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "27568a90-7b04-46fd-b8d2-9065690340a9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'ตามราคาขั้นต่ำในบิล')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f13767f9-ab3a-456f-8334-d46803d3e26b",
+      "comment": "",
+      "command": "click",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dfcd67c5-36d8-4b45-9e8b-73dec9dfaf0e",
+      "comment": "",
+      "command": "type",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": "1000"
+    }, {
+      "id": "1545ad2b-8c3e-4ade-927b-566a722685ba",
+      "comment": "",
+      "command": "click",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e89fcc7-3c08-4883-81d6-335c7179e634",
+      "comment": "",
+      "command": "type",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": "100"
+    }, {
+      "id": "ca2faf33-b05e-40fa-be3c-7761cf2a152e",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionPeriodID",
+      "targets": [
+        ["id=mui-component-select-PromotionPeriodID", "id"],
+        ["css=#mui-component-select-PromotionPeriodID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionPeriodID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[9]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d5676b99-557b-43be-b2bf-bf1d7eae2ee6",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 01/01/2022 12:00 AM ถึง 01/02/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7c6d7b7e-4caf-40e2-9b13-5930c7afe8d5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f41a195d-edd9-4240-8701-228be0e0d466",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 10/04/2022 12:00 AM ถึง 20/04/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "244efd94-8468-4b5b-bb9a-5adb4db2f714",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "a64d7d5f-7603-4ea1-b008-0cf38f0db7a6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "52d4d88a-3ba0-4a46-a2a6-0309fdcce4ea",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "463c4426-226c-4d5b-b1d0-d49a8686326b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a38b8c7-1c08-4f13-99eb-130feda7814c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "41dae5d4-71ea-4804-9e0e-ff1db222638a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiAlert-root",
+      "targets": [
+        ["css=.MuiAlert-root", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff8b8680-b04a-4bcd-a014-8060fe6e0047",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div[2]", "xpath:position"]
+      ],
+      "value": "บันทึกข้อมูลไม่สำเร็จ PromotionCode: B50 does not validate as matches(^[A]\\d{4}$)"
+    }]
+  }, {
+    "id": "2e7ad759-b290-4335-b087-5739b7b1f5cf",
+    "name": "B6209568 - ตรวจสอบ discount ต้องมากกว่า 0",
+    "commands": [{
+      "id": "f2b789a7-8c53-40e3-87c5-21318fa1d89c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "45e295f6-e7dc-46f4-ae80-c01331813275",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1177x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "daed8403-34f6-4720-824e-34a42f811d30",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'จัดการโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e10ccea-718c-4e63-80a0-e6e6509dbca8",
+      "comment": "",
+      "command": "click",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "26190a83-f723-4bea-85f0-65248678fb4b",
+      "comment": "",
+      "command": "type",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "A1500"
+    }, {
+      "id": "88ca0ffd-3a36-4721-8239-a95419804c96",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NamePromotionID",
+      "targets": [
+        ["id=mui-component-select-NamePromotionID", "id"],
+        ["css=#mui-component-select-NamePromotionID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NamePromotionID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ce20ff19-9e6c-4660-b5f2-73f9867e0f88",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ไม่ใช้โปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e7c5dd4-aecf-4b04-8a52-18fff88f6966",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "333fafbf-2188-4a0a-be11-e10c7904962f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'FLASH DEAL')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54c36ec9-e0c0-4613-a8e0-8b8c01730f3e",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionTypeID",
+      "targets": [
+        ["id=mui-component-select-PromotionTypeID", "id"],
+        ["css=#mui-component-select-PromotionTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[5]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "956657ad-14c2-405b-9c1e-dc8ab8ea03a1",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกชนิดโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "808145b8-5598-42b3-81f3-e3291aa19980",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a0fe2fe4-b261-4a99-a47d-eb34925a504c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ช่วงเทศกาล')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bda5176a-0a54-4a9e-9947-1b86130eb081",
+      "comment": "",
+      "command": "click",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "173fd8fb-65b5-4331-af31-d2805106015a",
+      "comment": "",
+      "command": "type",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": "1000"
+    }, {
+      "id": "052d5dca-4418-4451-93d7-e1994bfedcd4",
+      "comment": "",
+      "command": "click",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea86a4af-6f35-4e5b-b93b-aee9d3a7c8df",
+      "comment": "",
+      "command": "type",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": "-9"
+    }, {
+      "id": "e3390451-e33b-4e78-83a9-792e4722a262",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionPeriodID",
+      "targets": [
+        ["id=mui-component-select-PromotionPeriodID", "id"],
+        ["css=#mui-component-select-PromotionPeriodID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionPeriodID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[9]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3282c34a-e753-4d6b-bfc5-f5386875d8e2",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 01/01/2022 12:00 AM ถึง 01/02/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f0787f46-f244-4da0-ba9b-6500b822f398",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cc2ed2b1-8ac6-4d3e-99b1-d85ecac8b7ae",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 10/04/2022 12:00 AM ถึง 20/04/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "31c2619e-9047-4172-b294-d99c543af816",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiInputAdornment-root > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiInputAdornment-root > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[10]/form/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "acee0b16-0d87-41fe-90e7-2d6d90c14318",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiInputAdornment-root > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiInputAdornment-root > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[10]/form/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0091a5f1-1c27-4149-bf06-b6a2d9cb9665",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiInputAdornment-root > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiInputAdornment-root > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[3]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[10]/form/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "50dbafb4-17b4-4bf1-8155-cb6dcf31a634",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1d9c2555-9344-459f-9399-677a4baa03b0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "972d9b1e-e890-4508-99fe-5e95536dae34",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "81d7ace1-2640-49f8-af77-54042b9a06ad",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d408dc73-54d8-448c-86e4-e2ca60cb5dd3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea7083d5-6102-47ab-bf5f-f5f6fa2ac124",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "86753d91-6436-4390-b4de-09f431d4af77",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiAlert-root",
+      "targets": [
+        ["css=.MuiAlert-root", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "67823d0f-5820-4966-9293-700f5f6132fc",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div[2]", "xpath:position"]
+      ],
+      "value": "บันทึกข้อมูลไม่สำเร็จ Discount must not be negative"
+    }]
+  }, {
+    "id": "19c91920-a65e-4455-889d-a9f8d4e7bc43",
+    "name": "B6209568 - ตรวจสอบเวลา Creatdatetime ต้องไม่เป็นอดีต",
+    "commands": [{
+      "id": "8a58b093-185e-4bd2-b9fa-301921615f3f",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e2cac8ea-2e88-4580-9e54-361672f38f9e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1181x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "63e3de99-6392-4436-8a6f-b9353f3f8db3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'จัดการโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7868cd92-17f2-4b82-9315-74f508270952",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root > .MuiFormControl-root > .MuiInputBase-multiline",
+      "targets": [
+        ["css=.MuiGrid-root > .MuiFormControl-root > .MuiInputBase-multiline", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "720ad767-6356-43d0-9e9c-3ef84ee0881c",
+      "comment": "",
+      "command": "type",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "A1500"
+    }, {
+      "id": "22e0963e-60b2-470e-9cb1-57120877e5e8",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NamePromotionID",
+      "targets": [
+        ["id=mui-component-select-NamePromotionID", "id"],
+        ["css=#mui-component-select-NamePromotionID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NamePromotionID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a719b80-345e-4daa-a8ec-1b04ebccfa57",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกชื่อโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f24e51f2-a5dd-4615-b76a-d13a80db237d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dfdc4a47-e13a-4529-90ca-273226d9b0df",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'FLASH DEAL')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "56f8cdb7-1727-424b-b0c6-98d6ee701034",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionTypeID",
+      "targets": [
+        ["id=mui-component-select-PromotionTypeID", "id"],
+        ["css=#mui-component-select-PromotionTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[5]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ed1e268b-6993-4760-984f-b0ccf3938d90",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกชนิดโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d7f475c-381b-4c81-baf7-5123018e045f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "366b2685-cf50-4dd1-aad9-bcf9ebd9520c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ช่วงเทศกาล')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "594308c7-e88a-4ead-b360-af7df809aecd",
+      "comment": "",
+      "command": "click",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "11156f2d-5563-4d65-a91d-c3a5cd574fb8",
+      "comment": "",
+      "command": "type",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": "1000"
+    }, {
+      "id": "4262812e-82d4-4398-b569-710a1df832a3",
+      "comment": "",
+      "command": "click",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "95c8dd6b-6bc0-4c45-b985-f5a766f62123",
+      "comment": "",
+      "command": "type",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": "100"
+    }, {
+      "id": "26820754-cded-49b2-89b0-aa9e8e9a4189",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionPeriodID",
+      "targets": [
+        ["id=mui-component-select-PromotionPeriodID", "id"],
+        ["css=#mui-component-select-PromotionPeriodID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionPeriodID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[9]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "025c4a98-c04f-45d3-aaa8-cda158387b66",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกช่วงเวลาโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "14d23c5c-7a7b-42c7-bb07-bc4cd4c79cba",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe483ae3-2025-4167-9e6c-728a06971ea8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 01/01/2022 12:00 AM ถึง 01/02/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b8829f46-09c4-4498-ab7d-ad417400e117",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "3a50d767-72d9-42f1-9466-1b94b4acd1ae",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "dccab7cc-e3f3-492a-9c90-b916d720d851",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b7661b7-b052-49a3-852d-83d5025282b0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPickersCalendar-week:nth-child(2) > div:nth-child(4) .MuiTypography-root",
+      "targets": [
+        ["css=.MuiPickersCalendar-week:nth-child(2) > div:nth-child(4) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[2]/div[4]/button/span/p", "xpath:position"],
+        ["xpath=//p[contains(.,'9')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a015533e-6245-45f0-a10b-cf4c573aa6bf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d5fba8c0-15d5-4b7e-a8a5-af13e871c646",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2a4ded6c-108e-4f5d-b476-53417c770628",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e9c40afb-9287-4a87-98a0-56719e676078",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/div[3]/div[11]/button/span", "xpath:idRelative"],
+        ["xpath=//div[11]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fd3c051b-ef80-41fa-8f32-e833a28acf20",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiAlert-root",
+      "targets": [
+        ["css=.MuiAlert-root", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c0fb7ef-34cd-4477-92d9-0fc9b38fc9c6",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div[2]", "xpath:position"]
+      ],
+      "value": "บันทึกข้อมูลไม่สำเร็จ Createdatetime must not be in the past"
+    }]
+  }, {
+    "id": "8a85ceb2-1dd7-4662-a712-f90b6534e591",
+    "name": "B6209568 - บันทึกข้อมูลถูกต้อง",
+    "commands": [{
+      "id": "6375efac-2927-49da-85f0-5e2db3b7c157",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f68d7a39-f19f-4112-9960-d6492b69cef4",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1172x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7c112b05-43e3-43d9-b334-b8ebdadaf9a9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiPaper-root .MuiGrid-root:nth-child(1) .MuiButtonBase-root:nth-child(1) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'จัดการโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a21271f9-5237-4578-86ff-bee0f320ba4e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root > .MuiFormControl-root > .MuiInputBase-multiline",
+      "targets": [
+        ["css=.MuiGrid-root > .MuiFormControl-root > .MuiInputBase-multiline", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9c571bc-f2d0-4a06-8355-409e0234f05a",
+      "comment": "",
+      "command": "type",
+      "target": "id=Promotioncode",
+      "targets": [
+        ["id=Promotioncode", "id"],
+        ["name=PromotionCode", "name"],
+        ["css=#Promotioncode", "css:finder"],
+        ["xpath=//textarea[@id='Promotioncode']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "A1600"
+    }, {
+      "id": "0efdec5b-726a-4d51-b3ca-8b065c815680",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NamePromotionID",
+      "targets": [
+        ["id=mui-component-select-NamePromotionID", "id"],
+        ["css=#mui-component-select-NamePromotionID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NamePromotionID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e1d8811-b68d-4bee-a065-157bee98838e",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกชื่อโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e7015c1-014e-42ee-b6a7-fb6f1934d4fd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ef1b08f-6007-4fa7-a52a-5789195597f2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NamePromotionID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'FLASH DEAL')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "baa102b1-c40b-4ffd-9b4a-ae966512a312",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,222.22222900390625)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "906668e6-1d44-4484-8623-100eb73f5102",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionTypeID",
+      "targets": [
+        ["id=mui-component-select-PromotionTypeID", "id"],
+        ["css=#mui-component-select-PromotionTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[5]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "140f261d-5ac9-4009-998e-5705ef941486",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.Mui-selected",
+      "targets": [
+        ["css=.Mui-selected", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//div[3]/ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'เลือกชนิดโปรโมชั่น')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "edfe8d0a-50d0-442e-8224-1030b3418e77",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "39496ee8-7af6-491c-8b46-34e663e65831",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ช่วงเทศกาล')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "39332080-c250-48f2-93b3-89fa5b7f781e",
+      "comment": "",
+      "command": "click",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "94df3a40-af24-436e-b307-4084dc12b274",
+      "comment": "",
+      "command": "type",
+      "target": "id=MinPrice",
+      "targets": [
+        ["id=MinPrice", "id"],
+        ["name=MinPrice", "name"],
+        ["css=#MinPrice", "css:finder"],
+        ["xpath=//input[@id='MinPrice']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[6]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/input", "xpath:position"]
+      ],
+      "value": "1000"
+    }, {
+      "id": "b4464226-06c3-4ea3-a037-94cd8f5ec2bf",
+      "comment": "",
+      "command": "click",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "df5c9ce1-181d-40d7-9643-1c596f23127e",
+      "comment": "",
+      "command": "type",
+      "target": "id=Discount",
+      "targets": [
+        ["id=Discount", "id"],
+        ["name=Discount", "name"],
+        ["css=#Discount", "css:finder"],
+        ["xpath=//input[@id='Discount']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[8]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/input", "xpath:position"]
+      ],
+      "value": "10"
+    }, {
+      "id": "b8f4cc4c-df9e-4d98-8bc8-edca4c369954",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-PromotionPeriodID",
+      "targets": [
+        ["id=mui-component-select-PromotionPeriodID", "id"],
+        ["css=#mui-component-select-PromotionPeriodID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-PromotionPeriodID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[9]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ace1c71a-35af-4408-92ee-57d8975f6cac",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)",
+      "targets": [
+        ["css=.MuiPaper-root:nth-child(3) .MuiButtonBase-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 01/01/2022 12:00 AM ถึง 01/02/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "21d2c425-c044-4559-b29e-06a751029ded",
+      "comment": "",
+      "command": "click",
+      "target": "css=.vsc-initialized",
+      "targets": [
+        ["css=.vsc-initialized", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "abd2f1ce-584d-4729-8631-abe5fd92b9d0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiListItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiListItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-PromotionPeriodID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'เวลา 10/04/2022 12:00 AM ถึง 20/04/2022 12:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "752b4c68-dc03-4bba-88ce-aafe361a2841",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "66f2fe09-c5af-4439-9b75-5d51dade3540",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0870df15-d03e-4ede-8f94-1976beeb3a4a",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiInputAdornment-root path:nth-child(1)",
+      "targets": [
+        ["css=.MuiInputAdornment-root path:nth-child(1)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "e1f4f862-1004-4f8d-8603-5223f582aef0",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b6c8a8b-9e4e-4f8d-8323-09c94445ecc3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a22f7ed4-2187-4bf2-843e-cbdd61830094",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButton-textPrimary:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[3]/div/div[2]/button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0efa19a5-bdd8-4a02-b10f-663e9d43558a",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button", "xpath:idRelative"],
+        ["xpath=//div[11]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "91c6fa12-6131-41ed-a09e-5532b55ead87",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[4]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div/div[3]/div[11]/button", "xpath:idRelative"],
+        ["xpath=//div[11]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5e10fa93-6421-4854-8564-6636567a1d00",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div[2]/div[2]/div[3]/div[11]/button", "xpath:idRelative"],
+        ["xpath=//div[11]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'บันทึก')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e2dc1703-bf61-45b0-b9c7-19d0e813273b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiAlert-root",
+      "targets": [
+        ["css=.MuiAlert-root", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "34938d3e-ab93-4e13-af2a-d360928f1647",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div[2]", "xpath:position"]
+      ],
+      "value": "บันทึกข้อมูลสำเร็จ"
+    }]
+  }],
+  "suites": [{
+    "id": "929e0291-8735-4760-a8dd-3dc5ab7c9ea9",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
