@@ -354,7 +354,7 @@ function CreatePremiumMember() {
                         helperText = {pIDError}
                         error = {pIDInputError}
                       />
-                      <p>Poit</p>
+                      <p>Point</p>
                       <TextField
                         fullWidth
                         id="Point"
