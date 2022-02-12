@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut64/team06/backend/entity"
 )
@@ -39,7 +40,7 @@ func CreateMangeWorkTime(c *gin.Context) {
 		return
 	}
 
-	mw := entity.ManageWorkTime{
+	mwt := entity.ManageWorkTime{
 		Comment:     manageworktimes.Comment,
 		WorkingDate: manageworktimes.WorkingDate,
 		TimeTotal:   manageworktimes.TimeTotal,
@@ -50,11 +51,16 @@ func CreateMangeWorkTime(c *gin.Context) {
 		WorkingTime: worktimes,
 	}
 
-	if err := entity.DB().Create(&mw).Error; err != nil {
+	if _, err := govalidator.ValidateStruct(mwt); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": mw})
+
+	if err := entity.DB().Create(&mwt).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": mwt})
 }
 
 func GetAllManageWorkTime(c *gin.Context) {
