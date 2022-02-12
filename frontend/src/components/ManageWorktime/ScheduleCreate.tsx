@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import FormControl from '@material-ui/core/FormControl';
-// import NativeSelect from '@material-ui/core/NativeSelect';
 import {
     Grid,
     Paper,
@@ -113,7 +112,12 @@ export default function ScheduleCreate() {
 
     const [openAlertSucess, setOpenAlertSucess] = useState(false);
     const [openAlertError, setOpenAlertError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errorComment, setErrorComment] = useState(false);
+    const [errorWorkingDate, setErrorWorkingDate] = useState(false);
+    const [errorTimeTotal, setErrorTimeTotal] = useState(false);
     const handleClose = () => {
+        setErrorMessage("");
         setOpenAlertSucess(false);
         setOpenAlertError(false);
     };
@@ -135,18 +139,6 @@ export default function ScheduleCreate() {
             "Content-Type": "application/json",
         },
     };
-    const totalWorkTime = (emId: any) => {
-        const tempManage = allManageWorkTime
-        let total = 0;
-        for (const data of tempManage) {
-            if (data.EmployeeID === emId) {
-                console.log(data.TimeTotal)
-                total = total + data.TimeTotal;
-            }
-        }
-        manageWorkTime.TimeTotal = total
-        // return total;
-    }
 
     const addTimeTotal = () => {
         // manageWorkTime.TimeTotal = manageWorkTime.TimeTotal ? manageWorkTime.TimeTotal + 8 : 8
@@ -154,6 +146,7 @@ export default function ScheduleCreate() {
     }
     const getCreatedDay = (emId: any, mId: any) => {
         const saveDay: any = [];
+        // eslint-disable-next-line
         allManageWorkTime.map((item: ManageWorkTimeInterface) => {
             // console.log(manageWorkTime.MonthID)
             if (item.EmployeeID === emId && item.MonthID === mId) {
@@ -172,8 +165,8 @@ export default function ScheduleCreate() {
         setAllDayOfMonth(numDays);
     }
 
-    const getSelectManageByEmployee = (emId: any) => {
-        const tempManage = allManageWorkTime;
+    const getSelectManageByEmployee = (emId: any, mwt: any) => {
+        const tempManage = mwt;
         const tempData: any = [];
         for (const data of tempManage) {
             if (data.EmployeeID === emId) {
@@ -186,7 +179,7 @@ export default function ScheduleCreate() {
         // console.log(event.target.name, event.target.value)
         const name = event.target.name as keyof typeof manageWorkTime;
         if (name === "EmployeeID") {
-            getSelectManageByEmployee(event.target.value)
+            getSelectManageByEmployee(event.target.value, allManageWorkTime)
             getCreatedDay(event.target.value, manageWorkTime.MonthID);
         } else if (name === "WorkingTimeID") {
             addTimeTotal();
@@ -204,11 +197,14 @@ export default function ScheduleCreate() {
     const handleInputChange = (event: React.ChangeEvent<{ id?: string; value: any }>) => {
         const id = event.target.id as keyof typeof manageWorkTime;
         const { value } = event.target;
+        if (errorTimeTotal && id === "TimeTotal") setErrorTimeTotal(false);
+        if (errorComment && id === "Comment") setErrorComment(false);
         setManageWorkTime({ ...manageWorkTime, [id]: value });
     };
 
     const handleDateChange = (date: Date | null) => {
         // console.log(date)
+        if (errorWorkingDate) setErrorWorkingDate(false);
         setSelectedDate(date);
     };
 
@@ -271,7 +267,7 @@ export default function ScheduleCreate() {
                     // console.log("[GET] All ManageWorkingTime => ", res.data)
                     setAllManageWorkTime(res.data)
                     getCreatedDay(manageWorkTime.EmployeeID, manageWorkTime.MonthID);
-                    getSelectManageByEmployee(manageWorkTime.EmployeeID);
+                    getSelectManageByEmployee(manageWorkTime.EmployeeID, res.data);
                 } else {
                     console.log("FAIL!")
                 }
@@ -284,6 +280,7 @@ export default function ScheduleCreate() {
         getMonth();
         getWorkTime();
         getAllManageWorkTime();
+        // eslint-disable-next-line
     }, []);
 
     const minDateSelect = () => {
@@ -325,9 +322,23 @@ export default function ScheduleCreate() {
                     setOpenAlertSucess(true);
                 } else {
                     console.log("บันทึกไม่ได้")
+                    let msg = res.error.toString().replace(/[;]/g, ", ")
+                    if (msg.indexOf('Comment') >= 0) {
+                        setErrorComment(true);
+                    }
+                    if (msg.indexOf('WorkingDate') >= 0) {
+                        setErrorWorkingDate(true);
+                    }
+                    if (msg.indexOf('TimeTotal') >= 0) {
+                        setErrorTimeTotal(true);
+                    }
+                    setErrorMessage(msg);
                     setOpenAlertError(true);
                 }
-            });
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     return (
@@ -340,7 +351,7 @@ export default function ScheduleCreate() {
                 </Snackbar>
                 <Snackbar open={openAlertError} anchorOrigin={{ vertical: "top", horizontal: "right" }} autoHideDuration={5000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="error">
-                        บันทึกข้อมูลไม่สำเร็จ
+                        บันทึกข้อมูลไม่สำเร็จ - "{errorMessage}"
                     </Alert>
                 </Snackbar>
                 <h1 style={{ textAlign: "center" }}>จัดตารางงาน</h1>
@@ -462,7 +473,7 @@ export default function ScheduleCreate() {
                         <Grid container spacing={1} justifyContent="center" style={{ marginTop: "0.5rem" }}>
                             <Grid item>
                                 <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                                    <InputLabel shrink id="MonthID">
                                         เดือน
                                     </InputLabel>
                                     <Select
@@ -487,7 +498,7 @@ export default function ScheduleCreate() {
                             </Grid>
                             <Grid item>
                                 <FormControl variant="outlined" className={classes.formControl} disabled={manageWorkTime.MonthID ? false : true}>
-                                    <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                                    <InputLabel shrink id="DayID">
                                         วัน
                                     </InputLabel>
                                     <Select
@@ -525,7 +536,7 @@ export default function ScheduleCreate() {
                         <Grid container spacing={0} direction="row" justifyContent="center">
                             <Grid item>
                                 <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                                    <InputLabel shrink id="WorkingTimeID">
                                         ช่วงเวลาทำงาน
                                     </InputLabel>
                                     <Select
@@ -551,16 +562,19 @@ export default function ScheduleCreate() {
                                 <p></p>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <TextField
+                                        disabled={manageWorkTime.WorkingTimeID ? false : true}
+                                        error={errorTimeTotal}
+                                        helperText={errorTimeTotal ? "!เวลาทั้งหมดต้องเป็น 8 ชม. เท่านั้น" : ""}
                                         id="TimeTotal"
                                         name="TimeTotal"
-                                        // type="number"
+                                        type="number"
                                         variant="outlined"
                                         label="เวลางานทั้งหมด ชม."
-                                        value={manageWorkTime.TimeTotal || 0}
+                                        value={manageWorkTime.TimeTotal || ""}
                                         onChange={handleInputChange}
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
+                                    // InputProps={{
+                                    //     readOnly: true,
+                                    // }}
                                     />
                                 </FormControl>
                             </Grid>
@@ -570,7 +584,9 @@ export default function ScheduleCreate() {
                             <FormControl variant="outlined">
                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <DatePicker
-                                        style={{ justifyContent: "center" }}
+                                        error={errorWorkingDate}
+                                        helperText={errorWorkingDate ? "!ต้องไม่เป็นวันในอดีต" : ""}
+                                        id="WorkingDate"
                                         name="WorkingDate"
                                         value={selectedDate}
                                         onChange={handleDateChange}
@@ -581,20 +597,28 @@ export default function ScheduleCreate() {
                                 </MuiPickersUtilsProvider>
                             </FormControl>
                         </Grid>
-                        <Grid container spacing={3} alignItems="flex-end" direction="row" justifyContent="center" alignContent="center">
+                        <Grid container spacing={3} direction="row" justifyContent="center" alignContent="center">
                             <Grid item xs={8}>
-                                <TextField
-                                    id="Comment"
-                                    name="Comment"
-                                    type="text"
-                                    label="คำอธิบาย"
-                                    multiline
-                                    rows={4}
-                                    fullWidth
-                                    variant="outlined"
-                                    value={manageWorkTime.Comment || ""}
-                                    onChange={handleInputChange}
-                                />
+                                <form>
+                                    <InputLabel shrink id="Comment">
+                                        คำอธิบาย - {manageWorkTime.Comment?.length}
+                                    </InputLabel>
+                                    <TextField
+                                        error={errorComment}
+                                        helperText={errorComment ? "!ความยาวข้อความต้องไม่เกิน 200 ตัวอักษร" : ""}
+                                        id="Comment"
+                                        name="Comment"
+                                        type="text"
+                                        // label="คำอธิบาย"
+                                        placeholder="คำอธิบาย"
+                                        multiline
+                                        rows={5}
+                                        fullWidth
+                                        variant="filled"
+                                        value={manageWorkTime.Comment || ""}
+                                        onChange={handleInputChange}
+                                    />
+                                </form>
                             </Grid>
                         </Grid>
                         <Grid container spacing={5} justifyContent="center" style={{ marginTop: "10px", marginBottom: "5px" }}>
