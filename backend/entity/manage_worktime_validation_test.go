@@ -60,14 +60,11 @@ func TestManageWorkTimePass(t *testing.T) {
 	// ตรวจสอบด้วย govalidator
 	ok, err := govalidator.ValidateStruct(manageWorkTime)
 
-	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	g.Expect(ok).ToNot(BeTrue())
+	// ok ต้องเป็น true แปลว่าไม่มี error
+	g.Expect(ok).To(BeTrue())
 
-	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
-
-	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("TimeTotal must be equal 8 hr."))
+	// err เป็นค่า nil แปลว่าไม่มี error
+	g.Expect(err).To(BeNil())
 }
 
 func TestManageWorkTimeCommentMustBeValid(t *testing.T) {
@@ -153,6 +150,7 @@ func TestManageWorkWorkingTimeMustBePresentOrFuture(t *testing.T) {
 
 	test_data := time.Now().Add(-12 * time.Hour)
 
+	// ข้อมูลถูกต้องหมดทุก field
 	manageWorkTime := ManageWorkTime{
 		Comment:     "ตารางงานพนักงาน",
 		WorkingDate: test_data, // ผิด
