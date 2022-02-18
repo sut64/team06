@@ -81,25 +81,31 @@ func TestAmontnotbeZeroorNegative(t *testing.T) {
 	}
 }
 
-func TestOrderTimeMustNotBeInThePast(t *testing.T) {
+func TestProductstockUpdatTimeMustNotBeInThePast(t *testing.T) {
 	g := NewGomegaWithT(t)
 
-	productstock := Productstock{
-		Amount_remain:   20, 
-		Update_datetime: time.Now().AddDate(0, -1, 0),//อดีต
-		Detail:          "Snack for kid",
+	fixtures := []time.Time{
+		time.Now().AddDate(0, 0, -2), // ผิด, ย้อนหลัง 2 วัน
+		time.Now().AddDate(0, 0, 2),  // ผิด, อนาคต 2 วัน
 	}
+	for _, fixture := range fixtures {
+		productstock := Productstock{
+			Amount_remain:   20,
+			Update_datetime: fixture,
+			Detail:          "Snack for kid",
+		}
 
-	// ตรวจสอบด้วย govalidator
-	ok, err := govalidator.ValidateStruct(productstock)
+		// ตรวจสอบด้วย govalidator
+		ok, err := govalidator.ValidateStruct(productstock)
 
-	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	g.Expect(ok).ToNot(BeTrue())
+		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		g.Expect(ok).ToNot(BeTrue())
 
-	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
+		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		g.Expect(err).ToNot(BeNil())
 
-	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Update_datetime must not be in the past"))
+		// err.Error ต้องมี error message แสดงออกมา
+		g.Expect(err.Error()).To(Equal("Update_datetime must not be present"))
 
+	}
 }
