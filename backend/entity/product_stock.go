@@ -9,7 +9,7 @@ import (
 type Productstock struct {
 	gorm.Model
 	Amount_remain   int32 `valid:"required~Amont remain cannot be zero,notnegative~Amont remain cannot be negative"`
-	Update_datetime time.Time`valid:"notpast~Update_datetime must not be in the past"`
+	Update_datetime time.Time `valid:"notpast~Update_datetime must not be present"`
 	Detail          string `valid:"required~Detail cannot be blank"`
 
 	ProductID *uint	`gorm:"uniqueIndex"`
@@ -57,8 +57,8 @@ type Typeproduct struct {
 func init() {
 	govalidator.CustomTypeTagMap.Set("notpast", func(i interface{}, o interface{}) bool {
 		t := i.(time.Time)
-		// ย้อนหลังไม่เกิน 1 วัน
-		return t.After(time.Now().AddDate(0, 0, -1))
+		// ปัจจุบัน บวกลบไม่เกิน 12 ชั่วโมง
+		return t.After(time.Now().Add(time.Hour*-12)) && t.Before(time.Now().Add(time.Hour*12))
 	})
 
 	govalidator.CustomTypeTagMap.Set("notnegative", func(i interface{}, o interface{}) bool {

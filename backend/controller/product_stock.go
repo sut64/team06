@@ -43,7 +43,7 @@ func CreateProductstock(c *gin.Context) {
 		Product: product,
 		Shelfstore: shelfstore,
 		Employee: employee,
-		Update_datetime: productstock.Update_datetime,
+		Update_datetime: productstock.Update_datetime.Local(),
 	}
 	// validate
 	if _,err := govalidator.ValidateStruct(p); err != nil{
