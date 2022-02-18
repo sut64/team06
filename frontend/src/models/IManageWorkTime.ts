@@ -15,11 +15,15 @@ export interface MonthInterface {
     MonthOfYear: string
 }
 
-export interface WorkingTimeInterface {
+export interface StartWorkTimeInterface {
     ID: number,
-    TimeToTime: string
+    TimeStart: string
 }
 
+export interface EndWorkTimeInterface {
+    ID: number,
+    TimeEnd: string
+}
 export interface ManageWorkTimeInterface {
     ID: number,
     Comment: string,
@@ -38,6 +42,9 @@ export interface ManageWorkTimeInterface {
     MonthID: number,
     Month: MonthInterface,
     
-    WorkingTimeID: number,
-    WorkingTime: WorkingTimeInterface
+    StartWorkTimeID: number,
+    StartWorkTime: StartWorkTimeInterface,
+
+    EndWorkTimeID: number,
+    EndWorkTime: EndWorkTimeInterface
 }

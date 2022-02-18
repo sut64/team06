@@ -37,7 +37,8 @@ func SetupDatabase() {
 		// ManageWorkTime
 		&Day{},
 		&Month{},
-		&WorkingTime{},
+		&StartWorkTime{},
+		&EndWorkTime{},
 		&ManageWorkTime{},
 
 		// ProductStock

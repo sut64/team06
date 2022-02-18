@@ -13,7 +13,8 @@ func CreateMangeWorkTime(c *gin.Context) {
 	var employees entity.Employee
 	var days entity.Day
 	var months entity.Month
-	var worktimes entity.WorkingTime
+	var starttime entity.StartWorkTime
+	var endtime entity.EndWorkTime
 
 	if err := c.ShouldBindJSON(&manageworktimes); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -35,20 +36,26 @@ func CreateMangeWorkTime(c *gin.Context) {
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", manageworktimes.WorkingTimeID).First(&worktimes); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "working time not found"})
+	if tx := entity.DB().Where("id = ?", manageworktimes.StartWorkTimeID).First(&starttime); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "start time not found"})
+		return
+	}
+
+	if tx := entity.DB().Where("id = ?", manageworktimes.EndWorkTimeID).First(&endtime); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "end time not found"})
 		return
 	}
 
 	mwt := entity.ManageWorkTime{
-		Comment:     manageworktimes.Comment,
-		WorkingDate: manageworktimes.WorkingDate,
-		TimeTotal:   manageworktimes.TimeTotal,
-		Employee:    employees,
-		Manager:     employees,
-		Day:         days,
-		Month:       months,
-		WorkingTime: worktimes,
+		Comment:       manageworktimes.Comment,
+		WorkingDate:   manageworktimes.WorkingDate,
+		TimeTotal:     manageworktimes.TimeTotal,
+		Employee:      employees,
+		Manager:       employees,
+		Day:           days,
+		Month:         months,
+		StartWorkTime: starttime,
+		EndWorkTime:   endtime,
 	}
 
 	if _, err := govalidator.ValidateStruct(mwt); err != nil {
@@ -70,7 +77,8 @@ func GetAllManageWorkTime(c *gin.Context) {
 		Preload("Employee.Position").
 		Preload("Day").
 		Preload("Month").
-		Preload("WorkingTime").
+		Preload("StartWorkTime").
+		Preload("EndWorkTime").
 		Raw("SELECT * FROM manage_work_times").Find(&managework).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -142,12 +150,22 @@ func GetAllMonth(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": month})
 }
-func GetAllWorkTime(c *gin.Context) {
-	var worktime []entity.WorkingTime
-	if err := entity.DB().Raw("SELECT * FROM working_times").Scan(&worktime).Error; err != nil {
+func GetStartWorkTime(c *gin.Context) {
+	var starttime []entity.StartWorkTime
+	if err := entity.DB().Raw("SELECT * FROM start_work_times").Scan(&starttime).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": worktime})
+	c.JSON(http.StatusOK, gin.H{"data": starttime})
+}
+
+func GetEndWorkTime(c *gin.Context) {
+	var endtime []entity.EndWorkTime
+	if err := entity.DB().Raw("SELECT * FROM end_work_times").Scan(&endtime).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": endtime})
 }

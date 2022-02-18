@@ -40,7 +40,7 @@ var managerMai = Employee{
 var ManageWT = ManageWorkTime{
 	Comment:     "ตารางงานผู้จัดการ",
 	WorkingDate: time.Date(2021, 1, 1, 9, 0, 0, 0, time.UTC),
-	TimeTotal:   8,
+	TimeTotal:   7,
 	Manager:     managerMai,
 	Employee:    managerMai,
 	Day: Day{
@@ -49,8 +49,11 @@ var ManageWT = ManageWorkTime{
 	Month: Month{
 		MonthOfYear: "มกราคม",
 	},
-	WorkingTime: WorkingTime{
-		TimeToTime: "08.00-17.00",
+	StartWorkTime: StartWorkTime{
+		TimeStart: "08.00",
+	},
+	EndWorkTime: EndWorkTime{
+		TimeEnd: "15.00",
 	},
 }
 
