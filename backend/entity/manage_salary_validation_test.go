@@ -153,27 +153,32 @@ func TestManageSalaryBonusDetailMustBeValid(t *testing.T) {
 func TestManageSalaryCreateAtMustBePresent(t *testing.T) {
 	g := NewGomegaWithT(t)
 
-	test_data := time.Now().Add(-24 * time.Hour)
-
-	// ข้อมูลถูกต้องหมดทุก field
-	manageSalary := ManageSalary{
-		Manager:        managerMai,
-		ManageWorkTime: ManageWT,
-		Assessment:     Assessment_5,
-		BonusAmount:    2000.00,
-		BonusDetail:    "ทำงานรวดเร็ว",
-		BonusStatus:    BonusStatus_approve,
-		CreateAt:       test_data, // ผิด
+	fixtures := []time.Time{
+		time.Now().Add(-24 * time.Hour), // ผิด, ย้อนหลัง 1 วัน
+		time.Now().Add(24 * time.Hour),  // ผิด, อนาคต 1 วัน
 	}
-	// ตรวจสอบด้วย govalidator
-	ok, err := govalidator.ValidateStruct(manageSalary)
 
-	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	g.Expect(ok).ToNot(BeTrue())
+	for _, fixture := range fixtures {
+		// ข้อมูลถูกต้องหมดทุก field
+		manageSalary := ManageSalary{
+			Manager:        managerMai,
+			ManageWorkTime: ManageWT,
+			Assessment:     Assessment_5,
+			BonusAmount:    2000.00,
+			BonusDetail:    "ทำงานรวดเร็ว",
+			BonusStatus:    BonusStatus_approve,
+			CreateAt:       fixture, // ผิด
+		}
+		// ตรวจสอบด้วย govalidator
+		ok, err := govalidator.ValidateStruct(manageSalary)
 
-	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
+		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		g.Expect(ok).ToNot(BeTrue())
 
-	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("CreateAt must be present"))
+		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		g.Expect(err).ToNot(BeNil())
+
+		// err.Error ต้องมี error message แสดงออกมา
+		g.Expect(err.Error()).To(Equal("CreateAt must be present"))
+	}
 }
