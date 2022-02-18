@@ -97,7 +97,7 @@ func TestManageSalaryBonusAmountMustBePositive(t *testing.T) {
 		-200.00,
 	}
 
-	// ข้อมูลถูกต้องหมดทุก field
+	// ข้อมูลถูกต้องบาง field
 	for _, fixture := range fixtures {
 		manageSalary := ManageSalary{
 			Manager:        managerMai,
@@ -130,7 +130,7 @@ func TestManageSalaryBonusDetailMustBeValid(t *testing.T) {
 		test_data += "A"
 	}
 
-	// ข้อมูลถูกต้องหมดทุก field
+	// ข้อมูลถูกต้องบาง field
 	manageSalary := ManageSalary{
 		Manager:        managerMai,
 		ManageWorkTime: ManageWT,
@@ -162,7 +162,7 @@ func TestManageSalaryCreateAtMustBePresent(t *testing.T) {
 	}
 
 	for _, fixture := range fixtures {
-		// ข้อมูลถูกต้องหมดทุก field
+		// ข้อมูลถูกต้องบาง field
 		manageSalary := ManageSalary{
 			Manager:        managerMai,
 			ManageWorkTime: ManageWT,
