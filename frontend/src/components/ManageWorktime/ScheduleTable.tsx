@@ -223,7 +223,10 @@ export default function ScheduleTable() {
                                     เดือน
                                 </StyledTableHead>
                                 <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                    ช่วงเวลาทำงาน
+                                    เวลาเริ่มทำงาน
+                                </StyledTableHead>
+                                <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                    เวลาเลิกทำงาน
                                 </StyledTableHead>
                                 <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
                                     เวลารวม
@@ -240,10 +243,12 @@ export default function ScheduleTable() {
                                         <TableCell align="center">{item.ID}</TableCell>
                                         <TableCell align="center">{item.Employee.UserDetail.FirstName}</TableCell>
                                         <TableCell align="center">{item.Employee.Position.PositionNameTH}</TableCell>
-                                        <TableCell align="center">{item.Comment}</TableCell>
+                                        {item.Comment.length <= 15 ? (<TableCell align="center">{item.Comment}</TableCell>) :
+                                            (<TableCell align="center">{item.Comment.substring(0, 5)}...{item.Comment.substring(item.Comment.length - 5, item.Comment.length)}</TableCell>)}
                                         <TableCell align="center">{item.Day.DayNumber}</TableCell>
                                         <TableCell align="center">{item.Month.MonthOfYear}</TableCell>
-                                        <TableCell align="center">{item.WorkingTime.TimeToTime}</TableCell>
+                                        <TableCell align="center">{item.StartWorkTime.TimeStart}</TableCell>
+                                        <TableCell align="center">{item.EndWorkTime.TimeEnd}</TableCell>
                                         <TableCell align="center">{item.TimeTotal}</TableCell>
                                         <TableCell align="center">{format((new Date(item.WorkingDate)), 'dd/MMMM/yyyy')}</TableCell>
                                         <TableCell align="center">

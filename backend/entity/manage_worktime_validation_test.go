@@ -44,7 +44,7 @@ func TestManageWorkTimePass(t *testing.T) {
 	manageWorkTime := ManageWorkTime{
 		Comment:     "ตารางงานพนักงาน",
 		WorkingDate: time.Now(),
-		TimeTotal:   8,
+		TimeTotal:   7,
 		Manager:     managerChut,
 		Employee:    managerChut,
 		Day: Day{
@@ -53,8 +53,11 @@ func TestManageWorkTimePass(t *testing.T) {
 		Month: Month{
 			MonthOfYear: "มกราคม",
 		},
-		WorkingTime: WorkingTime{
-			TimeToTime: "08.00-17.00",
+		StartWorkTime: StartWorkTime{
+			TimeStart: "08.00",
+		},
+		EndWorkTime: EndWorkTime{
+			TimeEnd: "15.00",
 		},
 	}
 	// ตรวจสอบด้วย govalidator
@@ -77,7 +80,7 @@ func TestManageWorkTimeCommentMustBeValid(t *testing.T) {
 
 	// ข้อมูลถูกต้องหมดทุก field
 	manageWorkTime := ManageWorkTime{
-		Comment:     test_data,
+		Comment:     test_data, // ผิด
 		WorkingDate: time.Now(),
 		TimeTotal:   8,
 		Manager:     managerChut,
@@ -88,8 +91,11 @@ func TestManageWorkTimeCommentMustBeValid(t *testing.T) {
 		Month: Month{
 			MonthOfYear: "มกราคม",
 		},
-		WorkingTime: WorkingTime{
-			TimeToTime: "08.00-17.00",
+		StartWorkTime: StartWorkTime{
+			TimeStart: "08.00",
+		},
+		EndWorkTime: EndWorkTime{
+			TimeEnd: "15.00",
 		},
 	}
 	// ตรวจสอบด้วย govalidator
@@ -105,12 +111,12 @@ func TestManageWorkTimeCommentMustBeValid(t *testing.T) {
 	g.Expect(err.Error()).To(Equal("Comment length must be between 0 - 200"))
 }
 
-func TestManageWorkTimeTimeTotalMustEqualEight(t *testing.T) {
+func TestManageWorkTimeTimeTotalMustBetweenSixToNine(t *testing.T) {
 	g := NewGomegaWithT(t)
 
 	fixtures := []uint{
-		6,
-		9,
+		5,
+		10,
 	}
 
 	// ข้อมูลถูกต้องหมดทุก field
@@ -127,8 +133,11 @@ func TestManageWorkTimeTimeTotalMustEqualEight(t *testing.T) {
 			Month: Month{
 				MonthOfYear: "มกราคม",
 			},
-			WorkingTime: WorkingTime{
-				TimeToTime: "08.00-17.00",
+			StartWorkTime: StartWorkTime{
+				TimeStart: "08.00",
+			},
+			EndWorkTime: EndWorkTime{
+				TimeEnd: "15.00",
 			},
 		}
 		// ตรวจสอบด้วย govalidator
@@ -141,42 +150,50 @@ func TestManageWorkTimeTimeTotalMustEqualEight(t *testing.T) {
 		g.Expect(err).ToNot(BeNil())
 
 		// err.Error ต้องมี error message แสดงออกมา
-		g.Expect(err.Error()).To(Equal("TimeTotal must be equal 8 hr."))
+		g.Expect(err.Error()).To(Equal("TimeTotal must be between 6 - 9 hr."))
 	}
 }
 
-func TestManageWorkWorkingTimeMustBePresentOrFuture(t *testing.T) {
+func TestManageWorkWorkingTimeMustBePresent(t *testing.T) {
 	g := NewGomegaWithT(t)
 
-	test_data := time.Now().Add(-12 * time.Hour)
-
-	// ข้อมูลถูกต้องหมดทุก field
-	manageWorkTime := ManageWorkTime{
-		Comment:     "ตารางงานพนักงาน",
-		WorkingDate: test_data, // ผิด
-		TimeTotal:   8,
-		Manager:     managerChut,
-		Employee:    managerChut,
-		Day: Day{
-			DayNumber: 26,
-		},
-		Month: Month{
-			MonthOfYear: "มกราคม",
-		},
-		WorkingTime: WorkingTime{
-			TimeToTime: "08.00-17.00",
-		},
+	test_data := []time.Time{
+		time.Now().Add(-24 * time.Hour),
+		time.Now().Add(24 * time.Hour),
 	}
 
-	// ตรวจสอบด้วย govalidator
-	ok, err := govalidator.ValidateStruct(manageWorkTime)
+	// ข้อมูลถูกต้องหมดทุก field
+	for _, td := range test_data {
+		manageWorkTime := ManageWorkTime{
+			Comment:     "ตารางงานพนักงาน",
+			WorkingDate: td, // ผิด
+			TimeTotal:   8,
+			Manager:     managerChut,
+			Employee:    managerChut,
+			Day: Day{
+				DayNumber: 26,
+			},
+			Month: Month{
+				MonthOfYear: "มกราคม",
+			},
+			StartWorkTime: StartWorkTime{
+				TimeStart: "08.00",
+			},
+			EndWorkTime: EndWorkTime{
+				TimeEnd: "15.00",
+			},
+		}
 
-	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
-	g.Expect(ok).ToNot(BeTrue())
+		// ตรวจสอบด้วย govalidator
+		ok, err := govalidator.ValidateStruct(manageWorkTime)
 
-	// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
+		// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+		g.Expect(ok).ToNot(BeTrue())
 
-	// err.Error ต้องมี error message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("WorkingDate must be present or future"))
+		// err ต้องไม่เป็นค่า nil แปลว่าต้องจับ error ได้
+		g.Expect(err).ToNot(BeNil())
+
+		// err.Error ต้องมี error message แสดงออกมา
+		g.Expect(err.Error()).To(Equal("WorkingDate must be present"))
+	}
 }

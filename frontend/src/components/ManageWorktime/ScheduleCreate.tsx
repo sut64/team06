@@ -41,7 +41,8 @@ import TableChartIcon from '@material-ui/icons/TableChart';
 import {
     DayInterface,
     MonthInterface,
-    WorkingTimeInterface,
+    StartWorkTimeInterface,
+    EndWorkTimeInterface,
     ManageWorkTimeInterface
 } from '../../models/IManageWorkTime'
 import { EmployeesInterface } from "../../models/IUser";
@@ -50,7 +51,7 @@ import { EmployeesInterface } from "../../models/IUser";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            flexGrow: 1,
+            flexGrow: 5,
         },
         container: {
             marginTop: theme.spacing(2),
@@ -72,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(1),
         },
         containerTable: {
-            maxHeight: 440,
+            maxHeight: 400,
         },
         rootCard: {
             minWidth: 275,
@@ -99,7 +100,8 @@ export default function ScheduleCreate() {
     const [employee, setEmployee] = useState<EmployeesInterface[]>([]);
     const [day, setDay] = useState<DayInterface[]>([]);
     const [month, setMonth] = useState<MonthInterface[]>([]);
-    const [workingTime, setWorkingTime] = useState<WorkingTimeInterface[]>([]);
+    const [startWorkTime, setStartWorkingTime] = useState<StartWorkTimeInterface[]>([]);
+    const [endWorkTime, setEndWorkingTime] = useState<EndWorkTimeInterface[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
     const [manageWorkTime, setManageWorkTime] = useState<Partial<ManageWorkTimeInterface>>({});
     const [allManageWorkTime, setAllManageWorkTime] = useState<ManageWorkTimeInterface[]>([]);
@@ -139,11 +141,6 @@ export default function ScheduleCreate() {
             "Content-Type": "application/json",
         },
     };
-
-    const addTimeTotal = () => {
-        // manageWorkTime.TimeTotal = manageWorkTime.TimeTotal ? manageWorkTime.TimeTotal + 8 : 8
-        manageWorkTime.TimeTotal = 8;
-    }
     const getCreatedDay = (emId: any, mId: any) => {
         const saveDay: any = [];
         // eslint-disable-next-line
@@ -181,8 +178,27 @@ export default function ScheduleCreate() {
         if (name === "EmployeeID") {
             getSelectManageByEmployee(event.target.value, allManageWorkTime)
             getCreatedDay(event.target.value, manageWorkTime.MonthID);
-        } else if (name === "WorkingTimeID") {
-            addTimeTotal();
+        } else if (name === "StartWorkTimeID" || name === "EndWorkTimeID") {
+            setErrorTimeTotal(false);
+            if (name === "StartWorkTimeID" && !manageWorkTime.EndWorkTimeID) {
+                manageWorkTime.TimeTotal = 0;
+            } else if (name === "StartWorkTimeID" && manageWorkTime.EndWorkTimeID) {
+                // let start = startWorkTime.filter(val => val.ID === event.target.value)
+                // let end = endWorkTime.filter(val => val.ID === manageWorkTime.EndWorkTimeID)
+
+                // let tStart: number = parseInt(start[0].TimeStart.split(':')[0])
+                // let tEnd: number = parseInt(end[0].TimeEnd.split(':')[0])
+                // console.log(tStart, tEnd)
+                manageWorkTime.EndWorkTimeID = 0;
+                manageWorkTime.TimeTotal = 0;
+            } else {
+                let start = startWorkTime.filter(val => val.ID === manageWorkTime.StartWorkTimeID);
+                let end = endWorkTime.filter(val => val.ID === event.target.value);
+                let tStart: number = parseInt(start[0].TimeStart.split(':')[0]);
+                let tEnd: number = parseInt(end[0].TimeEnd.split(':')[0]);
+                // console.log(tStart, tEnd)
+                manageWorkTime.TimeTotal = tEnd - tStart;
+            }
         } else if (name === "MonthID") {
             manageWorkTime.DayID = manageWorkTime.MonthID !== event.target.value ? 0 : manageWorkTime.DayID;
             getWeeksInMonth(event.target.value);
@@ -246,13 +262,26 @@ export default function ScheduleCreate() {
                 }
             })
     };
-    const getWorkTime = async () => {
-        fetch(`${BaseURL}/manage/work/all`, requestOptions)
+    const getStartWorkTime = async () => {
+        fetch(`${BaseURL}/manage/work/starttime`, requestOptions)
             .then((response) => response.json())
             .then((res) => {
                 if (res.data) {
-                    // console.log("[GET] WorkingTime => ", res.data)
-                    setWorkingTime(res.data)
+                    // console.log("[GET] StartWorkTime => ", res.data)
+                    setStartWorkingTime(res.data)
+                } else {
+                    console.log("FAIL!")
+                }
+            })
+    };
+
+    const getEndWorkTime = async () => {
+        fetch(`${BaseURL}/manage/work/endtime`, requestOptions)
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.data) {
+                    // console.log("[GET] EndWorkTime => ", res.data)
+                    setEndWorkingTime(res.data)
                 } else {
                     console.log("FAIL!")
                 }
@@ -278,7 +307,8 @@ export default function ScheduleCreate() {
         getEmployee();
         getDay();
         getMonth();
-        getWorkTime();
+        getStartWorkTime();
+        getEndWorkTime();
         getAllManageWorkTime();
         // eslint-disable-next-line
     }, []);
@@ -300,7 +330,8 @@ export default function ScheduleCreate() {
             EmployeeID: convertType(manageWorkTime.EmployeeID),
             DayID: convertType(manageWorkTime.DayID),
             MonthID: convertType(manageWorkTime.MonthID),
-            WorkingTimeID: convertType(manageWorkTime.WorkingTimeID)
+            StartWorkTimeID: convertType(manageWorkTime.StartWorkTimeID),
+            EndWorkTimeID: convertType(manageWorkTime.EndWorkTimeID)
         }
         console.log(data)
         const requestOptionsPost = {
@@ -319,6 +350,9 @@ export default function ScheduleCreate() {
                     getAllManageWorkTime();
                     manageWorkTime.DayID = 0;
                     manageWorkTime.MonthID = 0;
+                    manageWorkTime.StartWorkTimeID = 0;
+                    manageWorkTime.EndWorkTimeID = 0;
+                    manageWorkTime.TimeTotal = 0;
                     setOpenAlertSucess(true);
                 } else {
                     console.log("บันทึกไม่ได้")
@@ -371,7 +405,7 @@ export default function ScheduleCreate() {
                     </Grid>
                     <Divider />
                     <Grid container spacing={5} style={{ marginTop: "0.7rem" }}>
-                        <Grid container direction="column" justifyContent="center" alignContent="center" alignItems="stretch">
+                        <Grid container style={{ marginLeft: "5rem" }} direction="row" justifyContent="flex-start" alignItems="stretch">
                             <Grid item xs>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel shrink id="Employee">
@@ -398,76 +432,83 @@ export default function ScheduleCreate() {
                                     {/* <FormHelperText>Some important helper text</FormHelperText> */}
                                 </FormControl>
                             </Grid>
-                            <Grid item xs>
-                                <Grid container direction="row" justifyContent="center" alignContent="center">
-                                    <Card variant="outlined">
-                                        <CardContent>
-                                            <TableContainer className={classes.containerTable}>
-                                                <Table stickyHeader aria-label="sticky table">
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                ลำดับ
-                                                            </StyledTableHead>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                ตำแหน่ง
-                                                            </StyledTableHead>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                ความคิดเห็น
-                                                            </StyledTableHead>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                วันที่
-                                                            </StyledTableHead>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                เดือน
-                                                            </StyledTableHead>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                ช่วงเวลาทำงาน
-                                                            </StyledTableHead>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                เวลารวม
-                                                            </StyledTableHead>
-                                                            <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
-                                                                วันที่สร้าง
-                                                            </StyledTableHead>
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        {selectMwtByEm.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => {
-                                                            return (
-                                                                <TableRow hover role="checkbox" tabIndex={-1} key={item.ID}>
-                                                                    <TableCell align="center">{item.ID}</TableCell>
-                                                                    {/* <TableCell align="center">{item.Employee.UserDetail.FirstName}</TableCell> */}
-                                                                    <TableCell align="center">{item.Employee.Position.PositionNameTH}</TableCell>
-                                                                    <TableCell align="center">{item.Comment}</TableCell>
-                                                                    <TableCell align="center">{item.Day.DayNumber}</TableCell>
-                                                                    <TableCell align="center">{item.Month.MonthOfYear}</TableCell>
-                                                                    <TableCell align="center">{item.WorkingTime.TimeToTime}</TableCell>
-                                                                    <TableCell align="center">{item.TimeTotal}</TableCell>
-                                                                    <TableCell align="center">{format((new Date(item.WorkingDate)), 'dd/MMMM/yyyy')}</TableCell>
-                                                                    {/* <TableCell align="center">
+
+                        </Grid>
+                        <Grid container direction="row" justifyContent="center" alignItems="center">
+                            <Grid item xs={10}>
+                                <Card className={classes.rootCard}>
+                                    <CardContent>
+                                        <TableContainer className={classes.containerTable} style={{ maxWidth: "100vw" }}>
+                                            <Table stickyHeader aria-label="sticky table">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            ลำดับ
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            ตำแหน่ง
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            ความคิดเห็น
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            วันที่
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            เดือน
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            เวลาเริ่มทำงาน
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            เวลาเลิกทำงาน
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            เวลารวม
+                                                        </StyledTableHead>
+                                                        <StyledTableHead align="center" style={{ maxWidth: "20%" }}>
+                                                            วันที่สร้าง
+                                                        </StyledTableHead>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {selectMwtByEm.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => {
+                                                        return (
+                                                            <TableRow hover role="checkbox" tabIndex={-1} key={item.ID}>
+                                                                <TableCell align="center">{item.ID}</TableCell>
+                                                                {/* <TableCell align="center">{item.Employee.UserDetail.FirstName}</TableCell> */}
+                                                                <TableCell align="center">{item.Employee.Position.PositionNameTH}</TableCell>
+                                                                {item.Comment.length <= 20 ? (<TableCell align="center">{item.Comment}</TableCell>) :
+                                                                    (<TableCell align="center">{item.Comment.substring(0, 5)}...{item.Comment.substring(item.Comment.length - 5, item.Comment.length)}</TableCell>)}
+                                                                <TableCell align="center">{item.Day.DayNumber}</TableCell>
+                                                                <TableCell align="center">{item.Month.MonthOfYear}</TableCell>
+                                                                <TableCell align="center">{item.StartWorkTime.TimeStart}</TableCell>
+                                                                <TableCell align="center">{item.EndWorkTime.TimeEnd}</TableCell>
+                                                                <TableCell align="center">{item.TimeTotal}</TableCell>
+                                                                <TableCell align="center">{format((new Date(item.WorkingDate)), 'dd/MMMM/yyyy')}</TableCell>
+                                                                {/* <TableCell align="center">
                                                             <IconButton aria-label="delete">
                                                                 <DeleteIcon onClick={() => handleSaveID(item.ID)} />
                                                             </IconButton>
                                                         </TableCell> */}
-                                                                </TableRow>
-                                                            );
-                                                        })}
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                            <TablePagination
-                                                rowsPerPageOptions={[5]}
-                                                component="div"
-                                                count={selectMwtByEm.length}
-                                                rowsPerPage={rowsPerPage}
-                                                page={page}
-                                                onPageChange={handleChangePage}
-                                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                            />
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
+                                                            </TableRow>
+                                                        );
+                                                    })}
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+                                        <TablePagination
+                                            rowsPerPageOptions={[5]}
+                                            component="div"
+                                            count={selectMwtByEm.length}
+                                            rowsPerPage={rowsPerPage}
+                                            page={page}
+                                            onPageChange={handleChangePage}
+                                            onRowsPerPageChange={handleChangeRowsPerPage}
+                                        />
+                                    </CardContent>
+                                </Card>
+
                             </Grid>
                         </Grid>
                         <Grid container spacing={1} justifyContent="center" style={{ marginTop: "0.5rem" }}>
@@ -536,56 +577,101 @@ export default function ScheduleCreate() {
                         <Grid container spacing={0} direction="row" justifyContent="center">
                             <Grid item>
                                 <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel shrink id="WorkingTimeID">
-                                        ช่วงเวลาทำงาน
+                                    <InputLabel shrink id="StartWorkTimeID">
+                                        เวลาเริ่มทำงาน
                                     </InputLabel>
                                     <Select
                                         // native
-                                        value={manageWorkTime.WorkingTimeID || ""}
+                                        value={manageWorkTime.StartWorkTimeID || ""}
                                         onChange={handleChange}
                                         displayEmpty
                                         className={classes.selectEmpty}
                                         inputProps={{
-                                            name: 'WorkingTimeID'
+                                            name: 'StartWorkTimeID'
                                         }}
                                     >
-                                        <MenuItem value="" disabled><em>กรุณาเลือกเวลาทำงาน</em></MenuItem>
-                                        {workingTime.map((item: WorkingTimeInterface) => (
+                                        <MenuItem value="" disabled><em>กรุณาเลือกเวลาเริ่มทำงาน</em></MenuItem>
+                                        {startWorkTime.map((item: StartWorkTimeInterface) => (
                                             <MenuItem value={item.ID} key={item.ID}>
-                                                {item.TimeToTime}
+                                                {item.TimeStart}
                                             </MenuItem>
                                         ))}
                                     </Select>
                                 </FormControl>
                             </Grid>
                             <Grid item>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel shrink id="EndWorkTimeID">
+                                        เวลาเลิกทำงาน
+                                    </InputLabel>
+                                    <Select
+                                        // native
+                                        disabled={manageWorkTime.StartWorkTimeID ? false : true}
+                                        value={manageWorkTime.EndWorkTimeID || ""}
+                                        onChange={handleChange}
+                                        displayEmpty
+                                        className={classes.selectEmpty}
+                                        inputProps={{
+                                            name: 'EndWorkTimeID'
+                                        }}
+                                    >
+                                        <MenuItem value="" disabled><em>กรุณาเลือกเวลาเลิกทำงาน</em></MenuItem>
+                                        {/* {endWorkTime.map((item: EndWorkTimeInterface) => (
+                                            <MenuItem value={item.ID} key={item.ID}>
+                                                {item.TimeEnd}
+                                            </MenuItem>
+                                        ))} */}
+                                        {(() => {
+                                            let items: any = [];
+                                            if (manageWorkTime.StartWorkTimeID) {
+                                                let start = startWorkTime.filter(val => val.ID === manageWorkTime.StartWorkTimeID);
+                                                let tStart: number = parseInt(start[0].TimeStart.split(':')[0]);
+                                                endWorkTime.map((item: EndWorkTimeInterface) => (
+                                                    items.push(tStart < parseInt(item.TimeEnd.split(':')[0]) ? (
+                                                        <MenuItem value={item.ID} key={item.ID}>
+                                                            {item.TimeEnd}
+                                                        </MenuItem>
+                                                    ) : (
+                                                        <MenuItem value={item.ID} key={item.ID} disabled>
+                                                            {item.TimeEnd}
+                                                        </MenuItem>
+                                                    ))
+                                                ))
+                                            }
+                                            return items;
+                                        })()}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} container direction="row" justifyContent="center" alignContent="center">
+                            <Grid item>
                                 <p></p>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <TextField
-                                        disabled={manageWorkTime.WorkingTimeID ? false : true}
+                                        disabled={manageWorkTime.StartWorkTimeID ? false : true}
                                         error={errorTimeTotal}
-                                        helperText={errorTimeTotal ? "!เวลาทั้งหมดต้องเป็น 8 ชม. เท่านั้น" : ""}
+                                        helperText={errorTimeTotal ? "!เวลาทำงานทั้งหมดต้องไม่น้อยกว่า 6 และไม่เกิน 9 ชม. " : ""}
                                         id="TimeTotal"
                                         name="TimeTotal"
                                         type="number"
                                         variant="outlined"
                                         label="เวลางานทั้งหมด ชม."
-                                        value={manageWorkTime.TimeTotal || ""}
+                                        value={manageWorkTime.TimeTotal || 0}
                                         onChange={handleInputChange}
-                                    // InputProps={{
-                                    //     readOnly: true,
-                                    // }}
+                                        InputProps={{
+                                            readOnly: true,
+                                        }}
                                     />
                                 </FormControl>
                             </Grid>
                         </Grid>
-
                         <Grid item xs={12} container direction="row" justifyContent="center" alignContent="center">
                             <FormControl variant="outlined">
                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <DatePicker
                                         error={errorWorkingDate}
-                                        helperText={errorWorkingDate ? "!ต้องไม่เป็นวันในอดีต" : ""}
+                                        helperText={errorWorkingDate ? "!ต้องเป็นวันปัจจุบัน" : ""}
                                         id="WorkingDate"
                                         name="WorkingDate"
                                         value={selectedDate}

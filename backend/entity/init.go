@@ -399,15 +399,25 @@ func SetupIntoDatabase(db *gorm.DB) {
 		db.Model(&Month{}).Create(&tMonth)
 	}
 
-	// Add working time
-	allWorkingTime := []string{"08.00-17.00", "09.00-18.00", "10.00-19.00", "11.00-20.00", "12.00-21.00", "13.00-22.00", "14.00-23.00"}
-	for _, t := range allWorkingTime {
-		tWork := WorkingTime{
-			TimeToTime: t,
+	// Add start work time
+	startTime := []string{"06.00", "07.00", "08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00",
+		"16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00", "23.00"}
+	for _, t := range startTime {
+		tWork := StartWorkTime{
+			TimeStart: t,
 		}
-		db.Model(&WorkingTime{}).Create(&tWork)
+		db.Model(&StartWorkTime{}).Create(&tWork)
 	}
 
+	// Add end work time
+	endTime := []string{"06.00", "07.00", "08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00",
+		"16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00", "23.00"}
+	for _, t := range endTime {
+		tWork := EndWorkTime{
+			TimeEnd: t,
+		}
+		db.Model(&EndWorkTime{}).Create(&tWork)
+	}
 	//* +------------------------------+
 	//* |         MANAGE SALARY        |
 	//* +------------------------------+
@@ -454,28 +464,33 @@ func SetupIntoDatabase(db *gorm.DB) {
 	var Month_1Jan Month
 	db.Model(&Month{}).Find(&Month_1Jan, db.Where("id = ?", 1))
 
-	var wt_8t17 WorkingTime
-	db.Model(&WorkingTime{}).Find(&wt_8t17, db.Where("id = ?", 1))
+	var wt_8 StartWorkTime
+	db.Model(&StartWorkTime{}).Find(&wt_8, db.Where("id = ?", 3))
+
+	var wt_15 EndWorkTime
+	db.Model(&EndWorkTime{}).Find(&wt_15, db.Where("id = ?", 10))
 
 	ManageWT_M01 := ManageWorkTime{
-		Comment:     "ตารางงานผู้จัดการ",
-		WorkingDate: time.Now(),
-		TimeTotal:   8,
-		Manager:     managerMai,
-		Employee:    managerMai,
-		Day:         Day26,
-		Month:       Month_1Jan,
-		WorkingTime: wt_8t17,
+		Comment:       "ตารางงานผู้จัดการ",
+		WorkingDate:   time.Now(),
+		TimeTotal:     7,
+		Manager:       managerMai,
+		Employee:      managerMai,
+		Day:           Day26,
+		Month:         Month_1Jan,
+		StartWorkTime: wt_8,
+		EndWorkTime:   wt_15,
 	}
 	ManageWT_E01 := ManageWorkTime{
-		Comment:     "ตารางงานพนักงาน",
-		WorkingDate: time.Now(),
-		TimeTotal:   8,
-		Manager:     managerMai,
-		Employee:    employeeSakeet,
-		Day:         Day7,
-		Month:       Month_1Jan,
-		WorkingTime: wt_8t17,
+		Comment:       "ตารางงานพนักงาน",
+		WorkingDate:   time.Now(),
+		TimeTotal:     7,
+		Manager:       managerMai,
+		Employee:      employeeSakeet,
+		Day:           Day7,
+		Month:         Month_1Jan,
+		StartWorkTime: wt_8,
+		EndWorkTime:   wt_15,
 	}
 
 	// ManageSalary data

@@ -470,7 +470,7 @@ function SalaryCreate() {
                                   {/* <TableCell align="center">Weekly</TableCell> */}
                                   <TableCell align="center">Mouth</TableCell>
                                   <TableCell align="center">WorkingDate</TableCell>
-                                  <TableCell align="center">Time</TableCell>
+                                  {/* <TableCell align="center">Time</TableCell> */}
                                   <TableCell align="center">TimeTotal (hr)</TableCell>
                                 </TableRow>
                               </TableHead>
@@ -492,7 +492,7 @@ function SalaryCreate() {
                                     {/* <TableCell align="center">{mwt.Weekly.WeekAt}</TableCell> */}
                                     <TableCell align="center">{mwt.Month.MonthOfYear}</TableCell>
                                     <TableCell align="center">{moment(mwt.WorkingDate).format("DD/MM/YYYY")}</TableCell>
-                                    <TableCell align="center">{mwt.WorkingTime.TimeToTime}</TableCell>
+                                    {/* <TableCell align="center">{mwt.WorkingTime.TimeToTime}</TableCell> */}
                                     <TableCell align="center">{mwt.TimeTotal}</TableCell>
                                   </TableRow>
                                 ))}

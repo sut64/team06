@@ -192,7 +192,7 @@ function Row(props: any) {
                    {/* <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Weekly</TableCell> */}
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Mouth</TableCell>
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>WorkingDate</TableCell>
-                   <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Time</TableCell>
+                   {/* <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>Time</TableCell> */}
                    <TableCell align="center" style={{backgroundColor: '#757575', color: '#ffffff'}}>TimeTotal (hr)</TableCell>
                  </TableRow>
                </TableHead>
@@ -205,7 +205,7 @@ function Row(props: any) {
                      {/* <TableCell align="center">{mwt.Weekly.WeekAt}</TableCell> */}
                      <TableCell align="center">{mwt.Month.MonthOfYear}</TableCell>
                      <TableCell align="center">{moment(mwt.WorkingDate).format("DD/MM/YYYY")}</TableCell>
-                     <TableCell align="center">{mwt.WorkingTime.TimeToTime}</TableCell>
+                     {/* <TableCell align="center">{mwt.WorkingTime.TimeToTime}</TableCell> */}
                      <TableCell align="center">{mwt.TimeTotal}</TableCell>
                    </TableRow>
                  ))}
