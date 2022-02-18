@@ -780,18 +780,6 @@
       ],
       "value": ""
     }, {
-      "id": "1c14048b-e8d9-46dd-9ef0-e62f71f40ead",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "css=.MuiButton-contained:nth-child(2) > .MuiButton-label",
-      "targets": [
-        ["css=.MuiButton-contained:nth-child(2) > .MuiButton-label", "css:finder"],
-        ["xpath=//div[@id='root']/div[2]/div/div[2]/div/div[5]/button/span", "xpath:idRelative"],
-        ["xpath=//div[5]/button/span", "xpath:position"],
-        ["xpath=//span[contains(.,'บันทึกการชำระสินค้า')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
       "id": "3dc15ab0-9aee-4a44-bfde-e23490d4d429",
       "comment": "",
       "command": "click",
@@ -1114,18 +1102,6 @@
       "targets": [
         ["css=.MuiButton-contained:nth-child(2) > .MuiButton-label", "css:finder"],
         ["xpath=//div[@id='root']/div[2]/div/div/div/div[5]/button/span", "xpath:idRelative"],
-        ["xpath=//div[5]/button/span", "xpath:position"],
-        ["xpath=//span[contains(.,'บันทึกการชำระสินค้า')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "597270b0-1a23-429b-b86f-3260bbdd3351",
-      "comment": "",
-      "command": "mouseOut",
-      "target": "css=.MuiButton-contained:nth-child(2) > .MuiButton-label",
-      "targets": [
-        ["css=.MuiButton-contained:nth-child(2) > .MuiButton-label", "css:finder"],
-        ["xpath=//div[@id='root']/div[2]/div/div[2]/div/div[5]/button/span", "xpath:idRelative"],
         ["xpath=//div[5]/button/span", "xpath:position"],
         ["xpath=//span[contains(.,'บันทึกการชำระสินค้า')]", "xpath:innerText"]
       ],
