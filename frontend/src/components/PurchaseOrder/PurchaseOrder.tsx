@@ -44,6 +44,7 @@ import {
 } from "../../models/IPurchaseOrder";
 
 import { UsersInterface } from "../../models/ISignIn";
+import { PremiumMemberInterface } from "../../models/IPremiumMember";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -242,6 +243,8 @@ export default function PurchaseOrder() {
   const classes = useStyles();
 
   const [user, setUser] = useState<UsersInterface>();
+  const [premiumMembers, setPremiumMembers] = useState<PremiumMemberInterface[]>([]);
+  const [point, setPoint] = useState<number>(0);
 
   const [productStocks, setProductStocks] = useState<ProductstocksInterface[]>([]);
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethodsInterface[]>([]);
@@ -341,6 +344,29 @@ export default function PurchaseOrder() {
       })
   }
 
+  const getPremiumMember = async() => {
+    const user: UsersInterface = JSON.parse(localStorage.getItem("user") || "");
+    const apiUrl = `http://localhost:8080/premium_member/${user?.ID}`;
+    const requestOptions = {
+      method: "GET",
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json", 
+      },
+    }
+
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setPremiumMembers(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  }
+
   /* --- SUTMIT AND MESSAGE --- */
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -368,7 +394,7 @@ export default function PurchaseOrder() {
       OrderItems: orderItemsSubmit,
     }
 
-    const apiUrl = "http://localhost:8080/purchase-order";
+    const apiUrlSubmit = "http://localhost:8080/purchase-order";
     const requestPostOptions = {
       method: "POST",
       headers: {
@@ -378,13 +404,43 @@ export default function PurchaseOrder() {
       body: JSON.stringify(data),
     }
 
-    fetch(apiUrl, requestPostOptions)
+    fetch(apiUrlSubmit, requestPostOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
           console.log(res.data);
           setError(false);
           setSuccess(true);
+        } else {
+          console.log(res.error);
+          setError(true);
+          setErrorMsg(res.error);
+        }
+      });
+
+    // update premium member point
+    if (premiumMembers.length === 0)
+      return;
+
+    let newPremiumPoint = {
+      ID: premiumMembers[premiumMembers.length - 1].ID,
+      Point: premiumMembers[premiumMembers.length - 1].Point + point,
+    }  
+    const apiUrlUpdate = "http://localhost:8080/premium_member";
+    const requestUpdateOptions = {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPremiumPoint),
+    }
+    console.log(requestUpdateOptions.body);
+    fetch(apiUrlUpdate, requestUpdateOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
         } else {
           console.log(res.error);
           setError(true);
@@ -466,6 +522,7 @@ export default function PurchaseOrder() {
     getProductStock();
     getPromotion();
     getPaymentMethod();
+    getPremiumMember();
   }, []);
 
   /* --- PRODUCT CART'S TOTAL PRICE --- */
@@ -477,6 +534,10 @@ export default function PurchaseOrder() {
         OrderTotalPrice: orderItem.map(({ AmountPrice }) => AmountPrice).reduce((sum, i) => Number(sum) + Number(i), 0),
       };
     });
+    // point = OrderTotalPrice * 10%
+    setPoint(point => {
+      return (orderItem.map(({ AmountPrice }) => AmountPrice).reduce((sum, i) => Number(sum) + Number(i), 0) || 0) * 10 / 100;
+    })
   }, [orderItem]);
   // Check total price if less than promotionMinPrice, it will be reset discount
   useEffect(() => {
@@ -696,6 +757,20 @@ export default function PurchaseOrder() {
                       </MuiPickersUtilsProvider>
                     </FormControl>
                   </Grid>
+                  {(premiumMembers.length !== 0) ? 
+                    (
+                      <Fragment>
+                        <Grid item xs={6}>
+                          <Typography className={classes.typoHeader} variant="subtitle2">แต้มที่ได้</Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Typography align="right" variant="subtitle2">{point} แต้ม</Typography>
+                        </Grid>
+                      </Fragment>
+                    ) : (
+                      <Fragment></Fragment>
+                    )
+                  }
                   <Grid item xs={6}>
                     <Typography className={classes.typoHeader} variant="subtitle2">ราคาสินค้า</Typography>
                   </Grid>

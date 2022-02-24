@@ -359,7 +359,16 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Employee:        employeeSakeet,
 		Shelfstore:      shelfstore1,
 	}
+	productstock2 := Productstock{
+		Amount_remain:   50,
+		Update_datetime: time.Now(),
+		Detail:          "food",
+		Product:         product3,
+		Employee:        employeeSakeet,
+		Shelfstore:      shelfstore1,
+	}
 	db.Model(&Productstock{}).Create(&productstock1)
+	db.Model(&Productstock{}).Create(&productstock2)
 
 	// +------------------------------+
 	// |        PURCHASE ORDER        |
