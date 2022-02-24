@@ -117,17 +117,20 @@ func DeletePremiummember(c *gin.Context) {
 // PATCH /premium_members
 func UpdatePremiumMember(c *gin.Context) {
 	var premiummember entity.PremiumMember
+	var new_premiummember entity.PremiumMember
 	if err := c.ShouldBindJSON(&premiummember); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", premiummember.ID).First(&premiummember); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", premiummember.ID).Find(&new_premiummember); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Premium Member not found"})
 		return
 	}
 
-	if err := entity.DB().Save(&premiummember).Error; err != nil {
+	new_premiummember.Point = premiummember.Point
+
+	if err := entity.DB().Save(&new_premiummember).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
