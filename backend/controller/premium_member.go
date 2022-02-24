@@ -68,10 +68,10 @@ func CreatePremiumMember(c *gin.Context) {
 	}
 
 	// Validation
-if _, err := govalidator.ValidateStruct(pm); err != nil {
-	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	return
-}
+	if _, err := govalidator.ValidateStruct(pm); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	// save
 	if err := entity.DB().Create(&pm).Error; err != nil {
@@ -83,9 +83,9 @@ if _, err := govalidator.ValidateStruct(pm); err != nil {
 
 // GET /premiumMember/:id
 func GetPremiumMember(c *gin.Context) {
-	var premiummember entity.PremiumMember
+	var premiummember []entity.PremiumMember
 	id := c.Param("id")
-	if err := entity.DB().Preload("Member").Preload("MemberClass").Preload("PremiumMemberPeriod").Raw("SELECT * FROM premium_members WHERE id = ?", id).Find(&premiummember).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("MemberClass").Preload("PremiumMemberPeriod").Raw("SELECT * FROM premium_members WHERE member_id = ?", id).Find(&premiummember).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

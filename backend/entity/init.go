@@ -553,6 +553,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Model(&MemberClass{}).Create(&class2)
 	db.Model(&MemberClass{}).Create(&class3)
 	db.Model(&PremiumMember{}).Create(&PremiumMember{
+		Member:              memberKobkab,
 		PremiumMemberID:     "P1234567",
 		CreateAt:            time.Now(),
 		Point:               100,
