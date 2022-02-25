@@ -63,6 +63,8 @@ export default function NavBar() {
   }
 
   const handleMenu = (event: MouseEvent<HTMLElement>) => {
+    if (localStorage.getItem("role") === "Member")
+      getPremiumMember();
     setAnchorEl(event.currentTarget);
   }
 
@@ -126,39 +128,39 @@ export default function NavBar() {
     window.location.href = "/";
   }
 
+  const getPremiumMember = async() => {
+    // if role is not Member, don't get premium member data
+    if (localStorage.getItem("role") !== "Member")
+      return;
+
+    const user: UsersInterface = JSON.parse(localStorage.getItem("user") || "");
+    const apiUrl = `http://localhost:8080/premium_member/${user?.ID}`;
+    const requestOptions = {
+      method: "GET",
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json", 
+      },
+    }
+  
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data) {
+          setPremiumMembers(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  }
+
   useEffect(() => {
     const getToken = localStorage.getItem("token");
     if (getToken) {
       setUser(JSON.parse(localStorage.getItem("user") || ""));
       setRole(localStorage.getItem("role") || "");
     } 
-
-    const getPremiumMember = async() => {
-      // if role is not Member, don't get premium member data
-      if (localStorage.getItem("role") !== "Member")
-        return;
-
-      const user: UsersInterface = JSON.parse(localStorage.getItem("user") || "");
-      const apiUrl = `http://localhost:8080/premium_member/${user?.ID}`;
-      const requestOptions = {
-        method: "GET",
-        headers: { 
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json", 
-        },
-      }
-  
-      fetch(apiUrl, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setPremiumMembers(res.data);
-          } else {
-            console.log("else");
-          }
-        });
-    }
     getPremiumMember();
   }, []);
 
