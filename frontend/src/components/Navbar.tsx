@@ -25,6 +25,7 @@ import HistoryIcon from "@material-ui/icons/History";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import EditIcon from "@material-ui/icons/Edit";
 import { UsersInterface } from "../models/ISignIn";
+import { PremiumMemberInterface } from "../models/IPremiumMember";
 
 const useStyles = makeStyles((theme: Theme) => (
   createStyles({
@@ -51,6 +52,7 @@ export default function NavBar() {
   const openMenu = Boolean(anchorEl);
 
   const [user, setUser] = useState<UsersInterface>();
+  const [premiumMembers, setPremiumMembers] = useState<PremiumMemberInterface[]>([]);
   const [role, setRole] = useState("");
 
   const toggleDrawer = (state: boolean) => (event: any) => {
@@ -61,6 +63,8 @@ export default function NavBar() {
   }
 
   const handleMenu = (event: MouseEvent<HTMLElement>) => {
+    if (localStorage.getItem("role") === "Member")
+      getPremiumMember();
     setAnchorEl(event.currentTarget);
   }
 
@@ -112,7 +116,7 @@ export default function NavBar() {
 
   const getRole = () => {
     if (role === "Member")
-      return "ลูกค้า";
+      return premiumMembers.length === 0 ? "ลูกค้า" : "สมาชิกพรีเมียม";
     else if (role === "Employee") 
       return user?.Position.PositionName === "Employee" ? "พนักงาน" : (user?.Position.PositionName === "Manager" ? "ผู้จัดการ" : "");
     else  
@@ -124,12 +128,40 @@ export default function NavBar() {
     window.location.href = "/";
   }
 
+  const getPremiumMember = async() => {
+    // if role is not Member, don't get premium member data
+    if (localStorage.getItem("role") !== "Member")
+      return;
+
+    const user: UsersInterface = JSON.parse(localStorage.getItem("user") || "");
+    const apiUrl = `http://localhost:8080/premium_member/${user?.ID}`;
+    const requestOptions = {
+      method: "GET",
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json", 
+      },
+    }
+  
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data) {
+          setPremiumMembers(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  }
+
   useEffect(() => {
     const getToken = localStorage.getItem("token");
     if (getToken) {
       setUser(JSON.parse(localStorage.getItem("user") || ""));
       setRole(localStorage.getItem("role") || "");
     } 
+    getPremiumMember();
   }, []);
 
   return (
@@ -212,6 +244,13 @@ export default function NavBar() {
               </Typography>
               <Typography variant="body2" color="inherit" noWrap>
                 {getRole()}
+                {premiumMembers.length !== 0 ? (
+                  <>
+                    <br/><br/>
+                    ID: {premiumMembers[premiumMembers.length - 1].PremiumMemberID}<br/>
+                    Class: {premiumMembers[premiumMembers.length - 1].MemberClass.Name}<br/>
+                    Point: {premiumMembers[premiumMembers.length - 1].Point}
+                  </>) : <></>}
               </Typography>
             </Box>
             <MenuItem onClick={SignOut}><ExitToAppIcon style={{ marginRight: ".5rem" }}/>Log out</MenuItem>

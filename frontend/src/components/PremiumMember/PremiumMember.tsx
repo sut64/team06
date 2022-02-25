@@ -13,6 +13,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { MuiPickersUtilsProvider, DateTimePicker, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import Box from "@material-ui/core/Box";
 
 
 
@@ -58,6 +59,7 @@ function CreatePremiumMember() {
   const [premiumMember, setPremiumMember] = useState<Partial<PremiumMemberInterface>>({
     MemberClassID: 0,
     PremiumMemberPeriodID: 0,
+    Point: 0,
   });
   const [createTime, setCreateTime] = useState<Date | null>(new Date());
   const [errorMassage, SetErrorMassage] = useState("");
@@ -305,9 +307,7 @@ function CreatePremiumMember() {
               </Typography>
             </Grid>
 
-            {/* Left Column */}
-            <Grid item xs={8}>
-              <Paper elevation={1} className={classes.paper} style={{ marginRight: "-9.5rem" }}>
+            {/* Left Column */}                       
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <FormControl fullWidth variant="outlined">
@@ -388,12 +388,19 @@ function CreatePremiumMember() {
                         />
                       </MuiPickersUtilsProvider>
                     </FormControl>
-                  </Grid>
-              </Paper>
-            </Grid>           
+                  </Grid>                     
 
             {/* Bottom */}
             <Grid item xs={12} style={{ marginTop: ".5rem" }}>
+            <Box>                                  
+              <p>ค่าสมัคร </p>               
+              <TextField
+                fullWidth
+                variant="outlined"
+                value={(Number(premiumMember.Point)) < 0 ? "0" : (Number(premiumMember.Point) + Number(premiumMember.MemberClassID)*100*(Number(premiumMember.PremiumMemberPeriodID))).toLocaleString("th-Th", { style: "currency", currency: "THB" }) }                    
+              />
+              </Box>
+              <br></br>
               <Button
                 color="primary"
                 variant="contained"
