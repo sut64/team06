@@ -358,7 +358,6 @@ export default function PurchaseOrder() {
     fetch(apiUrl, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
           setPremiumMembers(res.data);
         } else {
@@ -408,7 +407,6 @@ export default function PurchaseOrder() {
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          console.log(res.data);
           setError(false);
           setSuccess(true);
         } else {
@@ -418,7 +416,7 @@ export default function PurchaseOrder() {
         }
       });
 
-    // update premium member point
+    // Update premium member point
     if (premiumMembers.length === 0)
       return;
 
@@ -435,12 +433,12 @@ export default function PurchaseOrder() {
       },
       body: JSON.stringify(newPremiumPoint),
     }
-    console.log(requestUpdateOptions.body);
+    
     fetch(apiUrlUpdate, requestUpdateOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
-          console.log(res.data);
+          setSuccess(true);
         } else {
           console.log(res.error);
           setError(true);
