@@ -20,27 +20,27 @@ func CreateMangeWorkTime(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	//ค้นหาด้วย id 
 	if tx := entity.DB().Where("id = ?", manageworktimes.EmployeeID).First(&employees); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 		return
 	}
-
+	//ค้นหาด้วย id 
 	if tx := entity.DB().Where("id = ?", manageworktimes.DayID).First(&days); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "day not found"})
 		return
 	}
-
+	//ค้นหาด้วย id 
 	if tx := entity.DB().Where("id = ?", manageworktimes.MonthID).First(&months); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "month not found"})
 		return
 	}
-
+	//ค้นหาด้วย id 
 	if tx := entity.DB().Where("id = ?", manageworktimes.StartWorkTimeID).First(&starttime); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "start time not found"})
 		return
 	}
-
+	//ค้นหาด้วย id 
 	if tx := entity.DB().Where("id = ?", manageworktimes.EndWorkTimeID).First(&endtime); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "end time not found"})
 		return
@@ -69,7 +69,7 @@ func CreateMangeWorkTime(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": mwt})
 }
-
+//ดึงข้อมูลทั้งหมด
 func GetAllManageWorkTime(c *gin.Context) {
 	var managework []entity.ManageWorkTime
 	if err := entity.DB().
