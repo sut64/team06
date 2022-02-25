@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -127,7 +126,7 @@ function SignIn() {
       </Snackbar>
       <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          อีเมลหรือรหัสผ่านไม่ถูกต้อง
+          รหัสประจำตัวหรือรหัสผ่านไม่ถูกต้อง
         </Alert>
       </Snackbar>
       <CssBaseline />
