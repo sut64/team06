@@ -173,7 +173,7 @@ export default function OrderHistory() {
       fetch(apiUrl, requestOptions)
         .then((response) => response.json())
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data) {
             setOrders(res.data);
           } else {
@@ -185,7 +185,7 @@ export default function OrderHistory() {
     getOrders();
   }, []);
   
-  console.log("history orders: ", orders);
+  // console.log("history orders: ", orders);
   
   return (
     <div>
