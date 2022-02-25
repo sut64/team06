@@ -88,7 +88,7 @@ func Login(c *gin.Context) {
 
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 	} else if user.UserRole.RoleName == employeeRole.RoleName {
-		// Member
+		// Employee
 		var employee entity.Employee
 		if tx := entity.DB().Preload("UserDetail").Preload("UserDetail.Prefix").Preload("UserDetail.Gender").Preload("Position").
 			Raw("SELECT * FROM employees WHERE user_login_id = ?", user.ID).Find(&employee); tx.RowsAffected == 0 {
